@@ -27,7 +27,7 @@ function find_symbol {
 	if [ -n "$1" -a -n "$2" ]; then
 		find . -name "*.$1" | xargs grep -n --mmap "$2"
 	else
-		echo "Use: find_symbol file-extension symbol"
+		echo "Usage: find_symbol <file-extension> <symbol>"
 	fi
 }
 
@@ -37,7 +37,7 @@ function wallpaper {
 }
 
 # Set the http proxy.
-export http_proxy=`cat .http_proxy`
+export http_proxy=`cat ~/.http_proxy`
 
-echo "   Welcome to the Divine Comedy. The current time is `date`."
+echo "   Welcome to the Divine Comedy. The current time is `date`. The system has been up for $(uptime | awk '{print $3}') days."
 
