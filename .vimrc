@@ -21,8 +21,10 @@ set showmatch
 
 " 'hello' matches both 'Hello' and 'hello' (case insensitive) while 'Hello'
 " only matches 'Hello' (case sensitive).
-set ignorecase
-set smartcase
+" set ignorecase
+" set smartcase
+" 
+" Turns out that the above options do little more than annoy me.
 
 " Highlight as the matches are found.
 set incsearch
