@@ -19,6 +19,9 @@ alias mv='mv -i'
 alias du='du -kh'
 alias df='df -kTh'
 
+# Special alias to show all files
+alias la='ls -a'
+
 # Pardon minor spelling errors
 shopt -s cdspell
 
