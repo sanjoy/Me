@@ -39,8 +39,16 @@ function wallpaper {
 	feh --bg-scale "$(find ~/.wallpapers -name "*jpg" | shuf -n1)"
 }
 
+# Picks up a random video from the current directory tree and plays it using mplayer
+function entertain {
+	mplayer "`find . -name '*avi' -or -name '*mp4' -or -name '*mpg' \
+	-or -name '*mpeg' -or -name '*mkv' -or -name '*flv' -or -name \
+	'*divx' -or -name '*m2v' | shuf -n1`"
+# Add more -or and -name s to add more extensions later. This should do for now.
+}
+
 # Set the http proxy.
 export http_proxy=`cat ~/.http_proxy`
 
-echo "   Welcome to the Divine Comedy. The current time is `date`. The system has been up for $(uptime | awk '{print $3}') days."
+echo "   The current time is `date`. The system has been up for $(uptime | awk '{print $3}') days."
 
