@@ -50,5 +50,5 @@ function entertain {
 # Set the http proxy.
 export http_proxy=`cat ~/.http_proxy`
 
-echo "   The current time is `date`. The system has been up for $(uptime | awk '{print $3}') days."
+echo "   The current time is `date`."
 

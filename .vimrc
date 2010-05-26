@@ -72,3 +72,10 @@ set formatoptions=tcon
 " So that I can simply press F at a curly brace to fold the block.
 map F zfa}
 
+" Allow filetype specific plugins.
+filetype plugin on
+
+" I save the emails I compose at *.mail. This sets up some sane settings.
+autocmd BufRead,BufNewFile   *.mail set textwidth=70
+autocmd BufRead,BufNewFile   *.mail set spell
+
