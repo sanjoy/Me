@@ -34,7 +34,7 @@ set autoindent
 set smartindent
 
 " Line wrapping after 80 characters.
-set textwidth=80
+" set textwidth=80
 
 " 256 Colors. Yay!!
 set t_Co=256
@@ -71,6 +71,10 @@ set formatoptions=tcon
 
 " So that I can simply press F at a curly brace to fold the block.
 map F zfa}
+
+" Tabs. Can't live without 'em
+map <M-j> gt
+map <M-k> gT
 
 " Allow filetype specific plugins.
 filetype plugin on
