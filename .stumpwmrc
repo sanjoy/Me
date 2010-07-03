@@ -1,0 +1,32 @@
+;; Basic StumpWM Hacks
+;; Sanjoy Das <sanjoy@playingwithpointers.com>
+
+(in-package :stumpwm)
+
+(defun shell-command (command)
+  "Run a shell command and display output to screen. This must be used in a functional side-effects-free style! If a program does not exit of its own accord, Stumpwm might hang!"
+  (check-type command string)
+  (echo-string (current-screen) (run-shell-command command t)))
+
+(define-stumpwm-command "shell-command" ((command :string "sh: " :string))
+  (check-type command string)
+  (shell-command command))
+
+(defcommand iceweasel () ()
+  "Start iceweasel unless it is already running, in which case focus it."
+  (run-or-raise "iceweasel" '(:class "Iceweasel")))
+
+(defcommand pidgin() ()
+  "Start pidgin unless it is already running, in which case focus it."
+  (run-or-raise "pidgin" '(:class "Pidgin")))
+
+(defcommand irc () ()
+  "Start irc unless it is already running, in which case focus it."
+  (run-or-raise "xchat" '(:class "Xchat")))
+
+(define-key *root-map* (kbd "e")    "iceweasel")
+(define-key *root-map* (kbd "C-e")  "iceweasel")
+(define-key *root-map* (kbd "C-f")  "evince")
+(define-key *root-map* (kbd "q")    "irc")
+(define-key *root-map* (kbd "C-q")  "irc")
+
