@@ -26,7 +26,9 @@
 
 (define-key *root-map* (kbd "e")    "iceweasel")
 (define-key *root-map* (kbd "C-e")  "iceweasel")
-(define-key *root-map* (kbd "C-f")  "evince")
+(define-key *root-map* (kbd "C-f")  "exec evince")
 (define-key *root-map* (kbd "q")    "irc")
 (define-key *root-map* (kbd "C-q")  "irc")
+(define-key *root-map* (kbd ">")    "gnext")
+(define-key *root-map* (kbd "<")    "gprev")
 

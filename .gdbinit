@@ -1,5 +1,6 @@
 handle SIGPWR nostop noprint pass
 handle SIGXCPU nostop noprint pass
+handle SIGILL nostop noprint pass
 
 define mono_backtrace
 	select-frame 0

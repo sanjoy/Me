@@ -70,7 +70,7 @@ imap 	<C-h> 	:buffers<cr>
 set formatoptions=tcon
 
 " So that I can simply press F at a curly brace to fold the block.
-map F zfa}
+map <Leader>F zfa}
 
 " Tabs. Can't live without 'em
 map <M-j> gt

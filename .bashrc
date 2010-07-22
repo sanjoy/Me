@@ -5,8 +5,8 @@
 set -o vi
 
 # Set the terminal prompts to something a little less obstrusive
-PS1='${debian_chroot:+($debian_chroot)}\w \$ '
-PS2=' ... '
+PS1='\[\e[1;32m\]\w \[\e[1;36m\]\\$\[\e[0;32m\] '
+PS2='\[\e[1;34m\] ... \[\e[0;32m\] '
 
 # Make grep always show the line numbers
 alias grep='grep -n'
