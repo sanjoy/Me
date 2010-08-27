@@ -24,13 +24,10 @@
   "Start irc unless it is already running, in which case focus it."
   (run-or-raise "xchat" '(:class "Xchat")))
 
-(define-key *root-map* (kbd "e")    "iceweasel")
-(define-key *root-map* (kbd "C-e")  "iceweasel")
 (define-key *root-map* (kbd "C-f")  "exec evince")
-(define-key *root-map* (kbd "c")    "exec xterm -fa monaco -fs 9")
-(define-key *root-map* (kbd "C-c")  "exec xterm -fa monaco -fs 9")
-(define-key *root-map* (kbd "q")    "irc")
-(define-key *root-map* (kbd "C-q")  "irc")
+(define-key *root-map* (kbd "c")    "exec xterm -fa monaco -fs 10")
+(define-key *root-map* (kbd "C-c")  "exec xterm -fa monaco -fs 10")
 (define-key *root-map* (kbd ">")    "gnext")
 (define-key *root-map* (kbd "<")    "gprev")
-
+(define-key *root-map* (kbd "C-q")  "")
+(define-key *root-map* (kbd "q")    "")
