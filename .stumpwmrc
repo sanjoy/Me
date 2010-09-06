@@ -25,9 +25,10 @@
   (run-or-raise "xchat" '(:class "Xchat")))
 
 (define-key *root-map* (kbd "C-f")  "exec evince")
-(define-key *root-map* (kbd "c")    "exec xterm -fa monaco -fs 10")
-(define-key *root-map* (kbd "C-c")  "exec xterm -fa monaco -fs 10")
+(define-key *root-map* (kbd "c")    "exec rxvt-unicode -fn '7X14' -e /bin/zsh")
+(define-key *root-map* (kbd "C-c")  "exec rxvt-unicode -fn '7X14' -e /bin/zsh")
 (define-key *root-map* (kbd ">")    "gnext")
 (define-key *root-map* (kbd "<")    "gprev")
-(define-key *root-map* (kbd "C-q")  "")
-(define-key *root-map* (kbd "q")    "")
+(define-key *root-map* (kbd "C-q")  "exec lightbulb")
+(define-key *root-map* (kbd "q")    "exec lightbulb")
+

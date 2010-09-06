@@ -31,6 +31,7 @@
 (require 'revbufs)
 (require 'xml-rpc)
 (require 'weblogger)
+(require 'w3m-load)
 
 (setq-default inhibit-startup-message t
 	      font-lock-maximum-decoration t
@@ -48,6 +49,13 @@
 	      edebug-trace t
 	      fill-adapt-mode t)
 
+;; I don't need the list of buffers.
+
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+
+(autoload 'paredit-mode "paredit"
+  "Minor mode for pseudo-structurally editing Lisp code." t)
+
 (setq-default c-basic-offset 5
            tab-width 5
            indent-tabs-mode t
@@ -60,11 +68,30 @@
 
 (add-hook 'lisp-mode-hook
           '(lambda ()
-             (define-key lisp-mode-map "\C-m" 'newline-and-indent)))
+             (define-key lisp-mode-map "\C-m" 'newline-and-indent)
+			 (paredit-mode +1)
+			 (setq indent-tabs-mode nil)))
 
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
-             (define-key lisp-mode-map "\C-m" 'newline-and-indent)))
+             (define-key lisp-mode-map "\C-m" 'newline-and-indent)
+			 (paredit-mode +1)
+			 (setq indent-tabs-mode nil)))
+
+(add-hook 'lisp-interaction-mode-hook 
+		  '(lambda ()
+			 (paredit-mode +1)
+			 (setq indent-tabs-mode nil)))
+
+;; Stop SLIME's REPL from grabbing DEL,
+;; which is annoying when backspacing over a '('
+
+(defun override-slime-repl-bindings-with-paredit ()
+  (define-key slime-repl-mode-map
+	(read-kbd-macro paredit-backward-delete-key) nil))
+
+(add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+
 
 (define-key c-mode-base-map "\C-m" 'c-context-line-break)
 
@@ -113,9 +140,17 @@
   (rcirc-connect "irc.freenode.net" "6667" "sanjoyd")
   (rcirc-connect "irc.gimp.org"     "6667" "sanjoyd"))
 
+(add-hook 'rcirc-mode-hook
+		  '(lambda ()
+			 (flyspell-mode)))
+
 ; Logging
 (setq rcirc-log-flag "t"
       rcirc-log-directory "~/.emacs.d/rcirc-log")
+
+(setq rcirc-authinfo
+	  '(("freenode" nickserv "sanjoyd" "yojnas")))
+
 
 (defun kill-mode-buffers (&optional mode)
   "Kill all buffers of this major mode.
@@ -283,4 +318,18 @@
 			(visual-line-mode 1)))
 
 (setq
-  weblogger-config-alist '(("default" "http://www.playingwithpointers.com/xmlrpc.php" "admin" "" "1")))
+  weblogger-config-alist '(("default" "http://www.playingwithpointers.com/xmlrpc.php" "admin" "yojnassanjoy" "1")))
+
+;; Set up w3m-el
+
+(setq browse-url-browser-function 'w3m-browse-url)
+
+(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+
+(global-set-key "\C-xm" 'browse-url-at-point)
+(setq w3m-use-cookies t)
+
+;; No backup files
+
+(setq make-backup-file-name-function '(lambda (file-name)
+                                        (concat "." (concat file-name "~"))))

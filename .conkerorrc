@@ -1,18 +1,10 @@
 dowload_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND
 url_remoting_fn = load_url_in_new_buffer
 
-proxy_server_default = "144.16.192.245";
+proxy_server_default = "144.16.192.247";
 proxy_port_default = 8080;
 
-function set_proxy_session (window, server, port) {
-
-    if (server == "N") {
-       session_pref ('network.proxy.type', 0); //direct connection
-       window.minibuffer.message ("Direction connection to the internet enabled for this session");
-    } else {
-      if (server == "") server = proxy_server_default;
-      if (port == "") port = proxy_port_default;
-
+function set_proxy_session_nowindow (server, port) {
       session_pref ('network.proxy.ftp',    server);
       session_pref ('network.proxy.gopher', server);
       session_pref ('network.proxy.http',   server);
@@ -27,10 +19,24 @@ function set_proxy_session (window, server, port) {
 
       session_pref ('network.proxy.share_proxy_settings', 'true');
       session_pref ('network.proxy.type', 1);
+}
+
+function set_proxy_session (window, server, port) {
+
+    if (server == "N") {
+       session_pref ('network.proxy.type', 0); //direct connection
+       window.minibuffer.message ("Direction connection to the internet enabled for this session");
+    } else {
+      if (server == "") server = proxy_server_default;
+      if (port == "") port = proxy_port_default;
+
+      set_proxy_session_nowindow (server, port);
 
       window.minibuffer.message ("All protocols using "+server+":"+port+" for this session");
     }
 }
+
+set_proxy_session_nowindow (proxy_server_default, proxy_port_default);
 
 interactive ("set-proxy-session", "set the proxy server for all protocols for this session only",
     function (I) {
@@ -41,5 +47,6 @@ interactive ("set-proxy-session", "set the proxy server for all protocols for th
     });
 
 define_webjump("hn", "http://news.ycombinator.com");
-define_webjump("ml-pwp", "http://mail.google.com/a/playingwithpointers.com");
-define_webjump("ml-gm", "http://gmail.com");
+define_webjump("pwp", "http://mail.google.com/a/playingwithpointers.com");
+define_webjump("gm", "http://gmail.com");
+define_webjump("blog", "http://playingwithpointers.com/wp-admin")
