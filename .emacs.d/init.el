@@ -331,5 +331,4 @@
 
 ;; No backup files
 
-(setq make-backup-file-name-function '(lambda (file-name)
-                                        (concat "." (concat file-name "~"))))
+(setq make-backup-files nil)
