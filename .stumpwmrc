@@ -31,4 +31,5 @@
 (define-key *root-map* (kbd "<")    "gprev")
 (define-key *root-map* (kbd "C-q")  "exec lightbulb")
 (define-key *root-map* (kbd "q")    "exec lightbulb")
-
+(define-key *root-map* (kbd "P")    "pull-window-by-number")
+(define-key *tile-group-root-map* (kbd "C-TAB") "fnext")

@@ -332,3 +332,6 @@
 ;; No backup files
 
 (setq make-backup-files nil)
+
+;; Save the annoying C-x o's
+(windmove-default-keybindings)
