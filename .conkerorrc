@@ -1,7 +1,7 @@
 dowload_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND
 url_remoting_fn = load_url_in_new_buffer
 
-proxy_server_default = "144.16.192.247";
+proxy_server_default = "144.16.192.245";
 proxy_port_default = 8080;
 
 function set_proxy_session_nowindow (server, port) {

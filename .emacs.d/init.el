@@ -335,3 +335,14 @@
 
 ;; Save the annoying C-x o's
 (windmove-default-keybindings)
+
+;; I use this to edit flex / bison files
+(defun setup-bison-flex-mode ()
+  (interactive)
+  (c-toggle-syntactic-indentation)
+  (c-toggle-electric-mode)
+  (setq indent-tabs-mode nil))
+
+;; Magit
+
+(global-set-key (kbd "\C-x\C-g") 'magit-status)
