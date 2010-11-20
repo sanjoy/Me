@@ -12,21 +12,17 @@
   (check-type command string)
   (shell-command command))
 
-(defcommand iceweasel () ()
-  "Start iceweasel unless it is already running, in which case focus it."
-  (run-or-raise "iceweasel" '(:class "Iceweasel")))
+(set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-15")
 
-(defcommand pidgin() ()
-  "Start pidgin unless it is already running, in which case focus it."
-  (run-or-raise "pidgin" '(:class "Pidgin")))
-
-(defcommand irc () ()
-  "Start irc unless it is already running, in which case focus it."
-  (run-or-raise "xchat" '(:class "Xchat")))
+(defcommand pull-urxvt () ()
+  "Start / pull *the* URxvt instance into this frame."
+  (run-or-pull "exec rxvt-unicode -fn '7X14' -e /usr/bin/tmux" '(:class "URxvt")))
 
 (define-key *root-map* (kbd "C-f")  "exec evince")
-(define-key *root-map* (kbd "c")    "exec rxvt-unicode -fn '7X14' -e /bin/zsh")
-(define-key *root-map* (kbd "C-c")  "exec rxvt-unicode -fn '7X14' -e /bin/zsh")
+(define-key *root-map* (kbd "d")    "exec rxvt-unicode -fn '7X14' -e /usr/bin/tmux")
+(define-key *root-map* (kbd "C-d")  "exec rxvt-unicode -fn '7X14' -e /usr/bin/tmux")
+(define-key *root-map* (kbd "c")    "pull-urxvt")
+(define-key *root-map* (kbd "C-c")  "pull-urxvt")
 (define-key *root-map* (kbd ">")    "gnext")
 (define-key *root-map* (kbd "<")    "gprev")
 (define-key *root-map* (kbd "C-q")  "exec lightbulb")

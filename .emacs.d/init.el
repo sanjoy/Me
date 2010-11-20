@@ -133,12 +133,15 @@
 
 ; General settings
 (setq rcirc-server-alist '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das")
-                           ("irc.gimp.org"     :nick "sanjoyd" :full-name "Sanjoy Das")))
+                           ("irc.gimp.org"     :nick "sanjoyd" :full-name "Sanjoy Das")
+                           ("irc.linpro.no"    :nick "sanjoyd" :full-name "Sanjoy Das")))
 
 (defun irc ()
   (interactive)
   (rcirc-connect "irc.freenode.net" "6667" "sanjoyd")
-  (rcirc-connect "irc.gimp.org"     "6667" "sanjoyd"))
+  (rcirc-connect "irc.gimp.org"     "6667" "sanjoyd")
+  (rcirc-connect "irc.linpro.no"    "6667" "sanjoyd")
+  (rcirc-track-minor-mode))
 
 (add-hook 'rcirc-mode-hook
 		  '(lambda ()
@@ -345,4 +348,26 @@
 
 ;; Magit
 
-(global-set-key (kbd "\C-x\C-g") 'magit-status)
+(global-set-key (kbd "\C-x\C-a") 'magit-status)
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(defun insert-backslash ()
+  (interactive)
+  (insert " \\")
+  (newline-and-indent))
+
+(setq *prev-ret-binding* nil)
+
+(defun c-macro-mode ()
+  (interactive)
+  (if (null *prev-ret-binding*)
+      (progn
+        (setq *prev-ret-binding* (lookup-key c-mode-map (kbd "RET")))
+        (define-key c-mode-map (kbd "RET")
+               'insert-backslash))
+    (progn
+      (define-key c-mode-map (kbd "RET")
+        *prev-ret-binding*)
+      (setq *prev-ret-binding* nil))))
