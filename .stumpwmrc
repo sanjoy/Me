@@ -3,15 +3,6 @@
 
 (in-package :stumpwm)
 
-(defun shell-command (command)
-  "Run a shell command and display output to screen. This must be used in a functional side-effects-free style! If a program does not exit of its own accord, Stumpwm might hang!"
-  (check-type command string)
-  (echo-string (current-screen) (run-shell-command command t)))
-
-(define-stumpwm-command "shell-command" ((command :string "sh: " :string))
-  (check-type command string)
-  (shell-command command))
-
 (set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-15")
 
 (defcommand pull-urxvt () ()
