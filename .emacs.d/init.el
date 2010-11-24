@@ -31,6 +31,7 @@
 (require 'xml-rpc)
 (require 'weblogger)
 (require 'w3m-load)
+(require 'framemove)
 
 (setq-default inhibit-startup-message t
 	      font-lock-maximum-decoration t
@@ -345,6 +346,7 @@
 
 ;; Save the annoying C-x o's
 (windmove-default-keybindings)
+(setq framemove-hook-into-windmove t)
 
 ;; I use this to edit flex / bison files
 (defun setup-bison-flex-mode ()
