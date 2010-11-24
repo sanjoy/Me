@@ -14,7 +14,6 @@
 (require 'ansi-color)
 (require 'recentf)
 (require 'color-theme)
-(require 'color-theme-subdued)
 (require 'pastebin)
 (require 'whitespace)
 (require 'filladapt)
@@ -112,7 +111,17 @@
 
 ;; Color theme
 
-(color-theme-subdued)
+(eval-after-load "color-theme"
+  '(progn
+     (color-theme-initialize)
+     (color-theme-hober)))
+
+(setq my-color-themes (list 'color-theme-billw 'color-theme-jsc-dark 
+                            'color-theme-sitaramv-solaris 'color-theme-resolve
+                            'color-theme-classic 'color-theme-jonadabian-slate
+                            'color-theme-kingsajz 'color-theme-shaman
+                            'color-theme-subtle-blue 'color-theme-snowish
+                            'color-theme-sitaramv-nt 'color-theme-wheat))
 
 ;; Set up SLIME
 
@@ -133,13 +142,11 @@
 
 ; General settings
 (setq rcirc-server-alist '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das")
-                           ("irc.gimp.org"     :nick "sanjoyd" :full-name "Sanjoy Das")
                            ("irc.linpro.no"    :nick "sanjoyd" :full-name "Sanjoy Das")))
 
 (defun irc ()
   (interactive)
   (rcirc-connect "irc.freenode.net" "6667" "sanjoyd")
-  (rcirc-connect "irc.gimp.org"     "6667" "sanjoyd")
   (rcirc-connect "irc.linpro.no"    "6667" "sanjoyd")
   (rcirc-track-minor-mode))
 

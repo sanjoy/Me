@@ -59,14 +59,14 @@ function find_file {
 
 # Changes the wallpaper to a randomly selected one.
 function wallpaper {
-	feh --bg-scale "$(find ~/.wallpapers -name "*jpg" | shuf -n1)"
+	feh --bg-scale "$(find ~/.wallpapers/wide -name "*jpg" | shuf -n1)"
 }
 
 # Picks up a random video from the current directory tree and plays it using mplayer
 function entertain {
 	file="`find . -name '*avi' -or -name '*mp4' -or -name '*mpg' \
 	-or -name '*mpeg' -or -name '*mkv' -or -name '*flv' -or -name \
-	'*divx' -or -name '*m2v' | shuf -n1`"
+	'*divx' -or -name '*m2v' -name '*3gp' -or -name '*wmv' | shuf -n1`"
 	echo "Playing $file."
 	mplayer -msglevel all=-1 "$file"
 # Add more -or and -name s to add more extensions later. This should do for now.
