@@ -13,6 +13,9 @@ alias grep='grep -n'
 # Open emacsclient with tt
 alias tt='emacsclient -n'
 
+# patchd for trying patches
+alias patchd='patch --dry-run'
+
 function ttf {
 	if [ -n "$@" ]; then
 		emacsclient -n `find . -name "$@" | head -n 1`
