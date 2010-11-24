@@ -233,13 +233,14 @@
 (ido-mode t)
 
 (setq 
- ido-case-fold  t                   ; be case-insensitive
- ido-use-filename-at-point nil      ; don't use filename at point (annoying)
- ido-use-url-at-point nil           ; don't use url at point (annoying)
- ido-enable-flex-matching t         ; be flexible
- ido-max-prospects 6                ; don't spam my minibuffer
- ido-confirm-unique-completion nil) ; don't wait for RET with unique completion
-
+ ido-use-filename-at-point nil ; don't use filename at point (annoying)
+ ido-use-url-at-point nil      ; don't use url at point (annoying)
+ ido-enable-flex-matching t    ; be flexible
+ ido-max-prospects 6           ; don't spam my minibuffer
+ ido-confirm-unique-completion nil ; don't wait for RET with unique completion
+ ; Always open buffers and files in the current window
+ ido-default-file-method 'selected-window
+ ido-default-buffer-method 'selected-window)
 
 ;; Auto-completion
 
