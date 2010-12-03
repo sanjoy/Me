@@ -32,6 +32,7 @@
 (require 'weblogger)
 (require 'w3m-load)
 (require 'framemove)
+(load "~/.emacs.d/quilt.el")
 
 (setq-default inhibit-startup-message t
 	      font-lock-maximum-decoration t
@@ -52,6 +53,7 @@
 ;; I don't need the list of buffers.
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x r")   'flyspell-mode)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -142,13 +144,13 @@
 ;; RCIRC
 
 ; General settings
-(setq rcirc-server-alist '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das")
-                           ("irc.linpro.no"    :nick "sanjoyd" :full-name "Sanjoy Das")))
+ (setq rcirc-server-alist '(("82.96.64.4"   :nick "sanjoyd" :full-name "Sanjoy Das")
+                           ("87.238.49.230" :nick "sanjoyd" :full-name "Sanjoy Das")))
 
 (defun irc ()
   (interactive)
-  (rcirc-connect "irc.freenode.net" "6667" "sanjoyd")
-  (rcirc-connect "irc.linpro.no"    "6667" "sanjoyd")
+  (rcirc-connect "82.96.64.4"    "6667" "sanjoyd")
+  (rcirc-connect "87.238.49.230" "6667" "sanjoyd")
   (rcirc-track-minor-mode))
 
 (add-hook 'rcirc-mode-hook

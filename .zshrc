@@ -2,8 +2,8 @@
 # Author Sanjoy Das <sanjoy@playingwithpointers.com>
 
 # Set the terminal prompts to something a little less obstrusive
-PS1='%~ $ '
-PS2=' ... '
+PS1="$(print '%{\e[1;32m%} %B%~ $ %b%{\e[0m%}')"
+PS2="$(print '%{\e[0;32m%} ... %{\e[0m%}')"
 
 EDITOR="emacsclient"
 
@@ -23,13 +23,6 @@ function ttf {
 		echo "Usage ttf <file-name>"
 	fi
 }
-
-# Easily compile programs for the BareMetal operating system
-alias bm-gcc='gcc -c -m64 -nostdlib -nostartfiles -nodefaultlibs -fomit-frame-pointer'
-alias bm-ld='ld -T ~/.bare_metal_app.ld'
-
-# Qemu options for the BareMetal operating system
-alias bm-qemu='qemu-system-x86_64 -m 128 -soundhw pcspk -rtc base=localtime -M pc -smp 8 -name "BareMetal OS" -device rtl8139'
 
 # Make cp and mv prompt before overwriting.
 alias cp='cp -i'
