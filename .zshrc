@@ -16,14 +16,6 @@ alias tt='emacsclient -n'
 # patchd for trying patches
 alias patchd='patch --dry-run'
 
-function ttf {
-	if [ -n "$@" ]; then
-		emacsclient -n `find . -name "$@" | head -n 1`
-	else
-		echo "Usage ttf <file-name>"
-	fi
-}
-
 # Make cp and mv prompt before overwriting.
 alias cp='cp -i'
 alias mv='mv -i'
@@ -36,20 +28,29 @@ alias df='df -kTh'
 alias la='ls -a'
 
 # Something I use a lot for exploring large codebases
-function find_symbol {
+function find-symbol {
 	if [ -n "$1" -a -n "$2" ]; then
 		find . -name "*.$1" | xargs grep -n --mmap "$2"
 	else
-		echo "Usage: find_symbol <file-extension> <symbol>"
+		echo "Usage: find-symbol [ file-extension ] [ symbol ]"
 	fi
 }
 
-# Another useful function
-function find_file {
+# Find files which match the provided regular expression
+function find-file-full {
 	if [ -n "$@" ]; then
-		find . -name "$@"
+		find . -iregex "$@"
 	else
-		echo "Usage: find_file <file-filter>"
+		echo "Usage: find-file-full [ regex ]"
+	fi
+}
+
+# I use this one most of the time
+function find-file {
+	if [ -n "$@" ]; then
+		find-file-full ".*$@.*"
+	else
+		echo "Usage: find-file-full [ regex ]"
 	fi
 }
 
