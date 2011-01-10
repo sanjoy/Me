@@ -32,6 +32,7 @@
 (require 'weblogger)
 (require 'w3m-load)
 (require 'framemove)
+(require 'google-c-style)
 (load "~/.emacs.d/quilt.el")
 
 (setq-default inhibit-startup-message t
@@ -383,3 +384,42 @@
       (define-key c-mode-map (kbd "RET")
         *prev-ret-binding*)
       (setq *prev-ret-binding* nil))))
+
+(defun prefix-p (prefix input)
+  (let ((len (length prefix)))
+    (cond ((< (length input)
+              len)
+           nil)
+          (t (equal (substring input 0 len)
+                  prefix)))))
+
+(setq +google-directories+
+      '("/home/sanjoy/Source/v8/"))
+
+(defun is-google-dir (list-iter file-name)
+  (if (null list-iter)
+      nil
+    (if (prefix-p (car list-iter)
+                  file-name)
+        t
+      (is-google-dir (cdr list-iter)
+                     file-name))))
+
+(defun google-c-style-hook ()
+  (when (is-google-dir +google-directories+ (buffer-file-name))
+    (google-set-c-style)))
+
+(add-hook 'find-file-hooks 'google-c-style-hook)
+
+(setq +expanded-home-directory+
+      "/home/sanjoy")
+
+(defun kill-buffers-from-directory (dir-name)
+  (interactive "DDirectory: ")
+  (if (prefix-p "~" dir-name)
+      (setq dir-name (concat +expanded-home-directory+ (substring dir-name 1))))
+  (dolist (this-buffer buffer-list)
+    (when (buffer-file-name this-buffer)
+     (if (prefix-p dir-name (buffer-file-name this-buffer))
+         (unless (buffer-modified-p this-buffer)
+           (kill-buffer this-buffer))))))
