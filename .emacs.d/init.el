@@ -54,6 +54,7 @@
 ;; I don't need the list of buffers.
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-c i")   'imenu)
 (global-set-key (kbd "C-x r")   'flyspell-mode)
 
 (autoload 'paredit-mode "paredit"
@@ -406,8 +407,9 @@
                      file-name))))
 
 (defun google-c-style-hook ()
-  (when (is-google-dir +google-directories+ (buffer-file-name))
-    (google-set-c-style)))
+  (when (string-match ".*\\.\\(cc\\|h\\|c\\)" (buffer-file-name))
+    (when (is-google-dir +google-directories+ (buffer-file-name))
+      (google-set-c-style))))
 
 (add-hook 'find-file-hooks 'google-c-style-hook)
 
