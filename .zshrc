@@ -30,14 +30,14 @@ alias la='ls -a'
 # Something I use a lot for exploring large codebases
 function find-symbol {
 	if [ -n "$1" -a -n "$2" ]; then
-		find . -name "*.$1" | xargs grep -n --mmap "$2"
+		find . -name "*.$1" | xargs grep -n --mmap -- "$2"
 	else
 		echo "Usage: find-symbol [ file-extension ] [ symbol ]"
 	fi
 }
 
 # Find files which match the provided regular expression
-function find-file-full {
+function x-find-file {
 	if [ -n "$@" ]; then
 		find . -iregex "$@"
 	else
@@ -48,7 +48,7 @@ function find-file-full {
 # I use this one most of the time
 function find-file {
 	if [ -n "$@" ]; then
-		find-file-full ".*$@.*"
+		x-find-file ".*$@.*"
 	else
 		echo "Usage: find-file-full [ regex ]"
 	fi

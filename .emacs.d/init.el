@@ -146,8 +146,7 @@
 ;; RCIRC
 
 ; General settings
- (setq rcirc-server-alist '(("82.96.64.4"   :nick "sanjoyd" :full-name "Sanjoy Das")
-                           ("87.238.49.230" :nick "sanjoyd" :full-name "Sanjoy Das")))
+ (setq rcirc-server-alist '(("82.96.64.4"   :nick "sanjoyd" :full-name "Sanjoy Das")))
 
 (defun irc ()
   (interactive)
@@ -416,12 +415,13 @@
 (setq +expanded-home-directory+
       "/home/sanjoy")
 
-(defun kill-buffers-from-directory (dir-name)
+(defun kill-directory-buffers (dir-name)
   (interactive "DDirectory: ")
   (if (prefix-p "~" dir-name)
       (setq dir-name (concat +expanded-home-directory+ (substring dir-name 1))))
-  (dolist (this-buffer buffer-list)
-    (when (buffer-file-name this-buffer)
-     (if (prefix-p dir-name (buffer-file-name this-buffer))
-         (unless (buffer-modified-p this-buffer)
-           (kill-buffer this-buffer))))))
+  (mapc (lambda (this-buffer)
+          (when (buffer-file-name this-buffer)
+            (when (prefix-p dir-name (buffer-file-name this-buffer))
+              (unless (buffer-modified-p this-buffer)
+                (kill-buffer this-buffer)))))
+        (buffer-list)))
