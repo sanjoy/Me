@@ -49,13 +49,15 @@
 	      tab-width 5
 	      c-basic-offset 5
 	      edebug-trace t
-	      fill-adapt-mode t)
+	      fill-adapt-mode t
+          max-lisp-eval-depth 12000
+          +expanded-home-directory+ "/home/sanjoy")
 
-;; I don't need the list of buffers.
+(setq url-proxy-services '(("http" . "proxy.work.com:911")))
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
-(global-set-key (kbd "C-x r")   'flyspell-mode)
+(global-set-key (kbd "C-x t")   'flyspell-mode)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -151,7 +153,6 @@
 (defun irc ()
   (interactive)
   (rcirc-connect "82.96.64.4"    "6667" "sanjoyd")
-  (rcirc-connect "87.238.49.230" "6667" "sanjoyd")
   (rcirc-track-minor-mode))
 
 (add-hook 'rcirc-mode-hook
@@ -161,10 +162,6 @@
 ; Logging
 (setq rcirc-log-flag "t"
       rcirc-log-directory "~/.emacs.d/rcirc-log")
-
-(setq rcirc-authinfo
-	  '(("freenode" nickserv "sanjoyd" "yojnas")))
-
 
 (defun kill-mode-buffers (&optional mode)
   "Kill all buffers of this major mode.
@@ -180,10 +177,33 @@
               (kill-buffer buffer)))
           (buffer-list))))
 
-
 (defun rcirc-kill-all-buffers ()
   (interactive)
   (kill-mode-buffers 'rcirc-mode))
+
+(eval-after-load 'rcirc
+  '(defun-rcirc-command reconnect (arg)
+     "Reconnect the server process."
+     (interactive "i")
+     (unless process
+       (error "There's no process for this target"))
+     (let* ((server (car (process-contact process)))
+            (port (process-contact process :service))
+            (nick (rcirc-nick process))
+            channels query-buffers)
+       (dolist (buf (buffer-list))
+         (with-current-buffer buf
+           (when (eq process (rcirc-buffer-process))
+             (remove-hook 'change-major-mode-hook
+                          'rcirc-change-major-mode-hook)
+             (if (rcirc-channel-p rcirc-target)
+                 (setq channels (cons rcirc-target channels))
+               (setq query-buffers (cons buf query-buffers))))))
+       (delete-process process)
+       (rcirc-connect server port nick
+                      rcirc-default-user-name
+                      rcirc-default-user-full-name
+                      channels))))
 
 ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
@@ -251,90 +271,6 @@
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
 
-;; Easy bookmarks
-
-(defvar af-current-bookmark nil)
-
-(defun af-bookmark-make-name ()
-  "Makes a bookmark name from the buffer name and cursor position"
-  (concat (buffer-name (current-buffer))
-          "/" (number-to-string (point))))
-
-(defun af-bookmark-toggle ()
-  "Removes a bookmark if it exists, create one if it doesnt exist"
-  (interactive)
-  (let ((bm-name (af-bookmark-make-name)))
-    (if (bookmark-get-bookmark bm-name t)
-        (progn (bookmark-delete bm-name)
-               (message "bookmark removed"))
-      (progn (bookmark-set bm-name)
-             (setf af-current-bookmark bm-name)
-             (message "bookmark set")))))
-
-(defun af-bookmark-cycle (i)
-  "Cycle through bookmarks by i.  'i' should be 1 or -1"
-  (if bookmark-alist
-      (progn (unless af-current-bookmark
-               (setf af-current-bookmark (first (first bookmark-alist))))
-             (let ((cur-bm (assoc af-current-bookmark bookmark-alist)))
-               (setf af-current-bookmark
-                     (if cur-bm
-                         (first (nth (mod (+ i (position cur-bm bookmark-alist))
-                                          (length bookmark-alist))
-                                     bookmark-alist))
-                       (first (first bookmark-alist))))
-               (bookmark-jump af-current-bookmark)
-               ;; Update the position and name of the bookmark.  We
-               ;; only need to do this when the bookmark has changed
-               ;; position, but lets go ahead and do it all the time
-               ;; anyway.
-               (bookmark-set-position af-current-bookmark (point))
-               (let ((new-name (af-bookmark-make-name)))
-                 (bookmark-set-name af-current-bookmark new-name)
-                 (setf af-current-bookmark new-name))))
-    (message "There are no bookmarks set!")))
-
-(defun af-bookmark-cycle-forward ()
-  "find the next bookmark in the bookmark-alist"
-  (interactive)
-  (af-bookmark-cycle 1))
-
-(defun af-bookmark-cycle-reverse ()
-  "find the next bookmark in the bookmark-alist"
-  (interactive)
-  (af-bookmark-cycle -1))
-
-(defun af-bookmark-clear-all()
-  "clears all bookmarks"
-  (interactive)
-  (setf bookmark-alist nil))
-
-(global-set-key [(control f2)]  'af-bookmark-toggle)
-(global-set-key [f2]  'af-bookmark-cycle-forward)
-(global-set-key [(shift f2)]  'af-bookmark-cycle-reverse)
-(global-set-key [(control shift f2)]  'af-bookmark-clear-all)
-
-(add-hook 'weblogger-start-edit-entry-hook
-		  (lambda()
-			(flyspell-mode 1)
-			(flyspell-buffer)   ; spell check the fetched post
-			(auto-fill-mode -1)
-			(visual-line-mode 1)))
-
-(add-hook 'weblogger-publish-entry-hook
-		  (lambda()
-			(when visual-line-mode
-			  (visual-line-mode -1))
-			;; tabs might spoil code indentation
-			(untabify (point-min) (point-max))))
-
-(add-hook 'weblogger-publish-entry-end-hook
-		  (lambda()
-			(visual-line-mode 1)))
-
-(setq
-  weblogger-config-alist '(("default" "http://www.playingwithpointers.com/xmlrpc.php" "admin" "yojnassanjoy" "1")))
-
 ;; Set up w3m-el
 
 (setq browse-url-browser-function 'w3m-browse-url)
@@ -353,7 +289,7 @@
 (setq framemove-hook-into-windmove t)
 
 ;; I use this to edit flex / bison files
-(defun setup-bison-flex-mode ()
+(defun crystal-bison-flex-settings ()
   (interactive)
   (c-toggle-syntactic-indentation)
   (c-toggle-electric-mode)
@@ -373,7 +309,7 @@
 
 (setq *prev-ret-binding* nil)
 
-(defun c-macro-mode ()
+(defun crystal-write-c-macro ()
   (interactive)
   (if (null *prev-ret-binding*)
       (progn
@@ -412,10 +348,7 @@
 
 (add-hook 'find-file-hooks 'google-c-style-hook)
 
-(setq +expanded-home-directory+
-      "/home/sanjoy")
-
-(defun kill-directory-buffers (dir-name)
+(defun crystal-kill-buffers-by-directory (dir-name)
   (interactive "DDirectory: ")
   (if (prefix-p "~" dir-name)
       (setq dir-name (concat +expanded-home-directory+ (substring dir-name 1))))
