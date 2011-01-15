@@ -358,3 +358,16 @@
               (unless (buffer-modified-p this-buffer)
                 (kill-buffer this-buffer)))))
         (buffer-list)))
+
+;; Mingus
+
+(defmacro crystal-kill-mingus-after-use (function-to-call)
+  `(lambda ()
+     (interactive)
+     (funcall ',function-to-call)
+     (when (get-buffer "*Mingus*")
+       (kill-buffer (get-buffer "*Mingus*")))))
+
+(global-set-key (kbd "C-c C-j") (crystal-kill-mingus-after-use mingus-next))
+(global-set-key (kbd "C-c C-k") (crystal-kill-mingus-after-use mingus-prev))
+(global-set-key (kbd "C-c C-h") (crystal-kill-mingus-after-use mingus-pause))
