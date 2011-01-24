@@ -7,33 +7,34 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(require 'cc-mode)
-(require 'saveplace)
-(require 'ffap)
-(require 'uniquify)
 (require 'ansi-color)
-(require 'recentf)
-(require 'color-theme)
-(require 'pastebin)
-(require 'whitespace)
-(require 'filladapt)
-(require 'tramp)
-(require 'slime)
-(require 'magit)
-(require 'paredit)
-(require 'org-install)
-(require 'quack)
-(require 'mingus)
 (require 'auto-complete)
 (require 'bookmark)
+(require 'cc-mode)
 (require 'cl)
-(require 'revbufs)
-(require 'xml-rpc)
-(require 'weblogger)
-(require 'w3m-load)
+(require 'color-theme)
+(require 'ffap)
+(require 'filladapt)
 (require 'framemove)
 (require 'google-c-style)
-(load "~/.emacs.d/quilt.el")
+(require 'magit)
+(require 'mingus)
+(require 'org-install)
+(require 'paredit)
+(require 'pastebin)
+(require 'php-mode)
+(require 'quack)
+(require 'quilt-mode)
+(require 'recentf)
+(require 'revbufs)
+(require 'saveplace)
+(require 'slime)
+(require 'tramp)
+(require 'uniquify)
+(require 'w3m-load)
+(require 'weblogger)
+(require 'whitespace)
+(require 'xml-rpc)
 
 (setq-default inhibit-startup-message t
 	      font-lock-maximum-decoration t
@@ -181,6 +182,12 @@
   (interactive)
   (kill-mode-buffers 'rcirc-mode))
 
+(defun crystal-rcirc-dance ()
+  (interactive)
+  (mapc (lambda (c)
+          (insert (concat "/me dances :D" (char-to-string c) "-<"))
+          (rcirc-send-input)) "/|\\|"))
+
 (eval-after-load 'rcirc
   '(defun-rcirc-command reconnect (arg)
      "Reconnect the server process."
@@ -207,6 +214,7 @@
 
 ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
+
 
 ;; C Mode
 
@@ -368,6 +376,24 @@
      (when (get-buffer "*Mingus*")
        (kill-buffer (get-buffer "*Mingus*")))))
 
-(global-set-key (kbd "C-c C-j") (crystal-kill-mingus-after-use mingus-next))
-(global-set-key (kbd "C-c C-k") (crystal-kill-mingus-after-use mingus-prev))
-(global-set-key (kbd "C-c C-h") (crystal-kill-mingus-after-use mingus-pause))
+;; (global-set-key (kbd "C-c C-j") (crystal-kill-mingus-after-use mingus-next))
+;; (global-set-key (kbd "C-c C-k") (crystal-kill-mingus-after-use mingus-prev))
+;; (global-set-key (kbd "C-c C-h") (crystal-kill-mingus-after-use mingus-pause))
+
+;; Set up "email mode".
+
+(defun crystal-email-mode ()
+  (interactive)
+  (longlines-mode)
+  (flyspell-mode))
+
+(add-to-list 'auto-mode-alist '("/tmp/evo.*" . crystal-email-mode))
+
+(setq +thoughts-directory+ "~/Documents/Thoughts/")
+
+(defun crystal-edit-text ()
+  (interactive)
+  (let ((file-name (concat +thoughts-directory+ (format-time-string "%d-%m-%Y-%H-%M"))))
+    (find-file file-name)
+    (longlines-mode)
+    (flyspell-mode)))
