@@ -93,22 +93,15 @@ SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
-case $TERM in
-    xterm|rxvt|rxvt-unicode|screen)
-        preexec () {
-            local command=${(V)1//\%\%\%}
-            local first=${command%% *}
-            command=$(print -Pn "%40>...>$command" | tr -d "\n")
-            print -Pn "\e]2;$command\a"
-            case $first in
-                git|ssh|svn|hg)
-                    export LD_PRELOAD=libproxychains.so.3
-                    ;;
-            esac
-        }
-        ;;
-esac
-
 function calc () {
     awk "BEGIN { print $@ }"
 }
+
+export mysql='mysql --sigint-ignore'
+
+# Proxychains wrappers on common commands
+# This sets up the completion properly
+
+compdef xgit=git
+compdef xsvn=svn
+compdef xssh=ssh

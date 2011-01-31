@@ -390,6 +390,7 @@
 (add-to-list 'auto-mode-alist '("/tmp/evo.*" . crystal-email-mode))
 
 (setq +thoughts-directory+ "~/Documents/Thoughts/")
+(setq +notes-directory+ "~/Documents/Notes/")
 
 (defun crystal-edit-text ()
   (interactive)
@@ -397,3 +398,16 @@
     (find-file file-name)
     (longlines-mode)
     (flyspell-mode)))
+
+(defun crystal-edit-note ()
+  (interactive)
+  (let ((file-name (concat +notes-directory+ (format-time-string "%d-%m-%Y-%H-%M"))))
+    (find-file file-name)
+    (org-mode)))
+
+(global-set-key (kbd "C-c t")
+                'crystal-edit-text)
+
+(global-set-key (kbd "C-c n")
+                'crystal-edit-note)
+
