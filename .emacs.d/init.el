@@ -373,14 +373,15 @@
   `(lambda ()
      (interactive)
      (funcall ',function-to-call)
-     (when (get-buffer "*Mingus*")
-       (kill-buffer (get-buffer "*Mingus*")))))
+     (let ((mingus-buffer (get-buffer "*Mingus*")))
+       (unless (eql mingus-buffer (current-buffer))
+         (kill-buffer mingus-buffer)))))
 
 ;; Music + Coding = :D
 
-(global-set-key (kbd "<insert>") 'mingus-pause)
-(global-set-key (kbd "<prior>")  'mingus-prev)
-(global-set-key (kbd "<next>")   'mingus-next)
+(global-set-key (kbd "<insert>") (crystal-kill-mingus-after-use mingus-pause))
+(global-set-key (kbd "<prior>")  (crystal-kill-mingus-after-use mingus-prev))
+(global-set-key (kbd "<next>")   (crystal-kill-mingus-after-use mingus-next))
 (global-set-key (kbd "<f9>")     'mingus)
 
 ;; Set up "email mode".
