@@ -76,3 +76,15 @@ define_webjump("down?", function (url) {
 	}
 }, $argument = "optional");
 define_webjump("alpha", "http://www36.wolframalpha.com/input/?i=%s");
+
+homepage = "http://en.wikipedia.org/wiki/Special:Random"
+
+minibuffer_auto_complete_default = true;
+
+/* Show number of buffers. */
+add_hook("mode_line_hook", mode_line_adder(loading_count_widget), true);
+
+/* Remove clock. */
+remove_hook("mode_line_hook", mode_line_adder(clock_widget));
+
+editor_shell_command = "emacsclient -c";
