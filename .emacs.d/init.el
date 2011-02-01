@@ -376,9 +376,12 @@
      (when (get-buffer "*Mingus*")
        (kill-buffer (get-buffer "*Mingus*")))))
 
-;; (global-set-key (kbd "C-c C-j") (crystal-kill-mingus-after-use mingus-next))
-;; (global-set-key (kbd "C-c C-k") (crystal-kill-mingus-after-use mingus-prev))
-;; (global-set-key (kbd "C-c C-h") (crystal-kill-mingus-after-use mingus-pause))
+;; Music + Coding = :D
+
+(global-set-key (kbd "<insert>") 'mingus-pause)
+(global-set-key (kbd "<prior>")  'mingus-prev)
+(global-set-key (kbd "<next>")   'mingus-next)
+(global-set-key (kbd "<f9>")     'mingus)
 
 ;; Set up "email mode".
 
@@ -387,7 +390,9 @@
   (longlines-mode)
   (flyspell-mode))
 
-(add-to-list 'auto-mode-alist '("/tmp/evo.*" . crystal-email-mode))
+;; Thunderbird external editor extension opens emails as files with 
+;; the extension eml
+(add-to-list 'auto-mode-alist '("\\.eml\\'" . crystal-email-mode))
 
 (setq +thoughts-directory+ "~/Documents/Thoughts/")
 (setq +notes-directory+ "~/Documents/Notes/")
