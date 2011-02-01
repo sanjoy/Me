@@ -149,11 +149,11 @@
 ;; RCIRC
 
 ; General settings
- (setq rcirc-server-alist '(("82.96.64.4"   :nick "sanjoyd" :full-name "Sanjoy Das")))
+ (setq rcirc-server-alist '(("irc.freenode.net"   :nick "sanjoyd" :full-name "Sanjoy Das")))
 
 (defun irc ()
   (interactive)
-  (rcirc-connect "82.96.64.4"    "6667" "sanjoyd")
+  (rcirc-connect "irc.freenode.net" "6667" "sanjoyd")
   (rcirc-track-minor-mode))
 
 (add-hook 'rcirc-mode-hook
@@ -188,33 +188,8 @@
           (insert (concat "/me dances :D" (char-to-string c) "-<"))
           (rcirc-send-input)) "/|\\|"))
 
-(eval-after-load 'rcirc
-  '(defun-rcirc-command reconnect (arg)
-     "Reconnect the server process."
-     (interactive "i")
-     (unless process
-       (error "There's no process for this target"))
-     (let* ((server (car (process-contact process)))
-            (port (process-contact process :service))
-            (nick (rcirc-nick process))
-            channels query-buffers)
-       (dolist (buf (buffer-list))
-         (with-current-buffer buf
-           (when (eq process (rcirc-buffer-process))
-             (remove-hook 'change-major-mode-hook
-                          'rcirc-change-major-mode-hook)
-             (if (rcirc-channel-p rcirc-target)
-                 (setq channels (cons rcirc-target channels))
-               (setq query-buffers (cons buf query-buffers))))))
-       (delete-process process)
-       (rcirc-connect server port nick
-                      rcirc-default-user-name
-                      rcirc-default-user-full-name
-                      channels))))
-
 ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
-
 
 ;; C Mode
 

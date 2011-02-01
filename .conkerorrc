@@ -3,75 +3,76 @@ url_remoting_fn = load_url_in_new_buffer
 
 proxy_server_default = "144.16.192.245";
 proxy_port_default = 8080;
+readify_webjump = "javascript:(function(){readConvertLinksToFootnotes=true;readStyle='style-apertura';readSize='size-medium';readMargin='margin-wide';_readability_script=document.createElement('script');_readability_script.type='text/javascript';_readability_script.src='http://lab.arc90.com/experiments/readability/js/readability.js?x='+(Math.random());document.documentElement.appendChild(_readability_script);_readability_css=document.createElement('link');_readability_css.rel='stylesheet';_readability_css.href='http://lab.arc90.com/experiments/readability/css/readability.css';_readability_css.type='text/css';_readability_css.media='all';document.documentElement.appendChild(_readability_css);_readability_print_css=document.createElement('link');_readability_print_css.rel='stylesheet';_readability_print_css.href='http://lab.arc90.com/experiments/readability/css/readability-print.css';_readability_print_css.media='print';_readability_print_css.type='text/css';document.getElementsByTagName('head')[0].appendChild(_readability_print_css);})();";
 
 function set_proxy_session_nowindow (server, port) {
-      session_pref ('network.proxy.ftp',    server);
-      session_pref ('network.proxy.gopher', server);
-      session_pref ('network.proxy.http',   server);
-      session_pref ('network.proxy.socks',  server);
-      session_pref ('network.proxy.ssl',    server);
+    session_pref ('network.proxy.ftp',    server);
+    session_pref ('network.proxy.gopher', server);
+    session_pref ('network.proxy.http',   server);
+    session_pref ('network.proxy.socks',  server);
+    session_pref ('network.proxy.ssl',    server);
 
-      session_pref ('network.proxy.ftp_port',    port);
-      session_pref ('network.proxy.gopher_port', port);
-      session_pref ('network.proxy.http_port',   port);
-      session_pref ('network.proxy.socks_port',  port);
-      session_pref ('network.proxy.ssl_port',    port);
+    session_pref ('network.proxy.ftp_port',    port);
+    session_pref ('network.proxy.gopher_port', port);
+    session_pref ('network.proxy.http_port',   port);
+    session_pref ('network.proxy.socks_port',  port);
+    session_pref ('network.proxy.ssl_port',    port);
 
-      session_pref ('network.proxy.share_proxy_settings', 'true');
-      session_pref ('network.proxy.type', 1);
+    session_pref ('network.proxy.share_proxy_settings', 'true');
+    session_pref ('network.proxy.type', 1);
+}
+
+function translate_server(serv_short) {
+	if (serv_short == "245")
+		return "144.16.192.245";
+	else if (serv_short == "247")
+		return "144.16.192.247";
+	else if (serv_short == "212")
+		return "10.3.100.212";
+	else if (serv_short == "211")
+		return "10.3.100.211";
+	else
+		return serv_short;
 }
 
 function set_proxy_session (window, server, port) {
-
     if (server == "N") {
-       session_pref ('network.proxy.type', 0); //direct connection
-       window.minibuffer.message ("Direction connection to the internet enabled for this session");
+		session_pref ('network.proxy.type', 0);
+		window.minibuffer.message ("Direction connection to the internet enabled for this session");
     } else {
-      if (server == "") server = proxy_server_default;
-      if (port == "") port = proxy_port_default;
-
-      set_proxy_session_nowindow (server, port);
-
-      window.minibuffer.message ("All protocols using "+server+":"+port+" for this session");
+		if (server == "")
+			server = proxy_server_default;
+		else
+			server = translate_server (server);
+		if (port == "")
+			port = proxy_port_default;
+		set_proxy_session_nowindow (server, port);
+		window.minibuffer.message ("All protocols using " + server + ":" + port + " for this session");
     }
 }
 
 set_proxy_session_nowindow (proxy_server_default, proxy_port_default);
 
 interactive ("set-proxy-session", "set the proxy server for all protocols for this session only",
-    function (I) {
-        set_proxy_session (
-            I.window,
-            (yield I.minibuffer.read ($prompt = "Server ["+proxy_server_default+"] or N: ")),
-            (yield I.minibuffer.read ($prompt = "Port ["+proxy_port_default+"]: ")));
-    });
+			 function (I) {
+				 set_proxy_session (
+					 I.window,
+					 (yield I.minibuffer.read ($prompt = "Server [" + proxy_server_default + "] or N: ")),
+					 (yield I.minibuffer.read ($prompt = "Port [" + proxy_port_default + "]: ")));
+			 });
 
 define_webjump("hn", "http://news.ycombinator.com");
-
 define_webjump("pwp", "http://mail.google.com/a/playingwithpointers.com");
-
 define_webjump("gm", "http://gmail.com");
-
 define_webjump("blog", "http://playingwithpointers.com/wp-admin")
-
-define_webjump("read", "javascript:(function(){readConvertLinksToFootnotes=true;readStyle='style-apertura';readSize='size-medium';readMargin='margin-wide';_readability_script=document.createElement('script');_readability_script.type='text/javascript';_readability_script.src='http://lab.arc90.com/experiments/readability/js/readability.js?x='+(Math.random());document.documentElement.appendChild(_readability_script);_readability_css=document.createElement('link');_readability_css.rel='stylesheet';_readability_css.href='http://lab.arc90.com/experiments/readability/css/readability.css';_readability_css.type='text/css';_readability_css.media='all';document.documentElement.appendChild(_readability_css);_readability_print_css=document.createElement('link');_readability_print_css.rel='stylesheet';_readability_print_css.href='http://lab.arc90.com/experiments/readability/css/readability-print.css';_readability_print_css.media='print';_readability_print_css.type='text/css';document.getElementsByTagName('head')[0].appendChild(_readability_print_css);})();");
-
+define_webjump("read", readify_webjump);
 define_webjump("youtube", "http://www.youtube.com/results?search_query=%s&search=Search");
-
 define_webjump("codesearch", "http://www.google.com/codesearch?q=%s");
-
 define_webjump("down?", function (url) {
     if (url) {
         return "http://downforeveryoneorjustme.com/" + url;
     } else {
         return "javascript:window.location.href='http://downforeveryoneorjustme.com/'+window.location.href;";
-   }
+	}
 }, $argument = "optional");
-
 define_webjump("alpha", "http://www36.wolframalpha.com/input/?i=%s");
-
-homepage='http://google.com'
-
-var leechblock_service = Componenes.classes["@mozilla.org/leechblock;1"].createInstance().wrappedJSObject;
-
-add_hook("buffer_loaded_hook", function(I) { window.alert ("foo"); }, true, false);
