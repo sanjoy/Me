@@ -13,11 +13,16 @@
   "Start / raise *the* URxvt instance into this frame."
   (run-or-raise "exec rxvt-unicode -fn '7X14' -e /usr/bin/tmux" '(:class "URxvt")))
 
+(defcommand raise-browser () ()
+  (run-or-raise "conkeror" '(:class "Conkeror")))
+
 (define-key *root-map* (kbd "C-f")  "exec evince")
 (define-key *root-map* (kbd "d")    "raise-urxvt")
 (define-key *root-map* (kbd "C-d")  "raise-urxvt")
 (define-key *root-map* (kbd "c")    "pull-urxvt")
 (define-key *root-map* (kbd "C-c")  "pull-urxvt")
+(define-key *root-map* (kbd "C-v")  "raise-browser")
+(define-key *root-map* (kbd "v")    "raise-browser")
 (define-key *root-map* (kbd ">")    "gnext")
 (define-key *root-map* (kbd "<")    "gprev")
 (define-key *root-map* (kbd "C-q")  "exec lightbulb")

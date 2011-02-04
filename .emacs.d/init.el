@@ -354,7 +354,7 @@
 
 ;; Music + Coding = :D
 
-(global-set-key (kbd "<insert>") (crystal-kill-mingus-after-use mingus-pause))
+(global-set-key (kbd "<end>")    (crystal-kill-mingus-after-use mingus-pause))
 (global-set-key (kbd "<prior>")  (crystal-kill-mingus-after-use mingus-prev))
 (global-set-key (kbd "<next>")   (crystal-kill-mingus-after-use mingus-next))
 (global-set-key (kbd "<f9>")     'mingus)

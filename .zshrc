@@ -105,3 +105,6 @@ export mysql='mysql --sigint-ignore'
 compdef xgit=git
 compdef xsvn=svn
 compdef xssh=ssh
+compdef xcvs=cvs
+
+alias xcvs='proxychains cvs'
