@@ -15,6 +15,7 @@
 (require 'color-theme)
 (require 'ffap)
 (require 'filladapt)
+(require 'flex-mode)
 (require 'framemove)
 (require 'google-c-style)
 (require 'magit)
@@ -394,3 +395,5 @@
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "/usr/bin/conkeror")
+
+(global-unset-key (kbd "<insert>"))
