@@ -72,7 +72,8 @@
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (define-key c-mode-map "\C-m" 'newline-and-indent)
-			 (c-toggle-auto-newline)))
+			 (c-toggle-auto-newline)
+             (setq c-backslash-max-column 80)))
 
 (add-hook 'lisp-mode-hook
           '(lambda ()
