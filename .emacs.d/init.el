@@ -17,6 +17,7 @@
 (require 'filladapt)
 (require 'flex-mode)
 (require 'framemove)
+(require 'go-mode-load)
 (require 'google-c-style)
 (require 'magit)
 (require 'mingus)

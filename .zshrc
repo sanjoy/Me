@@ -108,3 +108,6 @@ compdef xssh=ssh
 compdef xcvs=cvs
 
 alias xcvs='proxychains cvs'
+
+# Go installation
+export PATH="$PATH:/home/sanjoy/Source/go/bin"
