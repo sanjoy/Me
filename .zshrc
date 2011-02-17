@@ -111,3 +111,6 @@ alias xcvs='proxychains cvs'
 
 # Go installation
 export PATH="$PATH:/home/sanjoy/Source/go/bin"
+
+# Pretty directory listing
+alias ls='ls --color=auto'

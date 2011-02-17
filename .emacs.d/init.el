@@ -13,6 +13,7 @@
 (require 'cc-mode)
 (require 'cl)
 (require 'color-theme)
+(require 'column-marker)
 (require 'ffap)
 (require 'filladapt)
 (require 'flex-mode)
@@ -75,6 +76,10 @@
              (define-key c-mode-map "\C-m" 'newline-and-indent)
 			 (c-toggle-auto-newline)
              (setq c-backslash-max-column 80)))
+
+(add-hook 'c-mode-common-hook '(lambda ()
+                                 (interactive)
+                                 (column-marker-1 80)))
 
 (add-hook 'lisp-mode-hook
           '(lambda ()
