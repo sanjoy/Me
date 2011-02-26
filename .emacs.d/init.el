@@ -54,10 +54,8 @@
 	      c-basic-offset 5
 	      edebug-trace t
 	      fill-adapt-mode t
-          max-lisp-eval-depth 12000
-          +expanded-home-directory+ "/home/sanjoy")
-
-(setq url-proxy-services '(("http" . "proxy.work.com:911")))
+           max-lisp-eval-depth 12000
+           rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo"))
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
@@ -159,16 +157,16 @@
 ;; RCIRC
 
 ; General settings
- (setq rcirc-server-alist '(("irc.freenode.net"   :nick "sanjoyd" :full-name "Sanjoy Das")))
+(setq rcirc-server-alist
+      '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das")))
 
-(defun irc ()
-  (interactive)
-  (rcirc-connect "irc.freenode.net" "6667" "sanjoyd")
-  (rcirc-track-minor-mode))
+(rcirc-track-minor-mode 1)
 
 (add-hook 'rcirc-mode-hook
-		  '(lambda ()
-			 (flyspell-mode)))
+          '(lambda ()
+             (flyspell-mode)
+             (set (make-local-variable 'scroll-conservatively)
+                  8192)))
 
 ; Logging
 (setq rcirc-log-flag "t"
@@ -188,6 +186,18 @@
               (kill-buffer buffer)))
           (buffer-list))))
 
+(defun rcirc-load-authinfo ()
+  (interactive)
+  (with-temp-buffer
+    (insert-file-contents-literally rcirc-authinfo-file-name)
+    (goto-char (point-min))
+    (setq rcirc-authinfo (read (current-buffer)))))
+
+(defun irc ()
+  (interactive)
+  (rcirc-load-authinfo)
+  (rcirc-connect "irc.freenode.net" "6667" "sanjoyd"))
+
 (defun rcirc-kill-all-buffers ()
   (interactive)
   (kill-mode-buffers 'rcirc-mode))
@@ -196,7 +206,8 @@
   (interactive)
   (mapc (lambda (c)
           (insert (concat "/me dances :D" (char-to-string c) "-<"))
-          (rcirc-send-input)) "/|\\|"))
+          (rcirc-send-input)
+          (sleep-for 0 500)) "/|\\|"))
 
 ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
@@ -343,8 +354,7 @@
 
 (defun crystal-kill-buffers-by-directory (dir-name)
   (interactive "DDirectory: ")
-  (if (prefix-p "~" dir-name)
-      (setq dir-name (concat +expanded-home-directory+ (substring dir-name 1))))
+  (setq dir-name (expand-file-name dir-name))
   (mapc (lambda (this-buffer)
           (when (buffer-file-name this-buffer)
             (when (prefix-p dir-name (buffer-file-name this-buffer))
@@ -406,3 +416,4 @@
       browse-url-generic-program "google-chrome")
 
 (global-unset-key (kbd "<insert>"))
+
