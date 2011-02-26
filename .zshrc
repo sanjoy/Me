@@ -117,5 +117,5 @@ alias ls='ls --color=auto'
 
 . ~/Source/z/z.sh
 function precmd () {
-    z --add "$(pwd -P)"
+    j --add "$(pwd -P)"
 }
