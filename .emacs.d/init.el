@@ -54,8 +54,8 @@
 	      c-basic-offset 5
 	      edebug-trace t
 	      fill-adapt-mode t
-           max-lisp-eval-depth 12000
-           rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo"))
+          max-lisp-eval-depth 12000
+          rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo"))
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
@@ -203,11 +203,16 @@
   (kill-mode-buffers 'rcirc-mode))
 
 (defun crystal-rcirc-dance ()
-  (interactive)
   (mapc (lambda (c)
           (insert (concat "/me dances :D" (char-to-string c) "-<"))
           (rcirc-send-input)
           (sleep-for 0 500)) "/|\\|"))
+
+(eval-after-load 'rcirc
+  '(defun-rcirc-command dance (arg)
+     "Dance."
+     (interactive "i")
+     (crystal-rcirc-dance)))
 
 ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
