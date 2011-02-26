@@ -71,6 +71,8 @@
            indent-tabs-mode t
            auto-newline 0)
 
+(setq c-offsets-alist '((innamespace . 0)))
+
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (define-key c-mode-map "\C-m" 'newline-and-indent)

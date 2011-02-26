@@ -20,7 +20,7 @@
 (defcommand raise-browser () ()
   (run-or-raise "conkeror" '(:class "Conkeror")))
 
-(define-key *root-map* (kbd "C-f")  "exec evince")
+(define-key *root-map* (kbd "C-f")  "exec epdfview")
 (define-key *root-map* (kbd "d")    "raise-urxvt")
 (define-key *root-map* (kbd "C-d")  "raise-urxvt")
 (define-key *root-map* (kbd "c")    "pull-urxvt")

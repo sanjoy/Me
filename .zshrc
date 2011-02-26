@@ -70,7 +70,7 @@ function entertain {
 }
 
 # Set the http proxy.
-export http_proxy=`cat ~/.http_proxy`
+export all_proxy=`cat ~/.all_proxy`
 
 # Alias the two screen sessions I generally have active
 alias scr-b='screen -r Background'
