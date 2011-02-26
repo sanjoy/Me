@@ -35,3 +35,5 @@
 (define-key *root-map* (kbd "q")    "raise-icedove")
 (define-key *root-map* (kbd "P")    "pull-window-by-number")
 (define-key *tile-group-root-map* (kbd "C-TAB") "fnext")
+
+(setf *mouse-focus-policy* :click)
