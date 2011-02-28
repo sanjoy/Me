@@ -37,3 +37,4 @@
 (define-key *tile-group-root-map* (kbd "C-TAB") "fnext")
 
 (setf *mouse-focus-policy* :click)
+(setf *window-border-style* :thin)

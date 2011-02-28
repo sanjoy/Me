@@ -72,11 +72,17 @@ function entertain {
 # Set the http proxy.
 export all_proxy=`cat ~/.all_proxy`
 
-# Alias the two screen sessions I generally have active
-alias scr-b='screen -r Background'
-alias scr-d='screen -r Downloads'
+function screen-create () {
+	name=$1
+	screen -list | grep "$name"
+	if [ "$?" -ne "0" ]; then # Background session not yet started
+		screen -S "$name"
+	else
+		screen -r "$name"
+	fi
+}
 
-echo "   The current time is `date`."
+alias scr-b='screen-create Background'
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/sanjoy/.zshrc'
@@ -94,7 +100,8 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 
 function calc () {
-    awk "BEGIN { print $@ }"
+	x="print str($@);"
+	python -c $x
 }
 
 export mysql='mysql --sigint-ignore'
@@ -119,3 +126,6 @@ alias ls='ls --color=auto'
 function precmd () {
     j --add "$(pwd -P)"
 }
+
+# So that I always can use `tt'
+export ALTERNATE_EDITOR="nano"
