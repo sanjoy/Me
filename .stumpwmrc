@@ -54,7 +54,7 @@
 
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
-(setf *window-format* "| (%n) %20t ")
+(setf *window-format* "(%n) %30t ")
 (setf *screen-mode-line-format*
       (list "^20"
             '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
@@ -63,12 +63,14 @@
             "^n "
             " %W"))
 
-(setf *mode-line-timeout* 3)
+(setf *mode-line-timeout* 5)
 
 (setf *mode-line-border-color*     "white")
-(setf *mode-line-foreground-color* "white")
+(setf *mode-line-foreground-color* "gray")
 (setf *mode-line-background-color* "black")
 
+(defun mpd-toggle-function (line button x y)
+  (run-shell-command "mpc toggle"))
+
 (add-hook stumpwm:*mode-line-click-hook*
-          (lambda (line button x y)
-            (run-shell-command "mpc toggle")))
+          'mpd-toggle-function)
