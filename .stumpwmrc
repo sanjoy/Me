@@ -2,6 +2,7 @@
 ;; Sanjoy Das <sanjoy@playingwithpointers.com>
 
 (in-package :stumpwm)
+(load-module "mpd")
 
 (set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-15")
 
@@ -38,3 +39,36 @@
 
 (setf *mouse-focus-policy* :click)
 (setf *window-border-style* :thin)
+
+;; Mode line related settings
+
+(defcommand activate-mode-lines () ()
+  (dolist (h (screen-heads (current-screen)))
+    (if (not (head-mode-line h))
+        (toggle-mode-line (current-screen) h))))
+
+(defcommand deactivate-mode-lines () ()
+  (dolist (h (screen-heads (current-screen)))
+    (if (head-mode-line h)
+        (toggle-mode-line (current-screen) h))))
+
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen) (current-head)))
+(setf *window-format* "| (%n) %20t ")
+(setf *screen-mode-line-format*
+      (list "^20"
+            '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
+            " ^30 "
+            '(:eval (run-shell-command "mpc -f '%artist% - %title%' | head -n 1 | tr -d [:cntrl:]" t))
+            "^n "
+            " %W"))
+
+(setf *mode-line-timeout* 3)
+
+(setf *mode-line-border-color*     "white")
+(setf *mode-line-foreground-color* "white")
+(setf *mode-line-background-color* "black")
+
+(add-hook stumpwm:*mode-line-click-hook*
+          (lambda (line button x y)
+            (run-shell-command "mpc toggle")))
