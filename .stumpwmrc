@@ -59,11 +59,11 @@
       (list "^20"
             '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
             " ^30 "
-            '(:eval (run-shell-command "mpc -f '%artist% - %title%' | head -n 1 | tr -d [:cntrl:]" t))
+            '(:eval (run-shell-command "mpc current | tr -d [:cntrl:]" t))
             "^n "
             " %W"))
 
-(setf *mode-line-timeout* 5)
+(setf *mode-line-timeout* 3)
 
 (setf *mode-line-border-color*     "white")
 (setf *mode-line-foreground-color* "gray")
