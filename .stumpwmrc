@@ -69,8 +69,18 @@
 (setf *mode-line-foreground-color* "gray")
 (setf *mode-line-background-color* "black")
 
-(defun mpd-toggle-function (line button x y)
+(defun mpd-toggle-function ()
   (run-shell-command "mpc toggle"))
 
+(defun mpd-random-next ()
+  (run-shell-command "mpc random on; mpc next; mpc random off"))
+
+;; Left click to play / pause, right click to go to a random song on the current playlist.
+(defun mode-line-click-hook (line button x y)
+  (cond ((eql button 1)
+         (mpd-toggle-function))
+        ((eql button 3)
+         (mpd-random-next))))
+
 (add-hook stumpwm:*mode-line-click-hook*
-          'mpd-toggle-function)
+          'mode-line-click-hook)
