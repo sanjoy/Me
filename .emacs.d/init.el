@@ -422,3 +422,14 @@
 
 (global-unset-key (kbd "<insert>"))
 
+(defun crystal-save-current-directory ()
+  "Save the current directory to the file ~/.emacs.d/current-directory"
+  (interactive)
+  (let ((dir default-directory))
+    (with-current-buffer (find-file-noselect "~/.emacs.d/current-directory")
+      (delete-region (point-min) (point-max))
+      (insert (concat dir "\n"))
+      (save-buffer)
+      (kill-buffer (current-buffer)))))
+
+(global-set-key (kbd "<M-f9>") 'crystal-save-current-directory)

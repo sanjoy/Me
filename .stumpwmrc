@@ -16,11 +16,11 @@
 
 (defcommand raise-icedove () ()
   "Start / raise *the* Icedove instance into this frame."
-  (run-or-raise "exec xicedove" '(:class "Icedove")))
+  (run-or-raise "exec /home/sanjoy/bin/xicedove" '(:class "Icedove")))
 
 (defcommand raise-chrome () ()
   "Start / raise *the* Icedove instance into this frame."
-  (run-or-raise "exec launch-chrome" '(:class "Google-chrome")))
+  (run-or-raise "exec /home/sanjoy/bin/launch-chrome" '(:class "Google-chrome")))
 
 (define-key *root-map* (kbd "C-f")  "exec evince")
 (define-key *root-map* (kbd "C-s")  "raise-chrome")
