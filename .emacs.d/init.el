@@ -158,7 +158,10 @@
 
 ; General settings
 (setq rcirc-server-alist
-      '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das")))
+      '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
+         :channels ("##geekbhaat" "##klug"))
+        ("irc.oftc.net"     :nick "sanjoyd" :full-name "Sanjoy Das"
+         :channels ("#llvm"))))
 
 (rcirc-track-minor-mode 1)
 
@@ -193,10 +196,7 @@
     (goto-char (point-min))
     (setq rcirc-authinfo (read (current-buffer)))))
 
-(defun irc ()
-  (interactive)
-  (rcirc-load-authinfo)
-  (rcirc-connect "irc.freenode.net" "6667" "sanjoyd"))
+(rcirc-load-authinfo)
 
 (defun rcirc-kill-all-buffers ()
   (interactive)
@@ -216,6 +216,33 @@
 
 ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
+
+;; Auto away
+(defvar rcirc-auto-away-server-regexps
+  '("freenode" "oftc"))
+
+(defvar rcirc-auto-away-after 1800) ;; Auto-away after this many seconds
+
+(defvar rcirc-auto-away-reason "idle") ;; Reason sent to server when auto-away
+
+(defun rcirc-auto-away ()
+  (message "rcirc-auto-away")
+  (rcirc-auto-away-1 rcirc-auto-away-reason)
+  (add-hook 'post-command-hook 'rcirc-auto-unaway))
+
+(defun rcirc-auto-away-1 (reason)
+  (let ((regexp (mapconcat (lambda (x) (concat "\\(" x "\\)")) 
+			   rcirc-auto-away-server-regexps "\\|")))
+    (dolist (process (rcirc-process-list))
+      (when (string-match regexp (process-name process))
+	(rcirc-send-string process (concat "AWAY :" reason))))))
+
+(defun rcirc-auto-unaway ()
+  (remove-hook 'post-command-hook 'rcirc-auto-unaway)
+  (rcirc-auto-away-1 ""))
+
+(run-with-idle-timer rcirc-auto-away-after t 'rcirc-auto-away)
+;;(cancel-function-timers 'rcirc-auto-away)
 
 ;; C Mode
 
@@ -338,24 +365,29 @@
           (t (equal (substring input 0 len)
                   prefix)))))
 
-(setq +google-directories+
-      '("/home/sanjoy/Source/v8/"))
+(defun llvm-set-c-style ()
+  (setq indent-tabs-mode nil))
 
-(defun is-google-dir (list-iter file-name)
+(setq +style-directories+
+      '(("/home/sanjoy/Source/v8/"   . google-set-c-style)
+        ("/home/sanjoy/Source/llvm/" . llvm-set-c-style)))
+
+(defun crystal-get-style (list-iter file-name)
   (if (null list-iter)
       nil
-    (if (prefix-p (car list-iter)
+    (if (prefix-p (car (car list-iter))
                   file-name)
-        t
-      (is-google-dir (cdr list-iter)
-                     file-name))))
+        (cdr (car list-iter))
+      (crystal-get-style (cdr list-iter)
+                         file-name))))
 
-(defun google-c-style-hook ()
+(defun custom-c-style ()
   (when (string-match ".*\\.\\(cc\\|h\\|c\\)" (buffer-file-name))
-    (when (is-google-dir +google-directories+ (buffer-file-name))
-      (google-set-c-style))))
+    (let (style (crystal-get-style +style-directories+ (buffer-file-name)))
+      (when style
+        (funcall style)))))
 
-(add-hook 'find-file-hooks 'google-c-style-hook)
+(add-hook 'find-file-hooks 'custom-c-style)
 
 (defun crystal-kill-buffers-by-directory (dir-name)
   (interactive "DDirectory: ")
