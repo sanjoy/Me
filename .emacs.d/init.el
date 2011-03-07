@@ -2,6 +2,7 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/themes")
+(add-to-list 'load-path "~/.emacs.d/ublog.el")
 
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -20,6 +21,7 @@
 (require 'framemove)
 (require 'go-mode-load)
 (require 'google-c-style)
+(require 'llvm-mode)
 (require 'magit)
 (require 'mingus)
 (require 'org-install)
@@ -32,7 +34,9 @@
 (require 'revbufs)
 (require 'saveplace)
 (require 'slime)
+(require 'tablegen-mode)
 (require 'tramp)
+(require 'ublog)
 (require 'uniquify)
 (require 'w3m-load)
 (require 'weblogger)
@@ -75,7 +79,7 @@
           '(lambda ()
              (define-key c-mode-map "\C-m" 'newline-and-indent)
 			 (c-toggle-auto-newline)
-             (setq c-backslash-max-column 80)))
+             (setq c-backslash-max-column 79)))
 
 (add-hook 'c-mode-common-hook '(lambda ()
                                  (interactive)
@@ -365,8 +369,15 @@
           (t (equal (substring input 0 len)
                   prefix)))))
 
+(c-add-style "llvm.org"
+             '((fill-column . 80)
+               (c++-indent-level . 2)
+               (c-basic-offset . 2)
+               (indent-tabs-mode . nil)
+               (c-offsets-alist . ((innamespace 0)))))
+
 (defun llvm-set-c-style ()
-  (setq indent-tabs-mode nil))
+  (c-set-style "llvm.org"))
 
 (setq +style-directories+
       '(("/home/sanjoy/Source/v8/"   . google-set-c-style)
@@ -382,8 +393,8 @@
                          file-name))))
 
 (defun custom-c-style ()
-  (when (string-match ".*\\.\\(cc\\|h\\|c\\)" (buffer-file-name))
-    (let (style (crystal-get-style +style-directories+ (buffer-file-name)))
+  (when (string-match ".*\\.\\(cc\\|h\\|c\\|cpp\\)" (buffer-file-name))
+    (let ((style (crystal-get-style +style-directories+ (buffer-file-name))))
       (when style
         (funcall style)))))
 

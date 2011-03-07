@@ -52,8 +52,6 @@
     (if (head-mode-line h)
         (toggle-mode-line (current-screen) h))))
 
-(if (not (head-mode-line (current-head)))
-    (toggle-mode-line (current-screen) (current-head)))
 (setf *window-format* "(%n) %30t ")
 (setf *screen-mode-line-format*
       (list "^20"
@@ -82,5 +80,6 @@
         ((eql button 3)
          (mpd-random-next))))
 
+(activate-mode-lines)
 (add-hook stumpwm:*mode-line-click-hook*
           'mode-line-click-hook)
