@@ -318,13 +318,6 @@
 (windmove-default-keybindings)
 (setq framemove-hook-into-windmove t)
 
-;; I use this to edit flex / bison files
-(defun my-bison-flex-settings ()
-  (interactive)
-  (c-toggle-syntactic-indentation)
-  (c-toggle-electric-mode)
-  (setq indent-tabs-mode nil))
-
 ;; Magit
 
 (global-set-key (kbd "\C-x\C-a") 'magit-status)
@@ -338,18 +331,6 @@
   (newline-and-indent))
 
 (setq *prev-ret-binding* nil)
-
-(defun my-write-c-macro ()
-  (interactive)
-  (if (null *prev-ret-binding*)
-      (progn
-        (setq *prev-ret-binding* (lookup-key c-mode-map (kbd "RET")))
-        (define-key c-mode-map (kbd "RET")
-               'insert-backslash))
-    (progn
-      (define-key c-mode-map (kbd "RET")
-        *prev-ret-binding*)
-      (setq *prev-ret-binding* nil))))
 
 (defun prefix-p (prefix input)
   (let ((len (length prefix)))
