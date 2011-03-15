@@ -226,10 +226,10 @@
 
 (defvar rcirc-auto-away-after 1800) ;; Auto-away after this many seconds
 
-(defvar rcirc-auto-away-reason "idle") ;; Reason sent to server when auto-away
+(defvar rcirc-auto-away-reason "AFK.") ;; Reason sent to server when auto-away
 
 (defun rcirc-auto-away ()
-  (message "rcirc-auto-away")
+  (message "Auto away activated.")
   (rcirc-auto-away-1 rcirc-auto-away-reason)
   (add-hook 'post-command-hook 'rcirc-auto-unaway))
 
@@ -245,7 +245,6 @@
   (rcirc-auto-away-1 ""))
 
 (run-with-idle-timer rcirc-auto-away-after t 'rcirc-auto-away)
-;;(cancel-function-timers 'rcirc-auto-away)
 
 ;; C Mode
 
