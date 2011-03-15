@@ -309,20 +309,12 @@
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
 
-;; Set up w3m-el
-
-(setq browse-url-browser-function 'w3m-browse-url)
-
-(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
-
-(global-set-key "\C-xm" 'browse-url-at-point)
-(setq w3m-use-cookies t)
-
 ;; No backup files
 
 (setq make-backup-files nil)
 
 ;; Save the annoying C-x o's
+
 (windmove-default-keybindings)
 (setq framemove-hook-into-windmove t)
 
