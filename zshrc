@@ -131,4 +131,4 @@ x-cd-emacs() {
        cd "$(cat ~/.emacs.d/current-directory)"
 }
 
-export PATH="$PATH:/home/sanjoy/bin"
+export PATH="$PATH:/home/sanjoy/prefix/bin"
