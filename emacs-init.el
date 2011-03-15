@@ -2,7 +2,7 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/themes")
-(add-to-list 'load-path "~/.emacs.d/ublog.el")
+(add-to-list 'load-path "~/.emacs.d/emacs-codepad")
 
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -36,7 +36,6 @@
 (require 'slime)
 (require 'tablegen-mode)
 (require 'tramp)
-(require 'ublog)
 (require 'uniquify)
 (require 'w3m-load)
 (require 'weblogger)
@@ -476,3 +475,9 @@
       (kill-buffer (current-buffer)))))
 
 (global-set-key (kbd "<M-f9>") 'crystal-save-current-directory)
+
+;; CodePad.org integration
+
+(autoload 'codepad-paste-region "codepad" "Paste region to codepad.org." t)
+(autoload 'codepad-paste-buffer "codepad" "Paste buffer to codepad.org." t)
+(autoload 'codepad-fetch-code "codepad" "Fetch code from codepad.org." t)
