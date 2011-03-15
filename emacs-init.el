@@ -435,7 +435,7 @@
   (let ((dir default-directory))
     (call-process "tmux" nil nil nil "send-keys" (concat "cd " dir) "Enter")))
 
-(global-set-key (kbd "C-c C-d") 'my-tmux-switch-to-directory)
+(global-set-key (kbd "C-c d") 'my-tmux-switch-to-directory)
 
 ;; CodePad.org integration
 
