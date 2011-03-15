@@ -205,7 +205,7 @@
   (interactive)
   (kill-mode-buffers 'rcirc-mode))
 
-(defun crystal-rcirc-dance ()
+(defun my-rcirc-dance ()
   (mapc (lambda (c)
           (insert (concat "/me dances :D" (char-to-string c) "-<"))
           (rcirc-send-input)
@@ -215,7 +215,7 @@
   '(defun-rcirc-command dance (arg)
      "Dance."
      (interactive "i")
-     (crystal-rcirc-dance)))
+     (my-rcirc-dance)))
 
 ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
@@ -328,7 +328,7 @@
 (setq framemove-hook-into-windmove t)
 
 ;; I use this to edit flex / bison files
-(defun crystal-bison-flex-settings ()
+(defun my-bison-flex-settings ()
   (interactive)
   (c-toggle-syntactic-indentation)
   (c-toggle-electric-mode)
@@ -348,7 +348,7 @@
 
 (setq *prev-ret-binding* nil)
 
-(defun crystal-write-c-macro ()
+(defun my-write-c-macro ()
   (interactive)
   (if (null *prev-ret-binding*)
       (progn
@@ -382,24 +382,24 @@
       '(("/home/sanjoy/Source/v8/"   . google-set-c-style)
         ("/home/sanjoy/Source/llvm/" . llvm-set-c-style)))
 
-(defun crystal-get-style (list-iter file-name)
+(defun my-get-style (list-iter file-name)
   (if (null list-iter)
       nil
     (if (prefix-p (car (car list-iter))
                   file-name)
         (cdr (car list-iter))
-      (crystal-get-style (cdr list-iter)
+      (my-get-style (cdr list-iter)
                          file-name))))
 
 (defun custom-c-style ()
   (when (string-match ".*\\.\\(cc\\|h\\|c\\|cpp\\)" (buffer-file-name))
-    (let ((style (crystal-get-style +style-directories+ (buffer-file-name))))
+    (let ((style (my-get-style +style-directories+ (buffer-file-name))))
       (when style
         (funcall style)))))
 
 (add-hook 'find-file-hooks 'custom-c-style)
 
-(defun crystal-kill-buffers-by-directory (dir-name)
+(defun my-kill-buffers-by-directory (dir-name)
   (interactive "DDirectory: ")
   (setq dir-name (expand-file-name dir-name))
   (mapc (lambda (this-buffer)
@@ -411,7 +411,7 @@
 
 ;; Mingus
 
-(defmacro crystal-kill-mingus-after-use (function-to-call)
+(defmacro my-kill-mingus-after-use (function-to-call)
   `(lambda ()
      (interactive)
      (funcall ',function-to-call)
@@ -421,50 +421,50 @@
 
 ;; Music + Coding = :D
 
-(global-set-key (kbd "<end>")    (crystal-kill-mingus-after-use mingus-pause))
-(global-set-key (kbd "<prior>")  (crystal-kill-mingus-after-use mingus-prev))
-(global-set-key (kbd "<next>")   (crystal-kill-mingus-after-use mingus-next))
+(global-set-key (kbd "<end>")    (my-kill-mingus-after-use mingus-pause))
+(global-set-key (kbd "<prior>")  (my-kill-mingus-after-use mingus-prev))
+(global-set-key (kbd "<next>")   (my-kill-mingus-after-use mingus-next))
 (global-set-key (kbd "<f9>")     'mingus)
 
 ;; Set up "email mode".
 
-(defun crystal-email-mode ()
+(defun my-email-mode ()
   (interactive)
   (longlines-mode)
   (flyspell-mode))
 
 ;; Thunderbird external editor extension opens emails as files with 
 ;; the extension eml
-(add-to-list 'auto-mode-alist '("\\.eml\\'" . crystal-email-mode))
+(add-to-list 'auto-mode-alist '("\\.eml\\'" . my-email-mode))
 
 (setq +thoughts-directory+ "~/Documents/Thoughts/")
 ;; (setq +notes-directory+ "~/Documents/Notes/")
 
-(defun crystal-edit-text (title)
+(defun my-edit-text (title)
   (interactive "sTitle: ")
   (let ((file-name (concat +thoughts-directory+ title "." (format-time-string "%d-%m-%Y-%H-%M"))))
     (find-file file-name)
     (longlines-mode)
     (flyspell-mode)))
 
-;; (defun crystal-edit-note ()
+;; (defun my-edit-note ()
 ;;   (interactive)
 ;;   (let ((file-name (concat +notes-directory+ (format-time-string "%d-%m-%Y-%H-%M"))))
 ;;     (find-file file-name)
 ;;     (org-mode)))
 
 (global-set-key (kbd "C-c t")
-                'crystal-edit-text)
+                'my-edit-text)
 
 ;; (global-set-key (kbd "C-c n")
-;;                 'crystal-edit-note)
+;;                 'my-edit-note)
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
 (global-unset-key (kbd "<insert>"))
 
-(defun crystal-save-current-directory ()
+(defun my-save-current-directory ()
   "Save the current directory to the file ~/.emacs.d/current-directory"
   (interactive)
   (let ((dir default-directory))
@@ -474,7 +474,7 @@
       (save-buffer)
       (kill-buffer (current-buffer)))))
 
-(global-set-key (kbd "<M-f9>") 'crystal-save-current-directory)
+(global-set-key (kbd "<M-f9>") 'my-save-current-directory)
 
 ;; CodePad.org integration
 
