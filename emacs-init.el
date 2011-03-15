@@ -438,26 +438,26 @@
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . crystal-email-mode))
 
 (setq +thoughts-directory+ "~/Documents/Thoughts/")
-(setq +notes-directory+ "~/Documents/Notes/")
+;; (setq +notes-directory+ "~/Documents/Notes/")
 
-(defun crystal-edit-text ()
-  (interactive)
-  (let ((file-name (concat +thoughts-directory+ (format-time-string "%d-%m-%Y-%H-%M"))))
+(defun crystal-edit-text (title)
+  (interactive "sTitle: ")
+  (let ((file-name (concat +thoughts-directory+ title "." (format-time-string "%d-%m-%Y-%H-%M"))))
     (find-file file-name)
     (longlines-mode)
     (flyspell-mode)))
 
-(defun crystal-edit-note ()
-  (interactive)
-  (let ((file-name (concat +notes-directory+ (format-time-string "%d-%m-%Y-%H-%M"))))
-    (find-file file-name)
-    (org-mode)))
+;; (defun crystal-edit-note ()
+;;   (interactive)
+;;   (let ((file-name (concat +notes-directory+ (format-time-string "%d-%m-%Y-%H-%M"))))
+;;     (find-file file-name)
+;;     (org-mode)))
 
 (global-set-key (kbd "C-c t")
                 'crystal-edit-text)
 
-(global-set-key (kbd "C-c n")
-                'crystal-edit-note)
+;; (global-set-key (kbd "C-c n")
+;;                 'crystal-edit-note)
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
