@@ -413,7 +413,6 @@
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . my-email-mode))
 
 (setq +thoughts-directory+ "~/Documents/Thoughts/")
-;; (setq +notes-directory+ "~/Documents/Notes/")
 
 (defun my-edit-text (title)
   (interactive "sTitle: ")
@@ -422,34 +421,21 @@
     (longlines-mode)
     (flyspell-mode)))
 
-;; (defun my-edit-note ()
-;;   (interactive)
-;;   (let ((file-name (concat +notes-directory+ (format-time-string "%d-%m-%Y-%H-%M"))))
-;;     (find-file file-name)
-;;     (org-mode)))
-
 (global-set-key (kbd "C-c t")
                 'my-edit-text)
-
-;; (global-set-key (kbd "C-c n")
-;;                 'my-edit-note)
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
 (global-unset-key (kbd "<insert>"))
 
-(defun my-save-current-directory ()
-  "Save the current directory to the file ~/.emacs.d/current-directory"
+(defun my-tmux-switch-to-directory ()
+  "Open the current directory in the current tmux window."
   (interactive)
   (let ((dir default-directory))
-    (with-current-buffer (find-file-noselect "~/.emacs.d/current-directory")
-      (delete-region (point-min) (point-max))
-      (insert (concat dir "\n"))
-      (save-buffer)
-      (kill-buffer (current-buffer)))))
+    (call-process "tmux" nil nil nil "send-keys" (concat "cd " dir) "Enter")))
 
-(global-set-key (kbd "<M-f9>") 'my-save-current-directory)
+(global-set-key (kbd "C-c C-d") 'my-tmux-switch-to-directory)
 
 ;; CodePad.org integration
 
