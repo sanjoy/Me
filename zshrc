@@ -130,17 +130,17 @@ export ALTERNATE_EDITOR="nano"
 export PATH="$PATH:/home/sanjoy/prefix/bin"
 
 function settitle() {
-    printf "\033k$1\033\\"
+    printf "\033k%b\033\\" "$1"
 }
 
 function precmd() {
-	settitle $(basename $(pwd))
+	settitle $(basename $(print -P %~))
 }
 
 function preexec() {
-    settitle "$(basename $(pwd)) [$1]"
+    settitle "$(basename $(print -P %~)) [$1]"
 }
 
 function postexec() {
-    settitle "$(basename $(pwd))"
+    settitle "$(basename $(print -P %~))"
 }
