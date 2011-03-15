@@ -381,6 +381,9 @@
                 (kill-buffer this-buffer)))))
         (buffer-list)))
 
+(global-set-key (kbd "C-c C-k")
+                'my-kill-buffers-by-directory)
+
 ;; Mingus
 
 (defmacro my-kill-mingus-after-use (function-to-call)
