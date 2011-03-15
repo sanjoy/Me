@@ -127,8 +127,4 @@ alias ls='ls --color=auto'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-x-cd-emacs() {
-       cd "$(cat ~/.emacs.d/current-directory)"
-}
-
 export PATH="$PATH:/home/sanjoy/prefix/bin"
