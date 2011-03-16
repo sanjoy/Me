@@ -128,19 +128,3 @@ alias ls='ls --color=auto'
 export ALTERNATE_EDITOR="nano"
 
 export PATH="$PATH:/home/sanjoy/prefix/bin"
-
-function settitle() {
-    printf "\033k%b\033\\" "$1"
-}
-
-function precmd() {
-	settitle $(basename $(print -P %~))
-}
-
-function preexec() {
-    settitle "$(basename $(print -P %~)) [$1]"
-}
-
-function postexec() {
-    settitle "$(basename $(print -P %~))"
-}
