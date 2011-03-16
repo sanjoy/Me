@@ -52,14 +52,12 @@
     (if (head-mode-line h)
         (toggle-mode-line (current-screen) h))))
 
-(setf *window-format* "(%n) %30t ")
 (setf *screen-mode-line-format*
       (list "^20"
             '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
             " ^30 "
             '(:eval (run-shell-command "mpc current | tr -d [:cntrl:]" t))
-            "^n "
-            " %W"))
+            "^n "))
 
 (setf *mode-line-timeout* 3)
 
