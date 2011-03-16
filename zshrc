@@ -119,11 +119,6 @@ alias xcvs='proxychains cvs'
 # Pretty directory listing
 alias ls='ls --color=auto'
 
-# . ~/Source/z/z.sh
-# function precmd () {
-#     j --add "$(pwd -P)"
-# }
-
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
