@@ -146,7 +146,6 @@
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (add-to-list 'load-path "~/Documents/Code/Lisp/SLIME")
-(require 'slime)
 (slime-setup)
 
 ;; Set up ORG Mode
