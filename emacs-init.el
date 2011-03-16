@@ -145,7 +145,7 @@
 ;; Set up SLIME
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
-(add-to-list 'load-path "~/Documents/Code/Lisp/SLIME")
+(add-to-list 'load-path     "/home/sanjoy/Work/Code/Practice/LISP/SLIME")
 (slime-setup)
 
 ;; Set up ORG Mode
@@ -350,8 +350,8 @@
   (c-set-style "llvm.org"))
 
 (setq +style-directories+
-      '(("/home/sanjoy/Source/v8/"   . google-set-c-style)
-        ("/home/sanjoy/Source/llvm/" . llvm-set-c-style)))
+      '(("/home/sanjoy/Work/Code/Open-Source/v8"    . google-set-c-style)
+        ("/home/sanjoy/Work/Code/Open-Source/llvm/" . llvm-set-c-style)))
 
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
@@ -411,7 +411,7 @@
 ;; the extension eml
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . my-email-mode))
 
-(setq +thoughts-directory+ "~/Documents/Thoughts/")
+(setq +thoughts-directory+ "~/Work/Thoughts/")
 
 (defun my-edit-text (title)
   (interactive "sTitle: ")
