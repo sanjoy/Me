@@ -16,7 +16,7 @@
 
 (defcommand raise-icedove () ()
   "Start / raise *the* Icedove instance into this frame."
-  (run-or-raise "exec /home/sanjoy/bin/xicedove" '(:class "Icedove")))
+  (run-or-raise "exec /home/sanjoy/prefix/bin/xicedove" '(:class "Icedove")))
 
 (defcommand raise-chrome () ()
   "Start / raise *the* Google Chrome instance into this frame."
