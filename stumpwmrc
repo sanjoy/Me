@@ -55,10 +55,13 @@
 (setf *screen-mode-line-format*
       (list "^20"
             '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
-            " ^30< "
-            '(:eval (run-shell-command "mpc current | tr -d [:cntrl:]" t))
-            " >^60 < UPTIME "
-            '(:eval (run-shell-command "uptime | awk '{print $3}' | tr -d ',\\n'" t))
+            " ^30< Now Playing: "
+            '(:eval (let ((text (run-shell-command "mpc current | tr -d [:cntrl:]" t)))
+                      (if (zerop (length text))
+                          "Nothing"
+                          text)))
+            " >^60 < Uptime: "
+            '(:eval (run-shell-command "uptime | gawk 'match($0, /.*up ([^,]*).*/, ary) {print ary[1]}' | tr -d ',\\n'" t))
             " >"))
 
 (setf *mode-line-timeout* 1)
