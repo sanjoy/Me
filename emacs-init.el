@@ -350,8 +350,8 @@
   (c-set-style "llvm.org"))
 
 (setq +style-directories+
-      '(("/home/sanjoy/Work/Code/Open-Source/v8"    . google-set-c-style)
-        ("/home/sanjoy/Work/Code/Open-Source/llvm/" . llvm-set-c-style)))
+      '(("/home/sanjoy/Code/v8"    . google-set-c-style)
+        ("/home/sanjoy/Code/llvm/" . llvm-set-c-style)))
 
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
