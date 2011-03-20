@@ -417,6 +417,7 @@
   (interactive "sTitle: ")
   (let ((file-name (concat +thoughts-directory+ title "." (format-time-string "%d-%m-%Y-%H-%M"))))
     (find-file file-name)
+    (html-mode)
     (longlines-mode)
     (flyspell-mode)))
 
