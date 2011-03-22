@@ -117,7 +117,7 @@ compdef xcvs=cvs
 alias xcvs='proxychains cvs'
 
 # Pretty directory listing
-alias l='ls --color=auto'
+alias ls='ls --color=auto'
 
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
