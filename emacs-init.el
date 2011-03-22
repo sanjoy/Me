@@ -58,8 +58,9 @@
 	      c-basic-offset 5
 	      edebug-trace t
 	      fill-adapt-mode t
-          max-lisp-eval-depth 12000
-          rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo"))
+           max-lisp-eval-depth 12000
+           rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo")
+           code-directory "/home/sanjoy/code")
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
@@ -146,7 +147,7 @@
 ;; Set up SLIME
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
-(add-to-list 'load-path     "/home/sanjoy/Work/Code/Practice/LISP/SLIME")
+(add-to-list 'load-path     (concat code-directory "/Practice/LISP/SLIME"))
 (slime-setup)
 
 ;; Set up ORG Mode
@@ -351,8 +352,8 @@
   (c-set-style "llvm.org"))
 
 (setq +style-directories+
-      '(("/home/sanjoy/Code/v8"    . google-set-c-style)
-        ("/home/sanjoy/Code/llvm/" . llvm-set-c-style)))
+      (list (cons (concat code-directory "v8")   'google-set-c-style)
+            (cons (concat code-directory "llvm") 'llvm-set-c-style)))
 
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
@@ -412,7 +413,7 @@
 ;; the extension eml
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . my-email-mode))
 
-(setq +thoughts-directory+ "~/Work/Thoughts/")
+(setq +thoughts-directory+ "~/rest/writeups/")
 
 (defun my-edit-text (title)
   (interactive "sTitle: ")
