@@ -15,6 +15,7 @@
 (require 'cl)
 (require 'color-theme)
 (require 'column-marker)
+(require 'epa-file)
 (require 'ffap)
 (require 'filladapt)
 (require 'flex-mode)
@@ -442,3 +443,15 @@
 (autoload 'codepad-paste-region "codepad" "Paste region to codepad.org." t)
 (autoload 'codepad-paste-buffer "codepad" "Paste buffer to codepad.org." t)
 (autoload 'codepad-fetch-code "codepad" "Fetch code from codepad.org." t)
+
+
+;; Auto-encryption / decryption
+
+(epa-file-enable)
+
+;; Make windmove work in org-mode:
+
+(add-hook 'org-shiftup-final-hook    'windmove-up)
+(add-hook 'org-shiftleft-final-hook  'windmove-left)
+(add-hook 'org-shiftdown-final-hook  'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
