@@ -53,9 +53,11 @@
         (toggle-mode-line (current-screen) h))))
 
 (setf *screen-mode-line-format*
-      (list "^20"
+      (list "[ "
+            '(:eval (write-to-string (length (stumpwm::group-windows (current-group)))))
+            " ] ^20[ "
             '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
-            " ^30[ Now Playing: "
+            " ] ^30[ Now Playing: "
             '(:eval (let ((text (run-shell-command "mpc current | tr -d [:cntrl:]" t)))
                       (if (zerop (length text))
                           "Nothing"
