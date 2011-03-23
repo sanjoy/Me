@@ -28,12 +28,30 @@ alias df='df -kTh'
 alias la='ls -a'
 
 # Something I use a lot for exploring large codebases
-function find-symbol {
+function g-find-symbol {
 	if [ -n "$1" -a -n "$2" ]; then
-		find . -name "*.$1" | xargs grep -n --mmap -- "$2"
+          git grep "$2" -- "*.$1"
+	else
+		echo "Usage: gfind-symbol [ file-extension ] [ symbol ]"
+	fi
+}
+
+# Something I use a lot for exploring large codebases
+function x-find-symbol {
+	if [ -n "$1" -a -n "$2" ]; then
+		find . -name "*.$1" | xargs grep -n --mmap -- "$2" | less
 	else
 		echo "Usage: find-symbol [ file-extension ] [ symbol ]"
 	fi
+}
+
+function find-symbol {
+    git status > /dev/null
+    if [[ "$?" -eq "0" ]]; then
+       g-find-symbol $@
+    else
+        x-find-symbol $@
+    fi
 }
 
 # Find files which match the provided regular expression
@@ -98,6 +116,24 @@ HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
+
+# Sticky-change directory
+function cdm () {
+    local tmp
+    if [[ -z "${TMUX}" ]]; then
+        echo 'fatal: Not inside tmux.'
+        return 1
+    fi
+    if [[ -n "$1" ]]; then
+       tmp="$1"
+    else
+        tmp="${HOME}"
+    fi
+    cd "${tmp}"
+    tmp="${PWD}"
+    tmux "set-option" "default-path" "${tmp}"
+    return 0
+}
 
 function calc () {
 	x="print str($@);"
