@@ -102,8 +102,31 @@ function screen-create () {
 
 alias scr-b='screen-create Background'
 
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/sanjoy/.zshrc'
+# configure zsh's autocompletion system; man zshcompsys
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' matcher-list '+' '+m:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*' '+r:|[._-]=** r:|=**'
+zstyle ':completion:*:match:*' original only
+zstyle -e ':completion:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*' ignore-parents parent pwd
+zstyle ':completion:*' list-suffixes true
+
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' format '%B%d:%b'
+zstyle ':completion:*' verbose true
+zstyle ':completion:*' file-sort access
+zstyle ':completion:*' list-colors no=00 fi=00 di=01\;34 pi=33 so=01\;35 bd=00\;35 cd=00\;34 or=00\;41 mi=00\;45 ex=01\;32
+zstyle ':completion:*' menu 'select=0'
+zstyle ':completion:*' list-prompt ''
+zstyle ':completion:*' select-prompt ''
+
+zstyle ':completion:*' insert-tab false
+zstyle ':completion:*' prompt ''\''%e'\'''
+zstyle ':completion:*:manuals' separate-sections true
 
 autoload -Uz compinit
 compinit
