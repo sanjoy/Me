@@ -415,13 +415,17 @@
 
 (setq +thoughts-directory+ "~/rest/writeups/")
 
+(defun write-mode ()
+  (interactive)
+  (html-mode)
+  (longlines-mode)
+  (flyspell-mode))
+
 (defun my-edit-text (title)
   (interactive "sTitle: ")
   (let ((file-name (concat +thoughts-directory+ title "." (format-time-string "%d-%m-%Y-%H-%M"))))
     (find-file file-name)
-    (html-mode)
-    (longlines-mode)
-    (flyspell-mode)))
+    (write-mode)))
 
 (global-set-key (kbd "C-c t")
                 'my-edit-text)
