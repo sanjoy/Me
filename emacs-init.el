@@ -165,7 +165,8 @@
       '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
          :channels ("##geekbhaat" "##klug"))
         ("irc.oftc.net"     :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("#llvm"))))
+         :channels ("#llvm"))
+        ("127.0.0.1"        :nick "sanjoy"  :full-name "Sanjoy Das")))
 
 (rcirc-track-minor-mode 1)
 
