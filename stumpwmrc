@@ -32,6 +32,7 @@
 (define-key *root-map* (kbd "v")    "raise-browser")
 (define-key *root-map* (kbd ">")    "gnext")
 (define-key *root-map* (kbd "<")    "gprev")
+(define-key *root-map* (kbd ".")    "snext")
 (define-key *root-map* (kbd "C-q")  "raise-icedove")
 (define-key *root-map* (kbd "q")    "raise-icedove")
 (define-key *root-map* (kbd "P")    "pull-window-by-number")
@@ -39,23 +40,33 @@
 
 (setf *mouse-focus-policy* :click)
 (setf *window-border-style* :thin)
+(setf *run-or-raise-all-screens* t)
 
 ;; Mode line related settings
 
 (defcommand activate-mode-lines () ()
-  (dolist (h (screen-heads (current-screen)))
-    (if (not (head-mode-line h))
-        (toggle-mode-line (current-screen) h))))
+  (dolist (screen *screen-list*)
+    (dolist (h (screen-heads screen))
+      (if (not (head-mode-line h))
+          (toggle-mode-line screen h)))))
 
 (defcommand deactivate-mode-lines () ()
-  (dolist (h (screen-heads (current-screen)))
-    (if (head-mode-line h)
-        (toggle-mode-line (current-screen) h))))
+  (dolist (screen *screen-list*)
+    (dolist (h (screen-heads screen))
+      (if (head-mode-line h)
+          (toggle-mode-line screen h)))))
+
+(defun fmt-is-current-screen (ml)
+  (if (eql (current-screen)
+           (mode-line-screen ml))
+      "*"
+      " "))
+
+(setf *screen-mode-line-formatters* (cons '(#\l fmt-is-current-screen)
+                                           *screen-mode-line-formatters*))
 
 (setf *screen-mode-line-format*
-      (list "[ "
-            '(:eval (write-to-string (length (stumpwm::group-windows (current-group)))))
-            " ] ^20[ "
+      (list "[ %l ] ^20[ "
             '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
             " ] ^30[ Now Playing: "
             '(:eval (let ((text (run-shell-command "mpc current | tr -d [:cntrl:]" t)))
