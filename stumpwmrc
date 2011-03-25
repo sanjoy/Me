@@ -26,8 +26,6 @@
 (define-key *root-map* (kbd "C-s")  "raise-chrome")
 (define-key *root-map* (kbd "d")    "raise-urxvt")
 (define-key *root-map* (kbd "C-d")  "raise-urxvt")
-(define-key *root-map* (kbd "c")    "pull-urxvt")
-(define-key *root-map* (kbd "C-c")  "pull-urxvt")
 (define-key *root-map* (kbd "C-v")  "raise-browser")
 (define-key *root-map* (kbd "v")    "raise-browser")
 (define-key *root-map* (kbd ">")    "gnext")
