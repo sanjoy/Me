@@ -24,8 +24,8 @@
 
 (define-key *root-map* (kbd "C-f")  "exec evince")
 (define-key *root-map* (kbd "C-s")  "raise-chrome")
-(define-key *root-map* (kbd "d")    "raise-urxvt")
-(define-key *root-map* (kbd "C-d")  "raise-urxvt")
+(define-key *root-map* (kbd "c")    "raise-urxvt")
+(define-key *root-map* (kbd "C-c")  "raise-urxvt")
 (define-key *root-map* (kbd "C-v")  "raise-browser")
 (define-key *root-map* (kbd "v")    "raise-browser")
 (define-key *root-map* (kbd ">")    "gnext")
