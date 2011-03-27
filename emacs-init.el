@@ -44,23 +44,24 @@
 (require 'xml-rpc)
 
 (setq-default inhibit-startup-message t
-	      font-lock-maximum-decoration t
-	      require-final-newline t
-	      resize-minibuffer-frame t
-	      column-number-mode t
-	      transient-mark-mode t
-	      next-line-add-newlines nil
-	      blink-matching-paren t
-	      blink-matching-delay .25
-	      vc-follow-symlinks t
-	      indent-tabs-mode t
-	      tab-width 5
-	      c-basic-offset 5
-	      edebug-trace t
-	      fill-adapt-mode t
-           max-lisp-eval-depth 12000
-           rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo")
-           code-directory "/home/sanjoy/code")
+              font-lock-maximum-decoration t
+              require-final-newline t
+              resize-minibuffer-frame t
+              column-number-mode t
+              transient-mark-mode t
+              next-line-add-newlines nil
+              blink-matching-paren t
+              blink-matching-delay .25
+              vc-follow-symlinks t
+              indent-tabs-mode t
+              tab-width 5
+              c-basic-offset 5
+              edebug-trace t
+              fill-adapt-mode t
+              max-lisp-eval-depth 12000
+              rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo")
+              code-directory "/home/sanjoy/code"
+              src-directory  "/home/sanjoy/src")
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
@@ -353,8 +354,8 @@
   (c-set-style "llvm.org"))
 
 (setq +style-directories+
-      (list (cons (concat code-directory "v8")   'google-set-c-style)
-            (cons (concat code-directory "llvm") 'llvm-set-c-style)))
+      (list (cons (concat src-directory "v8")   'google-set-c-style)
+            (cons (concat src-directory "llvm") 'llvm-set-c-style)))
 
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
