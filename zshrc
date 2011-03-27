@@ -46,7 +46,7 @@ function x-find-symbol {
 }
 
 function find-symbol {
-    git status > /dev/null
+    git status > /dev/null 2> /dev/null
     if [[ "$?" -eq "0" ]]; then
        g-find-symbol $@
     else
