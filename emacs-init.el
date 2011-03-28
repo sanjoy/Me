@@ -27,7 +27,6 @@
 (require 'mingus)
 (require 'org-install)
 (require 'paredit)
-(require 'pastebin)
 (require 'php-mode)
 (require 'quack)
 (require 'quilt-mode)
