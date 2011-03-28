@@ -57,7 +57,7 @@ function find-symbol {
 # Find files which match the provided regular expression
 function x-find-file {
 	if [ -n "$@" ]; then
-		find . -iregex "$@"
+		find . -iregex "$@" | less
 	else
 		echo "Usage: find-file-full [ regex ]"
 	fi
@@ -66,7 +66,7 @@ function x-find-file {
 # I use this one most of the time
 function find-file {
 	if [ -n "$@" ]; then
-		x-find-file ".*$@.*"
+		x-find-file ".*$@.*" | less
 	else
 		echo "Usage: find-file-full [ regex ]"
 	fi
