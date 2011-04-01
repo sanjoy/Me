@@ -354,8 +354,8 @@
   (c-set-style "llvm.org"))
 
 (setq +style-directories+
-      (list (cons (concat src-directory "v8")   'google-set-c-style)
-            (cons (concat src-directory "llvm") 'llvm-set-c-style)))
+      (list (cons (concat src-directory "v8/")   'google-set-c-style)
+            (cons (concat src-directory "llvm/") 'llvm-set-c-style)))
 
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
