@@ -60,8 +60,8 @@
               fill-adapt-mode t
               max-lisp-eval-depth 12000
               rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo")
-              code-directory "/home/sanjoy/code"
-              src-directory  "/home/sanjoy/src")
+              code-directory "/home/sanjoy/code/"
+              src-directory  "/home/sanjoy/src/")
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
@@ -164,7 +164,7 @@
 ; General settings
 (setq rcirc-server-alist
       '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("##geekbhaat" "##klug"))
+         :channels ("##geekbhaat" "##klug" "#v8"))
         ("irc.oftc.net"     :nick "sanjoyd" :full-name "Sanjoy Das"
          :channels ("#llvm"))
         ("127.0.0.1"        :nick "sanjoy"  :full-name "Sanjoy Das")))
