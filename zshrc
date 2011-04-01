@@ -85,7 +85,7 @@ function entertain {
 	-or -name '*mpeg' -or -name '*mkv' -or -name '*flv' -or -name \
 	'*divx' -or -name '*m2v' -name '*3gp' -or -name '*wmv' | shuf -n1`"
 	echo "Playing $file."
-	$(MEDIA_PLAYER) "$file"
+	"$MEDIA_PLAYER" "$file"
 # Add more -or and -name s to add more extensions later. This should do for now.
 }
 
