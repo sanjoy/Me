@@ -35,6 +35,7 @@
 (require 'saveplace)
 (require 'slime)
 (require 'tablegen-mode)
+(require 'tbemail)
 (require 'tramp)
 (require 'uniquify)
 (require 'w3m-load)
@@ -404,15 +405,12 @@
 (global-set-key (kbd "<f9>")     'mingus)
 
 ;; Set up "email mode".
-
-(defun my-email-mode ()
+(defun my-email-additions ()
   (interactive)
-  (longlines-mode)
-  (flyspell-mode))
+  (flyspell-mode)
+  (longlines-mode))
 
-;; Thunderbird external editor extension opens emails as files with 
-;; the extension eml
-(add-to-list 'auto-mode-alist '("\\.eml\\'" . my-email-mode))
+(add-hook 'tbemail-mode-hook 'my-email-additions)
 
 (setq +thoughts-directory+ "~/rest/writeups/")
 
