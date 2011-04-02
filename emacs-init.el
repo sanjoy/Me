@@ -23,6 +23,7 @@
 (require 'framemove)
 (require 'go-mode-load)
 (require 'google-c-style)
+(require 'haskell-mode)
 (require 'llvm-mode)
 (require 'magit)
 (require 'mingus)
