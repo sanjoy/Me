@@ -14,6 +14,7 @@
 (require 'cc-mode)
 (require 'cl)
 (require 'color-theme)
+(require 'color-theme-solarized)
 (require 'column-marker)
 (require 'epa-file)
 (require 'ffap)
@@ -130,20 +131,6 @@
 (set-selection-coding-system            'utf-8)
 (setq default-process-coding-system     '(utf-8 . utf-8))
 (add-to-list 'auto-coding-alist         '("." . utf-8))
-
-;; Color theme
-
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-hober)))
-
-(setq my-color-themes (list 'color-theme-billw 'color-theme-jsc-dark 
-                            'color-theme-sitaramv-solaris 'color-theme-resolve
-                            'color-theme-classic 'color-theme-jonadabian-slate
-                            'color-theme-kingsajz 'color-theme-shaman
-                            'color-theme-subtle-blue 'color-theme-snowish
-                            'color-theme-sitaramv-nt 'color-theme-wheat))
 
 ;; Set up SLIME
 
