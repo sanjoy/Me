@@ -18,6 +18,14 @@
   "Start / raise *the* URxvt instance into this frame."
   (run-or-raise "exec rxvt-unicode -fn '7X14' -e /usr/bin/tmux attach-session" '(:class "URxvt")))
 
+(defcommand color-urxvt-night () ()
+  "Start / raise *the* URxvt instance into this frame."
+  (stumpwm::eval-command "exec /usr/bin/zsh /home/sanjoy/prefix/bin/switch-colors.sh night" '(:class "URxvt")))
+
+(defcommand color-urxvt-day () ()
+  "Start / raise *the* URxvt instance into this frame."
+  (stumpwm::eval-command "exec /usr/bin/zsh /home/sanjoy/prefix/bin/switch-colors.sh day" '(:class "URxvt")))
+
 (defcommand raise-icedove () ()
   "Start / raise *the* Icedove instance into this frame."
   (run-or-raise "exec /home/sanjoy/prefix/bin/xicedove" '(:class "Icedove")))
