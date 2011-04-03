@@ -41,7 +41,6 @@
   (stumpwm::eval-command     "exec zsh -c rxvt-unicode -fn '7X14' -e /usr/bin/tmux attach-session"))
 
 (define-key *root-map* (kbd "C-f")  "exec evince")
-(define-key *root-map* (kbd "C-s")  "raise-chrome")
 (define-key *root-map* (kbd "c")    "raise-urxvt")
 (define-key *root-map* (kbd "C-c")  "raise-urxvt")
 (define-key *root-map* (kbd "C-C")  "reattach-urxvt")
