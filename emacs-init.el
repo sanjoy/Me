@@ -447,3 +447,7 @@
 (add-hook 'org-shiftleft-final-hook  'windmove-left)
 (add-hook 'org-shiftdown-final-hook  'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
+
+;; Don't want bold spelling errors
+(custom-set-faces
+ '(flyspell-incorrect ((t (:foreground "OrangeRed" :underline t :weight normal)))))
