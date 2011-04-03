@@ -188,3 +188,15 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/sanjoy/prefix/lib"
 
 bindkey '^H' backward-delete-word
 alias play="$MEDIA_PLAYER"
+
+# Automatically append a / after ..
+rationalise-dot() {
+  if [[ $LBUFFER = *.. ]]; then
+    LBUFFER+=/..
+  else
+    LBUFFER+=.
+  fi
+}
+
+zle -N rationalise-dot
+bindkey . rationalise-dot
