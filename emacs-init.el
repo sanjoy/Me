@@ -152,9 +152,9 @@
 ; General settings
 (setq rcirc-server-alist
       '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("##geekbhaat" "##klug" "#v8"))
+         :channels ("##geekbhaat" "##klug" "#v8" "#ucombinator"))
         ("irc.oftc.net"     :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("#llvm"))
+         :channels ("#llvm" "#hackers-india"))
         ("127.0.0.1"        :nick "sanjoy"  :full-name "Sanjoy Das")))
 
 (rcirc-track-minor-mode 1)
