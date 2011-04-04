@@ -450,4 +450,19 @@
 
 ;; Don't want bold spelling errors
 (custom-set-faces
- '(flyspell-incorrect ((t (:foreground "OrangeRed" :underline t :weight normal)))))
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(flyspell-duplicate ((t (:foreground "Gold3" :underline t :weight normal))))
+ '(flyspell-incorrect ((t (:foreground "OrangeRed" :underline t :weight normal))))
+ '(font-lock-comment-face ((t (:foreground "#586e75" :slant normal))))
+ '(ido-first-match ((t (:foreground "black" :weight normal))))
+ '(rcirc-nick-in-message-full-line ((t (:weight normal))))
+ '(rcirc-url ((t (:weight normal)))))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
