@@ -1,4 +1,5 @@
-URxvt*font:                  Monaco-10
+Emacs.font:                  Monaco-10
+URxvt*font:                  xft:Monaco:pixelsize=13:antialias=true
 URxvt*borderLess:		     false
 URxvt*externalBorder:        0
 URxvt*internalBorder:        2
