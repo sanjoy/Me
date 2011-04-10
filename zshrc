@@ -183,7 +183,7 @@ alias ls='ls --color=auto'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="$PATH:/home/sanjoy/prefix/bin"
+export PATH="$PATH:/home/sanjoy/prefix/bin:/home/sanjoy/.cabal/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/sanjoy/prefix/lib"
 
 bindkey '^H' backward-delete-word
