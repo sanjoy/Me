@@ -183,7 +183,7 @@ alias ls='ls --color=auto'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="$PATH:/home/sanjoy/prefix/bin:/home/sanjoy/.cabal/bin"
+export PATH="$PATH:/home/sanjoy/prefix/bin:/home/sanjoy/.cabal/bin:/home/sanjoy/prefix/ec2/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/sanjoy/prefix/lib"
 
 bindkey '^H' backward-delete-word
@@ -200,3 +200,8 @@ rationalise-dot() {
 
 zle -N rationalise-dot
 bindkey . rationalise-dot
+
+export EC2_HOME=~/prefix/ec2
+export EC2_PRIVATE_KEY=pk-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem
+export EC2_CERT=cert-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
