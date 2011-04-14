@@ -349,14 +349,6 @@
 
 (setq *prev-ret-binding* nil)
 
-(defun prefix-p (prefix input)
-  (let ((len (length prefix)))
-    (cond ((< (length input)
-              len)
-           nil)
-          (t (equal (substring input 0 len)
-                  prefix)))))
-
 (c-add-style "llvm.org"
              '((fill-column . 80)
                (c++-indent-level . 2)
@@ -364,36 +356,32 @@
                (indent-tabs-mode . nil)
                (c-offsets-alist . ((innamespace 0)))))
 
-(defun llvm-set-c-style ()
-  (c-set-style "llvm.org"))
-
 (setq +style-directories+
-      (list (cons (concat src-directory "v8/")   'google-set-c-style)
-            (cons (concat src-directory "llvm/") 'llvm-set-c-style)))
+      (list (cons (concat src-directory "v8/")   "Google")
+            (cons (concat src-directory "llvm/") "llvm.org")))
 
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
       nil
-    (if (prefix-p (car (car list-iter))
-                  file-name)
+    (if (string-match (car (car list-iter))
+                      file-name)
         (cdr (car list-iter))
       (my-get-style (cdr list-iter)
-                         file-name))))
+                    file-name))))
 
-(defun custom-c-style ()
-  (when (string-match ".*\\.\\(cc\\|h\\|c\\|cpp\\)" (buffer-file-name))
-    (let ((style (my-get-style +style-directories+ (buffer-file-name))))
-      (when style
-        (funcall style)))))
+(defun my-c-style ()
+  (let ((style (my-get-style +style-directories+ (buffer-file-name))))
+    (when style
+      (c-set-style style))))
 
-(add-hook 'find-file-hooks 'custom-c-style)
+(add-hook 'c-mode-common-hook 'my-c-style)
 
 (defun my-kill-buffers-by-directory (dir-name)
   (interactive "DDirectory: ")
   (setq dir-name (expand-file-name dir-name))
   (mapc (lambda (this-buffer)
           (when (buffer-file-name this-buffer)
-            (when (prefix-p dir-name (buffer-file-name this-buffer))
+            (when (string-match dir-name (buffer-file-name this-buffer))
               (unless (buffer-modified-p this-buffer)
                 (kill-buffer this-buffer)))))
         (buffer-list)))
