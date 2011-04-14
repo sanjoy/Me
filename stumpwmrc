@@ -70,11 +70,15 @@
 (setf *screen-mode-line-formatters* (cons '(#\l fmt-is-current-screen)
                                            *screen-mode-line-formatters*))
 
+(defun remove-last-char (str)
+  (let ((idx (1- (length str))))
+    (subseq str 0 idx)))
+
 (setf *screen-mode-line-format*
       (list "[ %l ] ^20[ "
-            '(:eval (run-shell-command "date '+%R, %d %b (%a)' | tr -d [:cntrl:]" t))
+            '(:eval (remove-last-char (run-shell-command "date '+%R, %d %b (%a)'" t)))
             " ] ^30[ Now Playing: "
-            '(:eval (let ((text (run-shell-command "mpc current | tr -d [:cntrl:]" t)))
+            '(:eval (let ((text (remove-last-char (run-shell-command "mpc current | tr -d [:cntrl:]" t))))
                       (if (zerop (length text))
                           "Nothing"
                           text)))
