@@ -40,6 +40,8 @@
 (define-key *root-map* (kbd ".")    "snext")
 (define-key *root-map* (kbd "C-q")  "raise-icedove")
 (define-key *root-map* (kbd "q")    "raise-icedove")
+(define-key *root-map* (kbd "C-d")  "exec amixer set Master 5%+")
+(define-key *root-map* (kbd "C-s")  "exec amixer set Master 5%-")
 (define-key *root-map* (kbd "P")    "pull-window-by-number")
 (define-key *tile-group-root-map* (kbd "C-TAB") "fnext")
 
