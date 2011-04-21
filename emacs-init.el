@@ -360,10 +360,16 @@
       (list (cons (concat src-directory "v8/")   "Google")
             (cons (concat src-directory "llvm/") "llvm.org")))
 
+(defun safe-str-match (a b)
+  (if (or (null a)
+          (null b))
+      nil
+    (string-match a b)))
+
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
       nil
-    (if (string-match (car (car list-iter))
+    (if (safe-str-match (car (car list-iter))
                       file-name)
         (cdr (car list-iter))
       (my-get-style (cdr list-iter)
@@ -381,7 +387,7 @@
   (setq dir-name (expand-file-name dir-name))
   (mapc (lambda (this-buffer)
           (when (buffer-file-name this-buffer)
-            (when (string-match dir-name (buffer-file-name this-buffer))
+            (when (safe-str-match dir-name (buffer-file-name this-buffer))
               (unless (buffer-modified-p this-buffer)
                 (kill-buffer this-buffer)))))
         (buffer-list)))
