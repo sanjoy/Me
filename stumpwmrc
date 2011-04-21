@@ -80,7 +80,7 @@
       (list "[ %l ] ^20[ "
             '(:eval (remove-last-char (run-shell-command "date '+%R, %d %b (%a)'" t)))
             " ] ^30[ Now Playing: "
-            '(:eval (let ((text (remove-last-char (run-shell-command "mpc current | tr -d [:cntrl:]" t))))
+            '(:eval (let ((text (run-shell-command "mpc current | tr -d [:cntrl:]" t)))
                       (if (zerop (length text))
                           "Nothing"
                           text)))
