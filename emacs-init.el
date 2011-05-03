@@ -10,11 +10,9 @@
 
 (require 'ansi-color)
 (require 'auto-complete)
-(require 'bookmark)
 (require 'cc-mode)
 (require 'cl)
 (require 'color-theme)
-(require 'color-theme-solarized)
 (require 'column-marker)
 (require 'epa-file)
 (require 'ffap)
