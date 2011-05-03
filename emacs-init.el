@@ -43,6 +43,8 @@
 (require 'whitespace)
 (require 'xml-rpc)
 
+(set-default-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+
 (setq-default inhibit-startup-message t
               font-lock-maximum-decoration t
               require-final-newline t
