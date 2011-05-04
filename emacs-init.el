@@ -45,27 +45,30 @@
 
 (set-default-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 
-(setq-default inhibit-startup-message t
-              font-lock-maximum-decoration t
-              require-final-newline t
-              resize-minibuffer-frame t
-              column-number-mode t
-              transient-mark-mode t
-              next-line-add-newlines nil
-              blink-matching-paren t
-              blink-matching-delay .25
-              vc-follow-symlinks t
-              indent-tabs-mode t
-              tab-width 5
-              c-basic-offset 5
-              edebug-trace t
-              fill-adapt-mode t
-              max-lisp-eval-depth 12000
-              rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo")
-              code-directory "/home/sanjoy/code/"
-              src-directory  "/home/sanjoy/src/"
-              rcirc-default-user-name "sanjoyd"
-              rcirc-default-user-full-name "Sanjoy Das")
+(setq-default 
+ blink-matching-delay .25
+ blink-matching-paren t
+ c-basic-offset 5
+ c-macro-prompt-flag t
+ code-directory "/home/sanjoy/code/"
+ column-number-mode t
+ edebug-trace t
+ fill-adapt-mode t
+ font-lock-maximum-decoration t
+ indent-tabs-mode t
+ inhibit-startup-message t
+ max-lisp-eval-depth 12000
+ next-line-add-newlines nil
+ rcirc-authinfo-file-name (expand-file-name "~/.rcirc-authinfo")
+ rcirc-default-user-full-name "Sanjoy Das"
+ rcirc-default-user-name "sanjoyd"
+ require-final-newline t
+ resize-minibuffer-frame t
+ src-directory  "/home/sanjoy/src/"
+ tab-width 5
+ transient-mark-mode t
+ vc-follow-symlinks t
+)
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
