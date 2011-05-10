@@ -17,7 +17,6 @@
 (require 'epa-file)
 (require 'ffap)
 (require 'filladapt)
-(require 'flex-mode)
 (require 'framemove)
 (require 'go-mode-load)
 (require 'google-c-style)
@@ -39,9 +38,7 @@
 (require 'tramp)
 (require 'uniquify)
 (require 'w3m-load)
-(require 'weblogger)
 (require 'whitespace)
-(require 'xml-rpc)
 
 (set-default-font "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 
