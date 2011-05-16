@@ -184,7 +184,7 @@ alias ls='ls --color=auto'
 export ALTERNATE_EDITOR="nano"
 
 export PATH="$PATH:/home/sanjoy/prefix/bin:/home/sanjoy/.cabal/bin:/home/sanjoy/prefix/ec2/bin:/var/lib/gems/1.8/bin"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/sanjoy/prefix/lib"
+# export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/sanjoy/prefix/lib"
 
 bindkey '^H' backward-delete-word
 alias play="$MEDIA_PLAYER"
