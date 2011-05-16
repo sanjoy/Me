@@ -36,6 +36,7 @@
 (require 'tablegen-mode)
 (require 'tbemail)
 (require 'tramp)
+(require 'twittering-mode)
 (require 'uniquify)
 (require 'w3m-load)
 (require 'whitespace)
@@ -64,8 +65,9 @@
  src-directory  "/home/sanjoy/src/"
  tab-width 5
  transient-mark-mode t
+ twittering-use-master-password t
  vc-follow-symlinks t
-)
+ )
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
@@ -75,16 +77,16 @@
   "Minor mode for pseudo-structurally editing Lisp code." t)
 
 (setq-default c-basic-offset 5
-           tab-width 5
-           indent-tabs-mode t
-           auto-newline 0)
+              tab-width 5
+              indent-tabs-mode t
+              auto-newline 0)
 
 (setq c-offsets-alist '((innamespace . 0)))
 
 (add-hook 'c-mode-common-hook
           '(lambda ()
              (define-key c-mode-map "\C-m" 'newline-and-indent)
-			 (c-toggle-auto-newline)
+             (c-toggle-auto-newline)
              (setq c-backslash-max-column 79)))
 
 (add-hook 'c-mode-common-hook '(lambda ()
@@ -94,26 +96,26 @@
 (add-hook 'lisp-mode-hook
           '(lambda ()
              (define-key lisp-mode-map "\C-m" 'newline-and-indent)
-			 (paredit-mode +1)
-			 (setq indent-tabs-mode nil)))
+             (paredit-mode +1)
+             (setq indent-tabs-mode nil)))
 
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
              (define-key lisp-mode-map "\C-m" 'newline-and-indent)
-			 (paredit-mode +1)
-			 (setq indent-tabs-mode nil)))
+             (paredit-mode +1)
+             (setq indent-tabs-mode nil)))
 
 (add-hook 'lisp-interaction-mode-hook 
-		  '(lambda ()
-			 (paredit-mode +1)
-			 (setq indent-tabs-mode nil)))
+          '(lambda ()
+             (paredit-mode +1)
+             (setq indent-tabs-mode nil)))
 
 ;; Stop SLIME's REPL from grabbing DEL,
 ;; which is annoying when backspacing over a '('
 
 (defun override-slime-repl-bindings-with-paredit ()
   (define-key slime-repl-mode-map
-	(read-kbd-macro paredit-backward-delete-key) nil))
+    (read-kbd-macro paredit-backward-delete-key) nil))
 
 (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
 
@@ -151,7 +153,7 @@
 
 ;; RCIRC
 
-; General settings
+                                        ; General settings
 (setq rcirc-server-alist
       '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
          :channels ("##geekbhaat" "##klug" "#v8" "#ucombinator" "#haskell" "##c" "##cc" "##workingset"))
@@ -167,7 +169,7 @@
              (set (make-local-variable 'scroll-conservatively)
                   8192)))
 
-; Logging
+                                        ; Logging
 (setq rcirc-log-flag "t"
       rcirc-log-directory "~/.emacs.d/rcirc-log")
 
@@ -210,7 +212,7 @@
      (interactive "i")
      (my-rcirc-dance)))
 
-; Nick Colors
+                                        ; Nick Colors
 (eval-after-load 'rcirc '(require 'rcirc-color))
 
 ;; Auto away
@@ -228,10 +230,10 @@
 
 (defun rcirc-auto-away-1 (reason)
   (let ((regexp (mapconcat (lambda (x) (concat "\\(" x "\\)")) 
-			   rcirc-auto-away-server-regexps "\\|")))
+                           rcirc-auto-away-server-regexps "\\|")))
     (dolist (process (rcirc-process-list))
       (when (string-match regexp (process-name process))
-	(rcirc-send-string process (concat "AWAY :" reason))))))
+        (rcirc-send-string process (concat "AWAY :" reason))))))
 
 (defun rcirc-auto-unaway ()
   (remove-hook 'post-command-hook 'rcirc-auto-unaway)
@@ -316,7 +318,7 @@
  ido-enable-flex-matching t    ; be flexible
  ido-max-prospects 6           ; don't spam my minibuffer
  ido-confirm-unique-completion nil ; don't wait for RET with unique completion
- ; Always open buffers and files in the current window
+                                        ; Always open buffers and files in the current window
  ido-default-file-method 'selected-window
  ido-default-buffer-method 'selected-window)
 
@@ -370,7 +372,7 @@
   (if (null list-iter)
       nil
     (if (safe-str-match (car (car list-iter))
-                      file-name)
+                        file-name)
         (cdr (car list-iter))
       (my-get-style (cdr list-iter)
                     file-name))))
