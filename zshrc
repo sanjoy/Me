@@ -174,6 +174,7 @@ compdef xgit=git
 compdef xsvn=svn
 compdef xssh=ssh
 compdef xcvs=cvs
+compdef fast-apt-get=apt-get
 
 alias xcvs='proxychains cvs'
 
