@@ -3,9 +3,6 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/emacs-codepad")
-(add-to-list 'load-path "~/.emacs.d/cedet")
-
-(load-file "~/.emacs.d/cedet/common/cedet.el")
 
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -35,8 +32,6 @@
 (require 'recentf)
 (require 'revbufs)
 (require 'saveplace)
-(require 'semantic-gcc)
-(require 'semantic-ia)
 (require 'slime)
 (require 'tablegen-mode)
 (require 'tbemail)
@@ -71,8 +66,7 @@
  tab-width 5
  transient-mark-mode t
  twittering-use-master-password t
- vc-follow-symlinks t
- )
+ vc-follow-symlinks t)
 
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
@@ -480,35 +474,21 @@
      (color-theme-initialize)
      (color-theme-hober)))
 
-(global-ede-mode t)
-(semantic-load-enable-gaudy-code-helpers)
+(which-func-mode)
 
-(semantic-add-system-include "/usr/include/" 'c-mode)
-(semantic-add-system-include "/usr/include/" 'c++-mode)
-(semantic-add-system-include "/usr/include/c++/4.5" 'c++-mode)
+(delete (assoc 'which-func-mode mode-line-format) mode-line-format)
+(setq which-func-header-line-format
+              '(which-func-mode
+                ("" which-func-format
+                 )))
+(defadvice which-func-ff-hook (after header-line activate)
+  (when which-func-mode
+    (delete (assoc 'which-func-mode mode-line-format) mode-line-format)
+    (setq header-line-format which-func-header-line-format)))
 
-(ede-cpp-root-project "LLVM"
-                      :name "Low Level Virtual Machine"
-                      :file "~/src/llvm/README.txt"
-                      :include-path '("/"
-                                      "/include/"
-                                      "/utils"))
-
-(ede-cpp-root-project "v8"
-                      :name "Google v8 Javascript JIT Engine"
-                      :file "~/src/v8/AUTHORS"
-                      :include-path '("/include"
-                                      "/src"
-                                      "/src/x64"
-                                      :spp-table '(("V8_TARGET_ARCH_X64" . "")
-                                                   ("ENABLE_GDB_JIT_INTERFACE" . "")
-                                                   ("ENABLE_PERF_MAP" . "")
-                                                   ("V8_ENABLE_CHECKS" . "")
-                                                   ("OBJECT_PRINT" . "")
-                                                   ("ENABLE_DISASSEMBLER" . "")
-                                                   ("DEBUG" . ""))))
-
-(defun my-c-mode-cedet-hook ()
-  (local-set-key (kbd "C-c , l") 'eassist-list-methods)
-  (local-set-key (kbd "C-c , s") 'eassist-switch-h-cpp))
-(add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(which-func ((t (:foreground "green")))))
