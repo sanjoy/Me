@@ -39,7 +39,7 @@ function g-find-symbol {
 # Something I use a lot for exploring large codebases
 function x-find-symbol {
 	if [ -n "$1" -a -n "$2" ]; then
-		find . -name "*.$1" | xargs grep -n --mmap -- "$2" | less
+		find . -name "*.$1" | xargs grep -n --mmap -- "$2" | less -FRSX
 	else
 		echo "Usage: find-symbol [ file-extension ] [ symbol ]"
 	fi
