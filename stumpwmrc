@@ -57,17 +57,27 @@
   (let ((idx (1- (length str))))
     (subseq str 0 idx)))
 
+(defun sanitize (str replacement-str)
+  (if (zerop (length str))
+      replacement-str
+      str))
+
+(defun get-work-string ()
+  (let ((task (run-shell-command "cat ~/.timelog | awk 'BEGIN { x = \"\" } /i.*/ { x = $4 } /o.*/ { x = \"\" } END { print x}' | tr -d ',\\n'" t)))
+    (if (zerop (length task))
+        "^20 [ BREAK ]"
+        (concatenate 'string "^10 [ Working on " task " ]"))))
+
 (setf *screen-mode-line-format*
       (list "[ %l ] ^20[ "
             '(:eval (remove-last-char (run-shell-command "date '+%R, %d %b (%a)'" t)))
             " ] ^30[ Now Playing: "
-            '(:eval (let ((text (run-shell-command "mpc current | tr -d [:cntrl:]" t)))
-                      (if (zerop (length text))
-                          "Nothing"
-                          text)))
+            '(:eval (sanitize (run-shell-command "mpc current | tr -d [:cntrl:]" t)
+                     "Nothing"))
             " ]^60 [ Uptime: "
             '(:eval (run-shell-command "uptime | gawk 'match($0, /.*up ([^,]*).*/, ary) {print ary[1]}' | tr -d ',\\n'" t))
-            " ]"))
+            "]"
+            '(:eval (get-work-string))))
 
 (setf *mode-line-timeout* 1)
 
