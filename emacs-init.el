@@ -499,3 +499,23 @@
 (global-set-key (kbd "C-c qi") 'timeclock-in)
 (global-set-key (kbd "C-c qo") 'timeclock-out)
 (global-set-key (kbd "C-c qs") 'timeclock-status-string)
+
+;; Have emacsclient open the buffers in correct frames
+
+(defvar *default-tt-frame* nil)
+
+(defun my-set-default-frame ()
+  "Set the current frame as the 'default' frame for emacsclient open operations"
+  (interactive)
+  (setq *default-tt-frame* (selected-frame)))
+
+(defun my-server-switch-hook ()
+  (interactive)
+  (let ((target-window (frame-selected-window *default-tt-frame*))
+        (target-buffer (current-buffer)))
+    (if (not (eql (selected-frame) *default-tt-frame*))
+        (progn (bury-buffer)
+               (set-window-buffer target-window target-buffer)
+               (select-frame-set-input-focus *default-tt-frame*)))))
+
+(add-hook 'server-switch-hook 'my-server-switch-hook)
