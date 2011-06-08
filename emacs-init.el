@@ -487,13 +487,6 @@
     (delete (assoc 'which-func-mode mode-line-format) mode-line-format)
     (setq header-line-format which-func-header-line-format)))
 
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(which-func ((t (:foreground "green")))))
-
 ;; Configure timeclock
 
 (global-set-key (kbd "C-c qi") 'timeclock-in)
@@ -519,3 +512,11 @@
                (select-frame-set-input-focus *default-tt-frame*)))))
 
 (add-hook 'server-switch-hook 'my-server-switch-hook)
+
+;; Customize area
+
+(custom-set-variables
+ '(mingus-mode-line-show-status nil))
+
+(custom-set-faces
+ '(which-func ((t (:foreground "green")))))
