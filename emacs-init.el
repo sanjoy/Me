@@ -539,3 +539,7 @@
 
 (custom-set-faces
  '(which-func ((t (:foreground "green")))))
+
+;; For M-x compile
+
+(setq compilation-scroll-output t)
