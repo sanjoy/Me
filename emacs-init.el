@@ -360,13 +360,25 @@
 
 (setq +style-directories+
       (list (cons (concat src-directory "v8/")   "Google")
-            (cons (concat src-directory "llvm/") "llvm.org")))
+            (cons (concat src-directory "llvm/") "llvm.org")
+            (cons (concat src-directory "gdb/") "gnu")))
+
+(setq +header-directories+
+      (list (concat src-directory "llvm/")
+            (concat src-directory "v8/")))
 
 (defun safe-str-match (a b)
   (if (or (null a)
           (null b))
       nil
     (string-match a b)))
+
+(defun is-c++-header (file-name list-iter)
+  (if (and (not (null list-iter)) (safe-str-match ".*\\.h" file-name))
+      (if (safe-str-match (car list-iter) file-name)
+          t
+        (is-c++-header file-name (cdr list-iter)))
+    nil))
 
 (defun my-get-style (list-iter file-name)
   (if (null list-iter)
@@ -382,6 +394,13 @@
     (when style
       (c-set-style style))))
 
+(defun c-c++-header ()
+  (interactive)
+  (if (is-c++-header (buffer-file-name) +header-directories+)
+      (c++-mode)
+    (c-mode)))
+
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c-c++-header))
 (add-hook 'c-mode-common-hook 'my-c-style)
 
 (defun my-kill-buffers-by-directory (dir-name)
