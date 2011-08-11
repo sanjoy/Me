@@ -29,6 +29,7 @@
 (require 'php-mode)
 (require 'quack)
 (require 'quilt-mode)
+(require 'rebase-mode)
 (require 'recentf)
 (require 'revbufs)
 (require 'saveplace)
@@ -54,7 +55,6 @@
  edebug-trace t
  fill-adapt-mode t
  font-lock-maximum-decoration t
- indent-tabs-mode t
  inhibit-startup-message t
  max-lisp-eval-depth 12000
  next-line-add-newlines nil
@@ -72,14 +72,15 @@
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-c i")   'imenu)
 (global-set-key (kbd "C-x t")   'flyspell-mode)
+(global-set-key (kbd "C-c g")   'find-grep)
+
+(setq-default c-basic-offset 5
+              tab-width 8
+              indent-tabs-mode nil
+              auto-newline 0)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
-
-(setq-default c-basic-offset 5
-              tab-width 5
-              indent-tabs-mode t
-              auto-newline 0)
 
 (setq c-offsets-alist '((innamespace . 0)))
 
@@ -87,7 +88,9 @@
           '(lambda ()
              (define-key c-mode-map "\C-m" 'newline-and-indent)
              (c-toggle-auto-newline)
-             (setq c-backslash-max-column 79)))
+             (setq show-trailing-whitespace t)
+             (setq c-backslash-max-column 79)
+             (c-set-offset 'inextern-lang 0)))
 
 (add-hook 'c-mode-common-hook '(lambda ()
                                  (interactive)
@@ -156,7 +159,7 @@
                                         ; General settings
 (setq rcirc-server-alist
       '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("##geekbhaat" "##klug" "#v8" "#ucombinator" "#haskell" "##c" "##cc" "##workingset" "#lisp"))
+         :channels ("##geekbhaat" "##klug" "#v8" "#ucombinator" "#haskell" "##c" "##cc" "##workingset" "#lisp" "##categorytheory"))
         ("irc.oftc.net"     :nick "sanjoyd" :full-name "Sanjoy Das"
          :channels ("#llvm"))
         ("127.0.0.1"        :nick "sanjoy"  :full-name "Sanjoy Das")))
@@ -343,6 +346,9 @@
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook '(lambda ()
+                                (interactive)
+                                (setq show-trailing-whitespace t)))
 
 (defun insert-backslash ()
   (interactive)
@@ -360,7 +366,8 @@
 
 (setq +style-directories+
       (list (cons (concat src-directory "v8/")   "Google")
-            (cons (concat src-directory "llvm/") "llvm.org")))
+            (cons (concat src-directory "llvm/") "llvm.org")
+            (cons (concat src-directory "gdb/")  "gnu")))
 
 (defun safe-str-match (a b)
   (if (or (null a)
@@ -417,8 +424,7 @@
 ;; Set up "email mode".
 (defun my-email-additions ()
   (interactive)
-  (flyspell-mode)
-  (longlines-mode))
+  (flyspell-mode))
 
 (add-hook 'tbemail-mode-hook 'my-email-additions)
 
@@ -524,3 +530,11 @@
 ;; For M-x compile
 
 (setq compilation-scroll-output t)
+
+;; Completely pointless fun
+(defun unicode-insert (char)
+  "Read a unicode code point and insert said character.
+    Input uses `read-quoted-char-radix'.  If you want to copy
+    the values from the Unicode charts, you should set it to 16."
+  (interactive (list (read-quoted-char "Char: ")))
+  (ucs-insert char))
