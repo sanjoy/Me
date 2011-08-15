@@ -390,9 +390,6 @@
        (unless (eql mingus-buffer (current-buffer))
          (kill-buffer mingus-buffer)))))
 
-(global-set-key (kbd "<end>")    (my-kill-mingus-after-use mingus-pause))
-(global-set-key (kbd "<prior>")  (my-kill-mingus-after-use mingus-prev))
-(global-set-key (kbd "<next>")   (my-kill-mingus-after-use mingus-next))
 (global-set-key (kbd "<f9>")     'mingus)
 
 (custom-set-variables
