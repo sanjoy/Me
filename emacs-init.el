@@ -325,7 +325,11 @@
 (setq +style-directories+
       (mapcar (lambda (x)
                 (cons (concat src-directory (car x) "/") (cdr x)))
-              '(("v8" . "Google") ("llvm" . "llvm.org") ("gdb" . "gnu") ("gcc" . "gnu"))))
+              '(("v8" . "Google")
+                ("llvm" . "llvm.org")
+                ("dragonegg" . "llvm.org")
+                ("gdb" . "gnu")
+                ("gcc" . "gnu"))))
 
 (defun safe-str-match (a b)
   (if (or (null a)
