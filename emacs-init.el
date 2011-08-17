@@ -136,7 +136,7 @@
 
 (defun my-lisp-hook (interactive-p)
   (if (not interactive-p)
-      (define-key lisp-mode-map "\C-m" 'newline-and-indent))
+      (define-key lisp-mode-map (kbd "RET") 'newline-and-indent))
   (paredit-mode +1)
   (setq indent-tabs-mode nil))
 
