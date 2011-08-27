@@ -351,16 +351,18 @@
     (when style
       (c-set-style style))))
 
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (c-toggle-auto-newline -1)
-             (c-set-offset 'inextern-lang 0)
-             (column-marker-1 80)
-             (define-key c-mode-map (kbd "RET") 'newline-and-indent)
-             (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
-             (my-c-style)
-             (setq c-backslash-max-column 79)
-             (setq show-trailing-whitespace t)))
+(defun my-c-mode-common-hook ()
+  (c-toggle-auto-newline -1)
+  (c-set-offset 'inextern-lang 0)
+  (column-marker-1 80)
+  (define-key c-mode-map (kbd "RET") 'newline-and-indent)
+  (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
+  (my-c-style)
+  (setq c-backslash-max-column 79)
+  (flyspell-prog-mode)
+  (setq show-trailing-whitespace t))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 (global-set-key (kbd "C-c i") 'imenu)
 
