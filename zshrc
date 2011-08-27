@@ -206,3 +206,6 @@ export EC2_HOME=~/prefix/ec2
 export EC2_PRIVATE_KEY=pk-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem
 export EC2_CERT=cert-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem
 export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
+
+setopt share_history
+setopt APPEND_HISTORY
