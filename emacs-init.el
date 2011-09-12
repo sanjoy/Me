@@ -178,7 +178,7 @@
 ;;; General settings
 (setq rcirc-server-alist
       '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("##geekbhaat" "##klug" "#v8" "#ucombinator" "#haskell" "##c"
+         :channels ("##geekbhaat" "#klug-devel" "#v8" "#ucombinator" "#haskell" "##c"
                     "##cc" "##workingset" "#lisp" "##categorytheory"))
         ("irc.oftc.net" :nick "sanjoyd" :full-name "Sanjoy Das"
          :channels ("#llvm"))
