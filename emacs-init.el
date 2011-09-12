@@ -101,6 +101,7 @@
                                          (select-frame frame)
                                          (set-default-font default-font-name)))
 
+;;; Misc. functions and keybindings
 (defun my-kill-buffers-by-directory (dir-name)
   (interactive "DDirectory: ")
   (setq dir-name (expand-file-name dir-name))
