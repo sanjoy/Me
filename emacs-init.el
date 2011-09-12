@@ -330,6 +330,7 @@
       (mapcar (lambda (x)
                 (cons (concat src-directory (car x) "/") (cdr x)))
               '(("v8" . "Google")
+                ("gpython" . "Google")
                 ("llvm" . "llvm.org")
                 ("dragonegg" . "llvm.org")
                 ("gdb" . "gnu")
