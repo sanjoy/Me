@@ -8,7 +8,7 @@ PS2="$(print '%{\e[0;32m%} ... %{\e[0m%}')"
 EDITOR="emacsclient"
 
 # Make grep always show the line numbers
-alias grep='grep -n'
+alias grep='grep -n --color'
 
 # Open emacsclient with tt
 alias tt='emacsclient -n'
@@ -209,3 +209,7 @@ export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
 
 setopt share_history
 setopt APPEND_HISTORY
+export EC2_HOME=~/.ec2
+export PATH=$PATH:$EC2_HOME/bin
+export EC2_PRIVATE_KEY=pk-YOURKEYNAME.pem
+export EC2_CERT=cert-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem
