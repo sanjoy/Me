@@ -335,12 +335,26 @@
 (setq +style-directories+
       (mapcar (lambda (x)
                 (cons (concat src-directory (car x) "/") (cdr x)))
-              '(("v8" . "Google")
-                ("gpython" . "Google")
-                ("llvm" . "llvm.org")
-                ("dragonegg" . "llvm.org")
-                ("gdb" . "gnu")
-                ("gcc" . "gnu"))))
+              '(("v8" . (lambda ()
+                          (c-set-style "Google")))
+                ("gofrontend" . (lambda ()
+                                  (c-set-style "Google")))
+                ("gpython" . (lambda ()
+                               (c-set-style "Google")))
+                ("llvm" . (lambda ()
+                            (c-set-style "llvm.org")))
+                ("dragonegg" . (lambda ()
+                                 (c-set-style "llvm.org")))
+                ("gdb" . (lambda ()
+                           (c-set-style "gnu")))
+                ("gcc" . (lambda ()
+                           (c-set-style "gnu")))
+                ("Snippets" . (lambda ()
+                                (c-set-style "Google")))
+                ("webkit" . (lambda ()
+                              (column-marker-1 0)
+                              (if (not (equal 'c++-mode (buffer-mode (current-buffer)))
+                                       (c++-mode))))))))
 
 (defun safe-str-match (a b)
   (if (or (null a)
@@ -359,8 +373,8 @@
 
 (defun my-c-style ()
   (let ((style (my-get-style +style-directories+ (buffer-file-name))))
-    (when style
-      (c-set-style style))))
+    (if style
+      (funcall style))))
 
 (defun my-c-mode-common-hook ()
   (c-toggle-auto-newline -1)
