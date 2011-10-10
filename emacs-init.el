@@ -326,6 +326,12 @@
                (indent-tabs-mode . nil)
                (c-offsets-alist . ((innamespace 0)))))
 
+(defun buffer-mode (buffer-or-string)
+  "Returns the major mode associated with a buffer."
+  (save-excursion
+    (set-buffer buffer-or-string)
+    major-mode))
+
 (setq +style-directories+
       (mapcar (lambda (x)
                 (cons (concat src-directory (car x) "/") (cdr x)))
