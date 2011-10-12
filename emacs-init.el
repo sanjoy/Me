@@ -352,9 +352,6 @@
                 ("Snippets" . (lambda ()
                                 (c-set-style "Google")))
                 ("webkit" . (lambda ()
-                              (column-marker-1 0)
-                              (if (not (equal 'c++-mode (buffer-mode (current-buffer)))
-                                       (c++-mode))))))))
 
 (defun safe-str-match (a b)
   (if (or (null a)
