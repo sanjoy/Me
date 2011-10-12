@@ -352,6 +352,8 @@
                 ("Snippets" . (lambda ()
                                 (c-set-style "Google")))
                 ("webkit" . (lambda ()
+                              (column-marker-1 -1)
+                              (setq show-trailing-whitespace nil))))))
 
 (defun safe-str-match (a b)
   (if (or (null a)
@@ -379,10 +381,10 @@
   (column-marker-1 80)
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
-  (my-c-style)
   (setq c-backslash-max-column 79)
   (flyspell-prog-mode)
-  (setq show-trailing-whitespace t))
+  (setq show-trailing-whitespace t)
+  (my-c-style))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
