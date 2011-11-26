@@ -143,7 +143,7 @@
 (add-hook 'lisp-interaction-mode-hook '(lambda () (my-lisp-hook t)))
 
 ;;; Set up SLIME
-(setq inferior-lisp-program "/usr/bin/sbcl")
+(setq inferior-lisp-program "/usr/bin/sbcl --noinform --no-linedit")
 (add-to-list 'load-path (concat code-directory "/Practice/LISP/SLIME"))
 (slime-setup)
 
