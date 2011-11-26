@@ -341,7 +341,10 @@
                                 (c-set-style "Google")))
                 ("webkit" . (lambda ()
                               (column-marker-1 -1)
-                              (setq show-trailing-whitespace nil))))))
+                              (setq show-trailing-whitespace nil)
+                              (setq c-basic-offset 4)
+                              (setq tab-width 8)
+                              (setq indent-tabs-mode nil))))))
 
 (defun safe-str-match (a b)
   (if (or (null a)
