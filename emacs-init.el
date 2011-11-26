@@ -128,6 +128,8 @@
 (global-set-key (kbd "C-c qo") 'timeclock-out)
 (global-set-key (kbd "C-c qs") 'timeclock-status-string)
 
+;;; I'm old enough to use downcase-region
+(put 'downcase-region 'disabled nil)
 
 ;;   LISP MODE
 ;; -------------------------------------------------------------------
