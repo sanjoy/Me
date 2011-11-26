@@ -423,7 +423,8 @@
 (global-set-key (kbd "<f9>")     'mingus)
 
 (custom-set-variables
- '(mingus-mode-line-show-status nil))
+ '(mingus-mode-line-show-status nil)
+ '(uniquify-buffer-name-style (quote reverse) nil (uniquify)))
 
 
 ;;   EMAIL MODE
