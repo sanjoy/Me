@@ -5,7 +5,7 @@
 PS1="$(print '%{\e[1;32m%} %B%~ $ %b%{\e[0m%}')"
 PS2="$(print '%{\e[0;32m%} ... %{\e[0m%}')"
 
-EDITOR="emacsclient"
+export EDITOR="emacsclient"
 
 # Make grep always show the line numbers
 alias grep='grep -n --color'
