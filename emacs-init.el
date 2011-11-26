@@ -375,7 +375,15 @@
   (setq c-backslash-max-column 79)
   (flyspell-prog-mode)
   (setq show-trailing-whitespace t)
-  (my-c-style))
+  (my-c-style)
+  (setq c-progress-interval 1)
+  (subword-mode 1)
+  ;; emacs 21 has jit-lock which is better
+  (setq font-lock-support-mode 'jit-lock-mode)
+  (setq jit-lock-stealth-time 16
+        jit-lock-defer-contextually t
+        jit-lock-stealth-nice 0.5)
+  (setq-default font-lock-multiline t))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
