@@ -209,3 +209,5 @@ export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
 
 setopt share_history
 setopt APPEND_HISTORY
+
+export CVS_RSH=ssh
