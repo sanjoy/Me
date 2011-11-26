@@ -15,7 +15,6 @@
 (require 'color-theme)
 (require 'column-marker)
 (require 'epa-file)
-(require 'ffap)
 (require 'filladapt)
 (require 'framemove)
 (require 'go-mode-load)
@@ -27,12 +26,8 @@
 (require 'org-install)
 (require 'paredit)
 (require 'php-mode)
-(require 'quack)
-(require 'quilt-mode)
 (require 'rebase-mode)
-(require 'recentf)
 (require 'revbufs)
-(require 'saveplace)
 (require 'slime)
 (require 'tablegen-mode)
 (require 'tbemail)
@@ -40,7 +35,6 @@
 (require 'tramp)
 (require 'twittering-mode)
 (require 'uniquify)
-(require 'w3m-load)
 (require 'whitespace)
 
 ;;   GENERAL
