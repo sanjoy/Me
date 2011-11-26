@@ -77,7 +77,7 @@ function wallpaper {
 	feh --bg-scale "$(find ~/.wallpapers/wide -name "*jpg" | shuf -n1)"
 }
 
-MEDIA_PLAYER='mplayer'
+MEDIA_PLAYER='vlc'
 
 # Picks up a random video from the current directory tree and plays it using mplayer
 function entertain {
