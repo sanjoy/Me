@@ -497,3 +497,41 @@
                (select-frame-set-input-focus *default-tt-frame*)))))
 
 (add-hook 'server-switch-hook 'my-server-switch-hook)
+(put 'upcase-region 'disabled nil)
+
+;; TEX MODE
+;; -------------------------------------------------------------------
+
+(defun tag-word-or-region (tag)
+  (interactive)
+  (let (pos1 pos2 bds)
+    (if (and transient-mark-mode mark-active)
+        (progn
+          (goto-char (region-end))
+          (insert "}")
+          (goto-char (region-beginning))
+          (insert (concat "\\" tag "{")))
+      (progn
+        (setq bds (bounds-of-thing-at-point 'symbol))
+        (if (null bds)
+            (progn
+              (insert (concat "\\" tag "{}"))
+              (backward-char))
+          (progn
+            (goto-char (cdr bds))
+            (insert "}")
+            (goto-char (car bds))
+            (insert (concat "\\" tag "{"))))))))
+
+(defun tex-mode-hook ()
+  (interactive)
+  (local-set-key (kbd "C-c C-l C-i")
+                 (lambda ()
+                   (interactive)
+                   (tag-word-or-region "textit")))
+  (local-set-key (kbd "C-c C-l C-c")
+                 (lambda ()
+                   (interactive)
+                   (tag-word-or-region "texttt"))))
+
+(add-hook 'TeX-mode-hook 'tex-mode-hook)
