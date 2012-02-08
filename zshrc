@@ -72,11 +72,6 @@ function find-file {
 	fi
 }
 
-# Changes the wallpaper to a randomly selected one.
-function wallpaper {
-	feh --bg-scale "$(find ~/.wallpapers/wide -name "*jpg" | shuf -n1)"
-}
-
 MEDIA_PLAYER='vlc'
 
 # Picks up a random video from the current directory tree and plays it using mplayer
@@ -188,18 +183,6 @@ export PATH="$PATH:/home/sanjoy/prefix/bin:/home/sanjoy/.cabal/bin"
 
 bindkey '^H' backward-delete-word
 alias play="$MEDIA_PLAYER"
-
-# Automatically append a / after ..
-rationalise-dot() {
-  if [[ $LBUFFER = *.. ]]; then
-    LBUFFER+=/..
-  else
-    LBUFFER+=.
-  fi
-}
-
-zle -N rationalise-dot
-bindkey . rationalise-dot
 
 export EC2_HOME=~/prefix/ec2
 export EC2_PRIVATE_KEY=pk-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem

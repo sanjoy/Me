@@ -62,12 +62,6 @@
       replacement-str
       str))
 
-(defun get-work-string ()
-  (let ((task (run-shell-command "cat ~/.timelog | awk 'BEGIN { x = \"\" } /i.*/ { x = $4 } /o.*/ { x = \"\" } END { print x}' | tr -d ',\\n'" t)))
-    (if (zerop (length task))
-        "^20 [ BREAK ]"
-        (concatenate 'string "^10 [ Working on " task " ]"))))
-
 (setf *screen-mode-line-format*
       (list "[ %l ] ^20[ "
             '(:eval (remove-last-char (run-shell-command "date '+%R, %d %b (%a)'" t)))
@@ -76,8 +70,7 @@
                      "Nothing"))
             " ]^60 [ Uptime: "
             '(:eval (run-shell-command "uptime | gawk 'match($0, /.*up ([^,]*).*/, ary) {print ary[1]}' | tr -d ',\\n'" t))
-            "]"
-            '(:eval (get-work-string))))
+            "]"))
 
 (setf *mode-line-timeout* 1)
 
@@ -88,15 +81,10 @@
 (defun mpd-toggle-function ()
   (run-shell-command "mpc toggle"))
 
-(defun mpd-random-next ()
-  (run-shell-command "mpc random on; mpc next; mpc random off"))
-
 ;; Left click to play / pause, right click to go to a random song on the current playlist.
 (defun mode-line-click-hook (line button x y)
   (cond ((eql button 1)
-         (mpd-toggle-function))
-        ((eql button 3)
-         (mpd-random-next))))
+         (mpd-toggle-function))))
 
 (activate-mode-lines)
 (add-hook stumpwm:*mode-line-click-hook*
