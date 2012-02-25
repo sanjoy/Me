@@ -171,8 +171,6 @@ compdef xssh=ssh
 compdef xcvs=cvs
 compdef fast-apt-get=apt-get
 
-alias xcvs='proxychains cvs'
-
 # Pretty directory listing
 alias ls='ls --color=auto'
 
@@ -182,14 +180,14 @@ export ALTERNATE_EDITOR="nano"
 export PATH="$PATH:/home/sanjoy/prefix/bin:/home/sanjoy/.cabal/bin"
 
 bindkey '^H' backward-delete-word
+bindkey '^E' push-line
 alias play="$MEDIA_PLAYER"
-
-export EC2_HOME=~/prefix/ec2
-export EC2_PRIVATE_KEY=pk-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem
-export EC2_CERT=cert-7E3OKEABUHHRH3X3NJ46R4UMGEHMWMV7.pem
-export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
 
 setopt share_history
 setopt APPEND_HISTORY
 
 export CVS_RSH=ssh
+eval `cat ~/.ssh_agent` > /dev/null
+
+# I like that this treats each component of a path as a word.
+export WORDCHARS=''
