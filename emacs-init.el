@@ -9,11 +9,12 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 (require 'ansi-color)
-(require 'auto-complete)
+(require 'auto-complete-config)
 (require 'cc-mode)
 (require 'cl)
 (require 'color-theme)
 (require 'column-marker)
+(require 'edit-server)
 (require 'epa-file)
 (require 'filladapt)
 (require 'framemove)
@@ -36,6 +37,10 @@
 (require 'twittering-mode)
 (require 'uniquify)
 (require 'whitespace)
+
+(add-to-list 'ac-dictionary-directories "/home/sanjoy/.emacs.d//ac-dict")
+(ac-config-default)
+(edit-server-start)
 
 ;;   GENERAL
 ;; -------------------------------------------------------------------
@@ -177,8 +182,7 @@
          :channels ("##geekbhaat" "#klug-devel" "#v8" "#ucombinator" "#haskell" "##c"
                     "##cc" "##workingset" "#lisp" "##categorytheory"))
         ("irc.oftc.net" :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("#llvm"))
-        ("127.0.0.1" :nick "sanjoy"  :full-name "Sanjoy Das")))
+         :channels ("#llvm"))))
 
 ;;; Notifications in the modeline
 (rcirc-track-minor-mode 1)
