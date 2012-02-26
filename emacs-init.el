@@ -38,10 +38,6 @@
 (require 'uniquify)
 (require 'whitespace)
 
-(add-to-list 'ac-dictionary-directories "/home/sanjoy/.emacs.d//ac-dict")
-(ac-config-default)
-(edit-server-start)
-
 ;;   GENERAL
 ;; -------------------------------------------------------------------
 
@@ -135,6 +131,15 @@
 
 ;;; I'm old enough to use downcase-region
 (put 'downcase-region 'disabled nil)
+
+(add-to-list 'ac-dictionary-directories "/home/sanjoy/.emacs.d//ac-dict")
+(ac-config-default)
+
+;;; Integrate emacs with Google chrome.
+(edit-server-start)
+(add-hook 'edit-server-start-hook (lambda ()
+                                    (interactive)
+                                    (flyspell-mode)))
 
 ;;   LISP MODE
 ;; -------------------------------------------------------------------
