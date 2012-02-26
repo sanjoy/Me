@@ -180,7 +180,7 @@ export ALTERNATE_EDITOR="nano"
 export PATH="$PATH:/home/sanjoy/prefix/bin:/home/sanjoy/.cabal/bin"
 
 bindkey '^H' backward-delete-word
-bindkey '^E' push-line
+bindkey '^S' push-line
 alias play="$MEDIA_PLAYER"
 
 setopt share_history
