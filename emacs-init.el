@@ -31,7 +31,6 @@
 (require 'revbufs)
 (require 'slime)
 (require 'tablegen-mode)
-(require 'tbemail)
 (require 'timeclock)
 (require 'tramp)
 (require 'twittering-mode)
@@ -123,11 +122,6 @@
   '(progn
      (color-theme-initialize)
      (color-theme-hober)))
-
-;;; Timeclock
-(global-set-key (kbd "C-c qi") 'timeclock-in)
-(global-set-key (kbd "C-c qo") 'timeclock-out)
-(global-set-key (kbd "C-c qs") 'timeclock-status-string)
 
 ;;; I'm old enough to use downcase-region
 (put 'downcase-region 'disabled nil)
@@ -436,17 +430,6 @@
 (custom-set-variables
  '(mingus-mode-line-show-status nil)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify)))
-
-
-;;   EMAIL MODE
-;; -------------------------------------------------------------------
-
-(defun my-email-additions ()
-  (interactive)
-  (flyspell-mode))
-
-(add-hook 'tbemail-mode-hook 'my-email-additions)
-
 
 ;;   PLAIN OLD TEXT
 ;; -------------------------------------------------------------------
