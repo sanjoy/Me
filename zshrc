@@ -197,3 +197,15 @@ eval `cat ~/.ssh_agent` > /dev/null
 
 # I like that this treats each component of a path as a word.
 export WORDCHARS=''
+
+# Automatically append a / after ..
+rationalise-dot() {
+  if [[ $LBUFFER = *.. ]]; then
+    LBUFFER+=/..
+  else
+    LBUFFER+=.
+  fi
+}
+
+zle -N rationalise-dot
+bindkey . rationalise-dot
