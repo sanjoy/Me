@@ -9,7 +9,6 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 (require 'ansi-color)
-(require 'auto-complete-config)
 (require 'cc-mode)
 (require 'cl)
 (require 'color-theme)
@@ -125,9 +124,6 @@
 
 ;;; I'm old enough to use downcase-region
 (put 'downcase-region 'disabled nil)
-
-(add-to-list 'ac-dictionary-directories "/home/sanjoy/.emacs.d//ac-dict")
-(ac-config-default)
 
 ;;; Integrate emacs with Google chrome.
 (edit-server-start)
@@ -291,11 +287,6 @@
  ido-default-file-method 'selected-window
  ido-default-buffer-method 'selected-window)
 
-;;; Auto-completion
-(global-auto-complete-mode t)
-(define-key ac-complete-mode-map "\C-n" 'ac-next)
-(define-key ac-complete-mode-map "\C-p" 'ac-previous)
-
 ;;; No backup files
 (setq make-backup-files nil)
 
@@ -429,7 +420,8 @@
 
 (custom-set-variables
  '(mingus-mode-line-show-status nil)
- '(uniquify-buffer-name-style (quote reverse) nil (uniquify)))
+ '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
+ '(agda2-include-dirs '("." "/usr/share/agda-stdlib")))
 
 ;;   PLAIN OLD TEXT
 ;; -------------------------------------------------------------------
