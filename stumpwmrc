@@ -14,6 +14,7 @@
   (run-or-raise "exec /home/sanjoy/prefix/bin/launch-chrome" '(:class "Google-chrome")))
 
 (define-key *root-map* (kbd "C-f")  "exec evince")
+(define-key *root-map* (kbd "C-l")  "exec xscreensaver-command -lock")
 (define-key *root-map* (kbd "c")    "raise-urxvt")
 (define-key *root-map* (kbd "C-c")  "raise-urxvt")
 (define-key *root-map* (kbd "C-v")  "raise-chrome")
@@ -66,7 +67,7 @@
       (list "[ %l ] ^20[ "
             '(:eval (remove-last-char (run-shell-command "date '+%R, %d %b (%a)'" t)))
             " ] ^30[ Now Playing: "
-            '(:eval (sanitize (run-shell-command "mpc current | tr -d [:cntrl:]" t)
+            '(:eval (sanitize (run-shell-command "mpc current | tr -d '\\n'" t)
                      "Nothing"))
             " ]^60 [ Uptime: "
             '(:eval (run-shell-command "uptime | gawk 'match($0, /.*up ([^,]*).*/, ary) {print ary[1]}' | tr -d ',\\n'" t))
