@@ -108,6 +108,9 @@
 (global-set-key (kbd "C-c C-k")
                 'my-kill-buffers-by-directory)
 
+(global-set-key (kbd "C-c C-f") 'flyspell-mode)
+(global-set-key (kbd "C-c C-b") 'browse-url-at-point)
+
 (global-set-key (kbd "C-c r")
                 'revert-buffer)
 
@@ -400,6 +403,17 @@
     (setq header-line-format which-func-header-line-format)))
 
 (custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(agda2-highlight-datatype-face ((t (:foreground "light blue"))))
+ '(agda2-highlight-function-face ((t (:foreground "light blue"))))
+ '(agda2-highlight-module-face ((t (:foreground "cyan"))))
+ '(agda2-highlight-postulate-face ((t (:foreground "light blue"))))
+ '(agda2-highlight-primitive-face ((t (:foreground "light blue"))))
+ '(agda2-highlight-primitive-type-face ((t (:foreground "light blue"))))
+ '(agda2-highlight-record-face ((t (:foreground "light blue"))))
  '(which-func ((t (:foreground "green")))))
 
 ;;; For M-x compile
@@ -419,9 +433,14 @@
 (global-set-key (kbd "<f9>")     'mingus)
 
 (custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(agda2-include-dirs (quote ("." "/usr/share/agda-stdlib")) t)
+ '(coq-prog-args (quote ("-I" "/home/sanjoy/src/cpdt/src/")))
  '(mingus-mode-line-show-status nil)
- '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
- '(agda2-include-dirs '("." "/usr/share/agda-stdlib")))
+ '(uniquify-buffer-name-style (quote reverse) nil (uniquify)))
 
 ;;   PLAIN OLD TEXT
 ;; -------------------------------------------------------------------
@@ -519,3 +538,25 @@
                    (tag-word-or-region "texttt"))))
 
 (add-hook 'TeX-mode-hook 'tex-mode-hook)
+
+(defun toggle-fullscreen ()
+  (interactive)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+	    		 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
+
+(defun my-find-selected ()
+  (if (use-region-p)
+      (buffer-substring (region-beginning) (region-end))
+    (thing-at-point 'symbol)))
+
+(defun my-grep-find (term)
+  (interactive
+   (list (read-string "Search for: " (my-find-selected))))
+  (grep-find (concat "find . -type f -print0 | \"xargs\" -0 -e grep -I -nH -e"
+                     term)))
+
+(global-set-key (kbd "C-c s") 'my-grep-find)
