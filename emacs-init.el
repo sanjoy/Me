@@ -2,18 +2,14 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/themes")
-(add-to-list 'load-path "~/.emacs.d/emacs-codepad")
 
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(require 'ansi-color)
 (require 'cc-mode)
-(require 'cl)
 (require 'color-theme)
 (require 'column-marker)
-(require 'edit-server)
 (require 'epa-file)
 (require 'filladapt)
 (require 'framemove)
@@ -22,7 +18,6 @@
 (require 'haskell-mode)
 (require 'llvm-mode)
 (require 'magit)
-(require 'mingus)
 (require 'org-install)
 (require 'paredit)
 (require 'php-mode)
@@ -30,16 +25,14 @@
 (require 'revbufs)
 (require 'slime)
 (require 'tablegen-mode)
-(require 'timeclock)
 (require 'tramp)
-(require 'twittering-mode)
 (require 'uniquify)
 (require 'whitespace)
 
-;;   GENERAL
-;; -------------------------------------------------------------------
+(load-file "/home/sanjoy/.emacs.d/ProofGeneral/generic/proof-site.el")
 
-;;; Variables which shall not be customized further.
+;;   General
+;; -------------------------------------------------------------------
 
 (setq-default 
  blink-matching-delay .25
@@ -52,8 +45,6 @@
  default-font-name "-bitstream-Bitstream Vera Sans Mono-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1"
  edebug-trace t
  fill-adapt-mode t
- font-lock-maximum-decoration t
- indent-tabs-mode nil
  inhibit-startup-message t
  max-lisp-eval-depth 12000
  next-line-add-newlines nil
@@ -120,21 +111,112 @@
 ;;; Auto-encryption / decryption
 (epa-file-enable)
 
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-hober)))
-
 ;;; I'm old enough to use downcase-region
 (put 'downcase-region 'disabled nil)
 
-;;; Integrate emacs with Google chrome.
-(edit-server-start)
-(add-hook 'edit-server-start-hook (lambda ()
-                                    (interactive)
-                                    (flyspell-mode)))
 
-;;   LISP MODE
+(defun toggle-fullscreen ()
+  (interactive)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+	    		 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+
+
+(load-file (let ((coding-system-for-read 'utf-8))
+                (shell-command-to-string "agda-mode locate")))
+
+(defun my-find-selected ()
+  (if (use-region-p)
+      (buffer-substring (region-beginning) (region-end))
+    (thing-at-point 'symbol)))
+
+(defun my-grep-find (term)
+  (interactive
+   (list (read-string "Search for: " (my-find-selected))))
+  (grep-find (concat "find . -type f -print0 | \"xargs\" -0 -e grep -I -nH -e "
+                     term)))
+
+(global-set-key (kbd "C-c s") 'my-grep-find)
+
+;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
+
+(windmove-default-keybindings)
+(setq framemove-hook-into-windmove t)
+
+(global-set-key (kbd "\C-x\C-a\C-a") 'magit-status)
+
+;;   My color scheme
+;; -------------------------------------------------------------------
+
+(defun color-theme-ultra-mild (&optional preview)
+  (interactive)
+  (color-theme-install
+   '(color-theme-ultra-mild
+     ((foreground-color . "#aaaaaa")
+      (background-color . "#000000")
+      (mouse-color . "black")
+      (cursor-color . "medium turquoise")
+      (border-color . "black")
+      (background-mode . dark))
+
+     (default ((t (nil))))
+
+     (modeline ((t (:foreground "white" :background "gray15"))))
+     (modeline-buffer-id ((t (:foreground "white" :background "gray15"))))
+     (modeline-mousable ((t (:foreground "white" :background "gray15"))))
+     (modeline-mousable-minor-mode ((t (:foreground "white" :background "gray15"))))
+
+     (highlight ((t (:foreground "white" :background "gray15"))))
+
+     (bold ((t (:bold t))))
+     (italic ((t (:italic t))))
+     (bold-italic ((t (:bold t :italic t))))
+     (underline ((t (:underline t))))
+     (fixed ((t (:bold t))))
+     (excerpt ((t (:italic t))))
+
+     (region ((t (:foreground "white" :background "#004060"))))
+     (zmacs-region ((t (:foreground "white" :background "#004060"))))
+     (secondary-selection ((t (:background "paleturquoise"))))
+
+     (font-lock-builtin-face ((t (:foreground "#cccce0"))))
+     (font-lock-keyword-face ((t (:foreground "#cccce0"))))
+
+     (font-lock-comment-face ((t (:foreground "#e0cccc"))))
+     (font-lock-constant-face ((t (:foreground "#aaaaaa"))))
+     (font-lock-function-name-face ((t (:foreground "#aaaaaa"))))
+     (font-lock-type-face ((t (:foreground "#aaaaaa"))))
+     (font-lock-variable-name-face ((t (:foreground "#aaaaaa"))))
+
+     (font-lock-preprocessor-face ((t (:foreground "#d1b2c2"))))
+     (font-lock-string-face ((t (:foreground "#b87094"))))
+     (font-lock-warning-face ((t (:foreground "red" :bold t))))
+
+     (highlight-changes-face ((t (:foreground "red"))))
+     (highlight-changes-delete-face ((t (:foreground "red" :underline t))))
+
+     (makefile-space-face ((t (:background "#8a002e"))))
+
+     (flyspell-incorrect-face ((t (:foreground "#b84d4d" :bold t :underline t))))
+     (flyspell-duplicate-face ((t (:foreground "#b84d4d" :bold t :underline t)))))))
+
+(color-theme-initialize)
+(color-theme-ultra-mild)
+
+;;   Lisp Mode
 ;; -------------------------------------------------------------------
 
 (defun my-lisp-hook (interactive-p)
@@ -147,23 +229,14 @@
 (add-hook 'emacs-lisp-mode-hook '(lambda () (my-lisp-hook nil)))
 (add-hook 'lisp-interaction-mode-hook '(lambda () (my-lisp-hook t)))
 
-;;; Set up SLIME
 (setq inferior-lisp-program "/usr/bin/sbcl --noinform --no-linedit")
 (add-to-list 'load-path (concat code-directory "/Practice/LISP/SLIME"))
 (slime-setup)
 
 
-;;   WINDMOVE
-;; -------------------------------------------------------------------
-
-(windmove-default-keybindings)
-(setq framemove-hook-into-windmove t)
-
-
-;;   ORG MODE
+;;   Org Mode
 ;; -------------------------------------------------------------------
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-hook 'org-mode-hook 'turn-on-font-lock)
 
 ;;; Windmove under Org mode
 (add-hook 'org-shiftup-final-hook    'windmove-up)
@@ -171,103 +244,8 @@
 (add-hook 'org-shiftdown-final-hook  'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-;;   RCIRC
-;; -------------------------------------------------------------------
 
-;;; General settings
-(setq rcirc-server-alist
-      '(("irc.freenode.net" :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("##geekbhaat" "#klug-devel" "#v8" "#ucombinator" "#haskell" "##c"
-                    "##cc" "##workingset" "#lisp" "##categorytheory"))
-        ("irc.oftc.net" :nick "sanjoyd" :full-name "Sanjoy Das"
-         :channels ("#llvm"))))
-
-;;; Notifications in the modeline
-(rcirc-track-minor-mode 1)
-
-(add-hook 'rcirc-mode-hook
-          '(lambda ()
-             (flyspell-mode)
-             (set (make-local-variable 'scroll-conservatively)
-                  8192)))
-
-;;; Logging everything
-(setq rcirc-log-flag "t"
-      rcirc-log-directory "~/.emacs.d/rcirc-log")
-
-;;; Kill all RCIRC buffers with one command
-(defun kill-mode-buffers (&optional mode)
-  "Kill all buffers of this major mode.
-   With optional argument MODE, all buffers in major mode MODE are killed
-   instead."
-  (interactive (list (when current-prefix-arg (ted-read-major-mode))))
-  (setq mode (or mode major-mode))
-  (when (or current-prefix-arg
-            (y-or-n-p (format "Really kill all %s buffers? " mode)))
-    (mapc (lambda (buffer)
-            (when (with-current-buffer buffer
-                    (eq major-mode mode))
-              (kill-buffer buffer)))
-          (buffer-list))))
-
-(defun rcirc-kill-all-buffers ()
-  (interactive)
-  (kill-mode-buffers 'rcirc-mode))
-
-;;; Load password
-(defun rcirc-load-authinfo ()
-  (interactive)
-  (with-temp-buffer
-    (insert-file-contents-literally rcirc-authinfo-file-name)
-    (goto-char (point-min))
-    (setq rcirc-authinfo (read (current-buffer)))))
-(rcirc-load-authinfo)
-
-;;; :D
-(defun my-rcirc-dance ()
-  (mapc (lambda (c)
-          (insert (concat "/me dances :D" (char-to-string c) "-<"))
-          (rcirc-send-input)
-          (sleep-for 0 500)) "/|\\|"))
-
-(eval-after-load 'rcirc
-  '(defun-rcirc-command dance (arg)
-     "Dance."
-     (interactive "i")
-     (my-rcirc-dance)))
-
-;;; Nick Colors
-(eval-after-load 'rcirc '(require 'rcirc-color))
-
-;;; Auto away
-(defvar rcirc-auto-away-server-regexps
-  '("freenode" "oftc"))
-
-;;;; Auto away after this many seconds
-(defvar rcirc-auto-away-after 1800)
-
-;;;; Reason sent to server when auto-away
-(defvar rcirc-auto-away-reason "Saving kittens.")
-(defun rcirc-auto-away ()
-  (message "Auto away activated.")
-  (rcirc-auto-away-1 rcirc-auto-away-reason)
-  (add-hook 'post-command-hook 'rcirc-auto-unaway))
-
-(defun rcirc-auto-away-1 (reason)
-  (let ((regexp (mapconcat (lambda (x) (concat "\\(" x "\\)")) 
-                           rcirc-auto-away-server-regexps "\\|")))
-    (dolist (process (rcirc-process-list))
-      (when (string-match regexp (process-name process))
-        (rcirc-send-string process (concat "AWAY :" reason))))))
-
-(defun rcirc-auto-unaway ()
-  (remove-hook 'post-command-hook 'rcirc-auto-unaway)
-  (rcirc-auto-away-1 ""))
-
-(run-with-idle-timer rcirc-auto-away-after t 'rcirc-auto-away)
-
-
-;;   IDO BUFFER & FILE MANAGEMENT
+;;   Ido buffer & file management
 ;; -------------------------------------------------------------------
 
 (ido-mode t)
@@ -285,7 +263,7 @@
 ;;;; Don't spam minibuffer
  ido-max-prospects 6
 ;;;; Don't wait for RET with unique completion
- ido-confirm-unique-completion nil
+ ido-confirm-unique-completion t
 ;;;; Always open buffers and files in the current window
  ido-default-file-method 'selected-window
  ido-default-buffer-method 'selected-window)
@@ -294,12 +272,8 @@
 (setq make-backup-files nil)
 
 
-;;   MAGIT
-;; -------------------------------------------------------------------
-(global-set-key (kbd "\C-x\C-a") 'magit-status)
 
-
-;;   HASKELL MODE
+;;   Haskell Mode
 ;; -------------------------------------------------------------------
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -309,7 +283,7 @@
                                 (setq show-trailing-whitespace t)))
 
 
-;;   C & C++ MODE
+;;   C & C++ Mode
 ;; -------------------------------------------------------------------
 
 (c-add-style "llvm.org"
@@ -324,26 +298,16 @@
                 (cons (concat src-directory (car x) "/") (cdr x)))
               '(("v8" . (lambda ()
                           (c-set-style "Google")))
-                ("gofrontend" . (lambda ()
-                                  (c-set-style "Google")))
-                ("gpython" . (lambda ()
-                               (c-set-style "Google")))
                 ("llvm" . (lambda ()
                             (c-set-style "llvm.org")))
-                ("dragonegg" . (lambda ()
-                                 (c-set-style "llvm.org")))
                 ("gdb" . (lambda ()
                            (c-set-style "gnu")))
                 ("gcc" . (lambda ()
                            (c-set-style "gnu")))
-                ("Snippets" . (lambda ()
-                                (c-set-style "Google")))
-                ("webkit" . (lambda ()
-                              (column-marker-1 -1)
-                              (setq show-trailing-whitespace nil)
-                              (setq c-basic-offset 4)
-                              (setq tab-width 8)
-                              (setq indent-tabs-mode nil))))))
+                ("jato" . (lambda ()
+                            (setq tab-width 2)))
+                ("phoenixfs" . (lambda ()
+                                 (c-set-style "linux"))))))
 
 (defun safe-str-match (a b)
   (if (or (null a)
@@ -372,35 +336,19 @@
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
   (setq c-backslash-max-column 79)
-  (flyspell-prog-mode)
   (setq show-trailing-whitespace t)
+  (c-set-style "Google")
   (my-c-style)
   (setq c-progress-interval 1)
   (subword-mode 1)
-  ;; emacs 21 has jit-lock which is better
-  (setq font-lock-support-mode 'jit-lock-mode)
-  (setq jit-lock-stealth-time 16
-        jit-lock-defer-contextually t
-        jit-lock-stealth-nice 0.5)
-  (setq-default font-lock-multiline t))
+  (font-lock-mode t))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 (global-set-key (kbd "C-c i") 'imenu)
 
-;;; Display the name of the current function at the top of the window
-(which-func-mode)
-
-(delete (assoc 'which-func-mode mode-line-format) mode-line-format)
-
-(setq which-func-header-line-format
-      '(which-func-mode
-        ("" which-func-format)))
-
-(defadvice which-func-ff-hook (after header-line activate)
-  (when which-func-mode
-    (delete (assoc 'which-func-mode mode-line-format) mode-line-format)
-    (setq header-line-format which-func-header-line-format)))
+;;; For M-x compile
+(setq compilation-scroll-output t)
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -416,46 +364,21 @@
  '(agda2-highlight-record-face ((t (:foreground "light blue"))))
  '(which-func ((t (:foreground "green")))))
 
-;;; For M-x compile
-(setq compilation-scroll-output t)
-
-;;   MINGUS
-;; -------------------------------------------------------------------
-
-(defmacro my-kill-mingus-after-use (function-to-call)
-  `(lambda ()
-     (interactive)
-     (funcall ',function-to-call)
-     (let ((mingus-buffer (get-buffer "*Mingus*")))
-       (unless (eql mingus-buffer (current-buffer))
-         (kill-buffer mingus-buffer)))))
-
-(global-set-key (kbd "<f9>")     'mingus)
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(agda2-include-dirs (quote ("." "/usr/share/agda-stdlib")) t)
- '(coq-prog-args (quote ("-I" "/home/sanjoy/src/cpdt/src/")))
- '(mingus-mode-line-show-status nil)
- '(uniquify-buffer-name-style (quote reverse) nil (uniquify)))
-
-;;   PLAIN OLD TEXT
+;;   Writeups
 ;; -------------------------------------------------------------------
 
 (setq +thoughts-directory+ "~/rest/writeups/")
 
 (defun write-mode ()
   (interactive)
-  (html-mode)
   (longlines-mode)
   (flyspell-mode))
 
 (defun my-edit-text (title)
   (interactive "sTitle: ")
-  (let ((file-name (concat +thoughts-directory+ title "." (format-time-string "%d-%m-%Y-%H-%M"))))
+  (let ((file-name (concat +thoughts-directory+ title "."
+                           (format-time-string "%d-%m-%Y-%H-%M")
+                           ".rst")))
     (find-file file-name)
     (write-mode)))
 
@@ -471,16 +394,7 @@
 (global-set-key (kbd "C-c d") 'my-tmux-switch-to-directory)
 
 
-;;   CODEPAD.ORG INTEGRATION
-;; -------------------------------------------------------------------
-
-;;; Does not work very well under the proxy
-(autoload 'codepad-paste-region "codepad" "Paste region to codepad.org." t)
-(autoload 'codepad-paste-buffer "codepad" "Paste buffer to codepad.org." t)
-(autoload 'codepad-fetch-code "codepad" "Fetch code from codepad.org." t)
-
-
-;;   FRAMES
+;;   Frames
 ;; -------------------------------------------------------------------
 
 (defvar *default-tt-frame* nil)
@@ -502,7 +416,9 @@
 (add-hook 'server-switch-hook 'my-server-switch-hook)
 (put 'upcase-region 'disabled nil)
 
-;; TEX MODE
+(my-set-default-frame)
+
+;; TeX Mode
 ;; -------------------------------------------------------------------
 
 (defun tag-word-or-region (tag)
@@ -539,24 +455,14 @@
 
 (add-hook 'TeX-mode-hook 'tex-mode-hook)
 
-(defun toggle-fullscreen ()
-  (interactive)
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-	    		 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 
 
-(load-file (let ((coding-system-for-read 'utf-8))
-                (shell-command-to-string "agda-mode locate")))
 
-(defun my-find-selected ()
-  (if (use-region-p)
-      (buffer-substring (region-beginning) (region-end))
-    (thing-at-point 'symbol)))
 
-(defun my-grep-find (term)
-  (interactive
-   (list (read-string "Search for: " (my-find-selected))))
-  (grep-find (concat "find . -type f -print0 | \"xargs\" -0 -e grep -I -nH -e"
-                     term)))
 
-(global-set-key (kbd "C-c s") 'my-grep-find)
+
+
+
+
+
+
