@@ -192,17 +192,17 @@
      (zmacs-region ((t (:foreground "white" :background "#004060"))))
      (secondary-selection ((t (:background "paleturquoise"))))
 
-     (font-lock-builtin-face ((t (:foreground "#cccce0"))))
-     (font-lock-keyword-face ((t (:foreground "#cccce0"))))
+     (font-lock-builtin-face ((t (:foreground "#9999d6"))))
+     (font-lock-keyword-face ((t (:foreground "#9999d6"))))
 
-     (font-lock-comment-face ((t (:foreground "#e0cccc"))))
+     (font-lock-comment-face ((t (:foreground "#995500"))))
      (font-lock-constant-face ((t (:foreground "#aaaaaa"))))
      (font-lock-function-name-face ((t (:foreground "#aaaaaa"))))
      (font-lock-type-face ((t (:foreground "#aaaaaa"))))
      (font-lock-variable-name-face ((t (:foreground "#aaaaaa"))))
 
      (font-lock-preprocessor-face ((t (:foreground "#d1b2c2"))))
-     (font-lock-string-face ((t (:foreground "#b87094"))))
+     (font-lock-string-face ((t (:foreground "#b87094" :background "#000a1f"))))
      (font-lock-warning-face ((t (:foreground "red" :bold t))))
 
      (highlight-changes-face ((t (:foreground "red"))))
