@@ -72,7 +72,7 @@ function find-file {
 	fi
 }
 
-MEDIA_PLAYER='vlc'
+MEDIA_PLAYER='/usr/bin/vlc'
 
 # Picks up a random video from the current directory tree and plays it using mplayer
 function entertain {
