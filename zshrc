@@ -203,3 +203,4 @@ rationalise-dot() {
 
 zle -N rationalise-dot
 bindkey . rationalise-dot
+export ACK_PAGER='less -FRXS'
