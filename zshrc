@@ -27,12 +27,6 @@ alias df='df -kTh'
 # Special alias to show all files
 alias la='ls -a'
 
-# The spirit of UNIX.  -g is for inline aliases.
-alias -g G='| grep'
-alias -g L='| less'
-alias -g H='| head'
-alias -g T='| tail'
-
 # Something I use a lot for exploring large codebases
 function g-find-symbol {
 	if [ -n "$1" -a -n "$2" ]; then
