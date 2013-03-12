@@ -454,3 +454,6 @@
                    (tag-word-or-region "texttt"))))
 
 (add-hook 'TeX-mode-hook 'tex-mode-hook)
+
+
+(setq x-select-enable-clipboard t)
