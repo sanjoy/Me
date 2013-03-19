@@ -457,3 +457,5 @@
 
 
 (setq x-select-enable-clipboard t)
+(custom-set-variables
+ '(uniquify-buffer-name-style (quote reverse) nil (uniquify)))
