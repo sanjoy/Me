@@ -65,6 +65,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
   [((m .|. modm, k), windows $ f i)
   | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
   , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+  ++
+  [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+  | (key, sc) <- zip [xK_w, xK_r] [0, 1]
+  , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
 
 myMouseBindings (XConfig {XMonad.modMask = modm}) =
   M.fromList
