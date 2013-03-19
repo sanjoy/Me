@@ -23,7 +23,7 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Util.Run(spawnPipe)
 
 myTerminal = "rxvt-unicode -e /usr/bin/tmux"
-myBrowser = "google-chrome"
+myBrowser = "conkeror"
 myFocusFollowsMouse = True
 myBorderWidth = 1
 myModifier = mod4Mask
@@ -38,7 +38,8 @@ runOrRaiseIdiom modm key action windowClassName =
 myKeys conf@(XConfig {XMonad.modMask = modm}) =
   M.fromList $
   runOrRaiseIdiom modm xK_u (spawn $ XMonad.terminal conf) "URxvt" ++
-  runOrRaiseIdiom modm xK_e (spawn myBrowser) "Google-chrome" ++
+  runOrRaiseIdiom modm xK_e (spawn "emacs") "Emacs" ++
+  runOrRaiseIdiom modm xK_o (spawn myBrowser) "Conkeror" ++
   [ ((modm,                 xK_b),     bringMenuArgs ["-nb", "black", "-nf", "grey", "-sb", "#ee9a00"])
   , ((modm,                 xK_p),     spawn "dmenu_run")
   , ((modm .|. shiftMask,   xK_c),     kill)
