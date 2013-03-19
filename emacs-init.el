@@ -129,10 +129,15 @@
       (buffer-substring (region-beginning) (region-end))
     (thing-at-point 'symbol)))
 
-(defun my-grep-find (term)
+(defun my-grep-find (term dir)
   (interactive
-   (list (read-string "Search for: " (my-find-selected))))
-  (grep-find (concat "find . -type f -print0 | \"xargs\" -0 -e grep -I -nH -e "
+   (list (read-string "Search for: " (my-find-selected))
+         (read-string "Directory: "
+                      (file-name-directory
+                       (or load-file-name buffer-file-name)))))
+  (grep-find (concat "find "
+                     dir
+                     " -type f -print0 | \"xargs\" -0 -e grep -I -nH -e "
                      term)))
 
 (global-set-key (kbd "C-c s") 'my-grep-find)
