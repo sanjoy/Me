@@ -84,9 +84,6 @@ function entertain {
 # Add more -or and -name s to add more extensions later. This should do for now.
 }
 
-# Set the http proxy.
-export all_proxy=`cat ~/.all_proxy`
-
 function screen-create () {
 	name=$1
 	screen -list | grep "$name"
