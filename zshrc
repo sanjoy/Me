@@ -203,3 +203,9 @@ bindkey . rationalise-dot
 export ACK_PAGER='less -FRXS'
 
 alias less='less -FRXS'
+
+function build-etags-list {
+   find . -name '*.h' -or -name '*.hh' -or -name '*.hpp' -or     \
+          -name '*.c' -or -name '*.cc' -or -name '*.cpp' -type f \
+   | xargs etags -f TAGS
+}
