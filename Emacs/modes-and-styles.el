@@ -1,7 +1,12 @@
 ;;; modes-and-styles.el
 
+(add-to-list 'load-path "~/.emacs.d/third-party/git-modes/")
+
 (defun sanjoy-initialize-modes ()
   (require 'cc-mode)
+  (require 'git-commit-mode)
+  (require 'gitconfig-mode)
+  (require 'gitignore-mode)
   (require 'haskell-mode)
   (require 'paredit)
   (require 'llvm-mode)
