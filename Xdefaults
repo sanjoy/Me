@@ -17,24 +17,22 @@ URxvt.keysym.C-Delete:       perl:matcher
 URxvt.urlLauncher:           launch-chrome
 URxvt.underlineURLs:         true
 
-!! Color Scheme
-
-URxvt*background:            #000000
-URxvt*foreground:            #c8c8c8
-
-URxvt*color0:                #000000
-URxvt*color1:                #cc0000
-URxvt*color2:                #4e9a06
-URxvt*color3:                #855c1b
-URxvt*color4:                #729fcf
-URxvt*color5:                #cc0000
-URxvt*color6:                #418179
-URxvt*color7:                #1f1f1f
-URxvt*color8:                #ffffff
-URxvt*color9:                #ad7fa8
-URxvt*color10:               #73d216
-URxvt*color11:               #c4a000
-URxvt*color12:               #729fcf
-URxvt*color13:               #cc0000
-URxvt*color14:               #71bebe
-URxvt*color15:               #eeeeec
+!! Zenburn for URxvt
+URxvt*background:  #3f3f3f
+URxvt*foreground:  #dcdccc
+URxvt*color0:      #1E2320
+URxvt*color1:      #705050
+URxvt*color2:      #60b48a
+URxvt*color3:      #dfaf8f
+URxvt*color4:      #506070
+URxvt*color5:      #dc8cc3
+URxvt*color6:      #8cd0d3
+URxvt*color7:      #dcdccc
+URxvt*color8:      #709080
+URxvt*color9:      #dca3a3
+URxvt*color10:     #c3bf9f
+URxvt*color11:     #f0dfaf
+URxvt*color12:     #94bff3
+URxvt*color13:     #ec93d3
+URxvt*color14:     #93e0e3
+URxvt*color15:     #ffffff
