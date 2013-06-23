@@ -10,11 +10,11 @@
   (require 'gitconfig-mode)
   (require 'gitignore-mode)
   (require 'haskell-mode)
-  (require 'paredit)
   (require 'llvm-mode)
+  (require 'magit)
+  (require 'paredit)
   (require 'rebase-mode)
   (require 'tablegen-mode)
-  (require 'magit)
   (load-file (let ((coding-system-for-read 'utf-8))
                (shell-command-to-string "agda-mode locate"))))
 
