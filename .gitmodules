@@ -1,3 +1,12 @@
 [submodule "Emacs/third-party/git-modes"]
 	path = Emacs/third-party/git-modes
 	url = git://github.com/lunaryorn/git-modes.git
+[submodule "Emacs/third-party/magit"]
+	path = Emacs/third-party/magit
+	url = git://github.com/magit/magit.git
+[submodule "Emacs/third-party/zenburn-emacs"]
+	path = Emacs/third-party/zenburn-emacs
+	url = https://github.com/bbatsov/zenburn-emacs.git
+[submodule "Emacs/third-party/haskell-mode"]
+	path = Emacs/third-party/haskell-mode
+	url = https://github.com/haskell/haskell-mode.git
