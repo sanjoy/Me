@@ -1,7 +1,6 @@
 ;;; modes-and-styles.el
 
 (add-to-list 'load-path "~/.emacs.d/third-party/git-modes/")
-(add-to-list 'load-path "~/.emacs.d/third-party/haskell-mode/")
 (add-to-list 'load-path "~/.emacs.d/third-party/magit/")
 
 (defun sanjoy-initialize-modes ()
@@ -9,7 +8,6 @@
   (require 'git-commit-mode)
   (require 'gitconfig-mode)
   (require 'gitignore-mode)
-  (require 'haskell-mode)
   (require 'llvm-mode)
   (require 'magit)
   (require 'paredit)
@@ -39,12 +37,14 @@
   (add-hook 'lisp-interaction-mode-hook '(lambda () (sanjoy-lisp-hook t))))
 
 (defun sanjoy-initialize-haskell-mode ()
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-  (add-hook 'haskell-mode-hook
-            '(lambda ()
-               (interactive)
-               (setq show-trailing-whitespace t))))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+              (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+              (add-hook 'haskell-mode-hook
+                        '(lambda ()
+                           (interactive)
+                           (setq show-trailing-whitespace t))))))
 
 
 (setq +sanjoy-c-project-directories+
