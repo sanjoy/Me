@@ -1,6 +1,8 @@
 ;;; modes-and-styles.el
 
 (add-to-list 'load-path "~/.emacs.d/third-party/git-modes/")
+(add-to-list 'load-path "~/.emacs.d/third-party/haskell-mode/")
+(add-to-list 'load-path "~/.emacs.d/third-party/magit/")
 
 (defun sanjoy-initialize-modes ()
   (require 'cc-mode)
@@ -13,7 +15,6 @@
   (require 'rebase-mode)
   (require 'tablegen-mode)
   (require 'magit)
-  (require 'slime)
   (load-file (let ((coding-system-for-read 'utf-8))
                (shell-command-to-string "agda-mode locate"))))
 
@@ -35,11 +36,7 @@
 (defun sanjoy-initialize-lisp-mode ()
   (add-hook 'lisp-mode-hook '(lambda () (sanjoy-lisp-hook nil)))
   (add-hook 'emacs-lisp-mode-hook '(lambda () (sanjoy-lisp-hook nil)))
-  (add-hook 'lisp-interaction-mode-hook '(lambda () (sanjoy-lisp-hook t)))
-
-  (setq inferior-lisp-program "/usr/bin/sbcl --noinform --no-linedit")
-  (add-to-list 'load-path (concat sanjoy-source-directory "/practice/lisp/slime"))
-  (slime-setup))
+  (add-hook 'lisp-interaction-mode-hook '(lambda () (sanjoy-lisp-hook t))))
 
 (defun sanjoy-initialize-haskell-mode ()
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
