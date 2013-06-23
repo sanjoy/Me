@@ -5,6 +5,7 @@
 (sanjoy-clear-up-ui)
 (sanjoy-everything-in-utf8)
 (sanjoy-initialize-fonts)
+(sanjoy-initialize-package)
 (sanjoy-miscellaneous-settings)
 (sanjoy-set-special-directories)
 (sanjoy-unprotect-commands)
