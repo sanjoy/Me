@@ -23,19 +23,6 @@
       (buffer-substring (region-beginning) (region-end))
     (thing-at-point 'symbol)))
 
-(defun sanjoy-grep-find (term dir)
-  (interactive
-   (list (read-string "Search for: " (sanjoy-get-selected-thing-or-region))
-         (read-string "Directory: "
-                      (file-name-directory
-                       (or load-file-name buffer-file-name)))))
-  (grep-find (concat "find "
-                     dir
-                     " -type f -print0 | \"xargs\" -0 -e grep -I -nH -e '"
-                     term
-                     "'")))
-
-
 (defun sanjoy-tmux-switch-to-directory ()
   "Open the current directory in the current tmux window."
   (interactive)
