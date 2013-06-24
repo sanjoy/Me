@@ -44,7 +44,9 @@
               (add-hook 'haskell-mode-hook
                         '(lambda ()
                            (interactive)
-                           (setq show-trailing-whitespace t))))))
+                           (setq show-trailing-whitespace t)
+                           (local-set-key (kbd "C-c C-c") 'comment-region)
+                           (local-set-key (kbd "C-c C-u") 'uncomment-region))))))
 
 
 (setq +sanjoy-c-project-directories+
