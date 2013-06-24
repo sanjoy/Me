@@ -27,7 +27,7 @@ myBrowser = "conkeror"
 myFocusFollowsMouse = True
 myBorderWidth = 1
 myModifier = mod4Mask
-myWorkspaces = ["1:dev","2:dev", "3:web"] ++ map show [3..9]
+myWorkspaces = ["1:dev","2:web"] ++ map show [3..9]
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#ff0000"
 
