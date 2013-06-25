@@ -140,3 +140,6 @@
 
 (defun sanjoy-initialize-agda-mode ()
   (custom-set-variables '(agda2-highlight-face-groups 'conor)))
+
+(defun sanjoy-initialize-magit-mode ()
+  (add-hook 'magit-log-edit-mode-hook 'flyspell-mode))
