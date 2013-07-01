@@ -51,7 +51,7 @@
                            (format-time-string "%d-%m-%Y-%H-%M")
                            ".rst")))
     (find-file file-name)
-    (longlines-mode)
+    (visual-line-mode)
     (flyspell-mode)))
 
 (defun sanjoy-eval-and-replace ()
