@@ -47,10 +47,10 @@
                   "iso10646-1")))
     (set-default-font default-font-name)
     (add-hook 'after-make-frame-functions
-              '(lambda (frame)
-                 (interactive)
-                 (select-frame frame)
-                 (set-default-font default-font-name)))))
+              (lambda (frame)
+                (interactive)
+                (select-frame frame)
+                (set-default-font default-font-name)))))
 
 (defun sanjoy-initialize-package ()
   (require 'package)

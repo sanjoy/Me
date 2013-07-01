@@ -32,9 +32,9 @@
   (setq indent-tabs-mode nil))
 
 (defun sanjoy-initialize-lisp-mode ()
-  (add-hook 'lisp-mode-hook '(lambda () (sanjoy-lisp-hook nil)))
-  (add-hook 'emacs-lisp-mode-hook '(lambda () (sanjoy-lisp-hook nil)))
-  (add-hook 'lisp-interaction-mode-hook '(lambda () (sanjoy-lisp-hook t))))
+  (add-hook 'lisp-mode-hook (lambda () (sanjoy-lisp-hook nil)))
+  (add-hook 'emacs-lisp-mode-hook (lambda () (sanjoy-lisp-hook nil)))
+  (add-hook 'lisp-interaction-mode-hook (lambda () (sanjoy-lisp-hook t))))
 
 (defun sanjoy-initialize-haskell-mode ()
   (add-hook 'after-init-hook
@@ -42,12 +42,12 @@
               (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
               (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
               (add-hook 'haskell-mode-hook
-                        '(lambda ()
-                           (interactive)
-                           (setq show-trailing-whitespace t)
-                           (local-set-key (kbd "C-c C-c") 'comment-region)
-                           (local-set-key (kbd "C-c C-u") 'uncomment-region)
-                           (column-marker-1 80))))))
+                        (lambda ()
+                          (interactive)
+                          (setq show-trailing-whitespace t)
+                          (local-set-key (kbd "C-c C-c") 'comment-region)
+                          (local-set-key (kbd "C-c C-u") 'uncomment-region)
+                          (column-marker-1 80))))))
 
 
 (setq +sanjoy-c-project-directories+
