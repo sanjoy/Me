@@ -46,7 +46,8 @@
                            (interactive)
                            (setq show-trailing-whitespace t)
                            (local-set-key (kbd "C-c C-c") 'comment-region)
-                           (local-set-key (kbd "C-c C-u") 'uncomment-region))))))
+                           (local-set-key (kbd "C-c C-u") 'uncomment-region)
+                           (column-marker-1 80))))))
 
 
 (setq +sanjoy-c-project-directories+
