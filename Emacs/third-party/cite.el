@@ -2,10 +2,11 @@
 
 ;; This file is NOT part of Emacs.
 
-;; Copyright (C) 2002, 2003, 2004, 2011 Lawrence Mitchell <wence@gmx.li>
+;; Copyright (C) 2002, 2003, 2004 lawrence mitchell <wence@gmx.li>
 ;; Filename: cite.el
-;; Version: 1.34
-;; Author: Lawrence Mitchell <wence@gmx.li>
+;; Version: $Revision: 1.33 $
+;; Author: lawrence mitchell <wence@gmx.li>
+;; Maintainer: lawrence mitchell <wence@gmx.li>
 ;; Created: 2002-06-15
 ;; Keywords: mail news
 
@@ -85,7 +86,7 @@ If a line is not already cited, a SPC is also added.  The default
 value, \">\", is the one recommended by Son-of-RFC1036, you may
 provoke people by using a non-standard option here.")
 
-(defvar cite-prefix-regexp "[>:}]"     ; These seem to be the most
+(defvar cite-prefix-regexp "[>:}+]"     ; These seem to be the most
 					; common.
   "*Regexp matching a cite prefix.")
 
@@ -105,7 +106,7 @@ This is the recommended setting since it is generally considered bad
 form to quote the signature.  Even if you have this set to t, you can
 easily reinsert the sig, by calling `cite-reinsert-sig'.")
 
-(defvar cite-remove-trailing-lines t
+(defvar cite-remove-trailing-lines nil
   "*If non-nil, cite will remove trailing blank lines.
 
 A line is considered to be blank if it matches \"^[ \\t]*$\".")
@@ -123,13 +124,13 @@ a long way from being perfect, so you may not want to call this from
 `cite-cite', but rather interactively if you find a particularly bad
 paragraph that needs reformatting.")
 
-(defvar cite-make-attribution nil
+(defvar cite-make-attribution t
   "*If non-nil `cite-cite' will add an attribution line.
 
 The attribution is added above the cited text.  See also
 `cite-make-attribution-function'.")
 
-(defvar cite-make-attribution-function 'cite-simple-attribution
+(defvar cite-make-attribution-function #'cite-simple-attribution
   "*Function to call to make an attribution line.
 
 This is a function called with no arguments, it can access the values
@@ -144,11 +145,7 @@ A function of the form cite-parse-NAME is constructed from these, and
 is passed one argument. the header's contents.
 See `cite-parse-headers', and, as an example `cite-parse-from'.")
 
-(defvar cite-from-massagers
-  '(((string= name "graham@affordable-leather.co.ukDELETETHIS")
-     . (setq name "Graham"))
-    ((and name (string-match "Kai Gro.johann" name))
-     . (setq name "Kai Grossjohann")))
+(defvar cite-from-massagers nil
   "*Alist of massaging functions for the From: header.
 
 The alist should be of the form.
@@ -165,7 +162,7 @@ See also `cite-parse-from'.")
 ;;;; Version information.
 
 (defconst cite-version
-  "1.34"
+  "$Id: cite.el,v 1.33 2004/04/25 16:18:06 wence Exp $"
   "Cite's version number.")
 
 (defconst cite-maintainer "Lawrence Mitchell <wence@gmx.li>"
@@ -276,13 +273,13 @@ doesn't."
 (defun cite-simple-attribution ()
   "Produce a very small attribution string.
 
-Substitute \"An unnamed person wrote:\\n\" if no email/name is
+Substitute \"An unnamed person wrote:\\n\\n\" if no email/name is
 available."
   (let ((email (cite-get-header "email"))
 	(name  (cite-get-header "name")))
     (if (and (null name) (null email))
-	"An unnamed person wrote:\n"
-      (concat (or name email) " wrote:\n"))))
+	"An unnamed person wrote:\n\n"
+      (concat (or name email) " wrote:\n\n"))))
 
 (defun cite-mail-or-news-attribution ()
   "Produce a different attribution for mail and news.
@@ -539,9 +536,7 @@ the article."
       (let ((start (marker-position (car cite-removed-sig-pos))))
         (save-excursion
           (goto-char start)
-          (set-marker-insertion-type (cdr cite-removed-sig-pos) t)
-          (insert cite-removed-sig)
-          (set-marker-insertion-type (cdr cite-removed-sig-pos) nil)))
+          (insert cite-removed-sig)))
     (message "No signature to be reinserted.")))
 
 (defun cite-find-sig ()
@@ -578,14 +573,13 @@ actually search for the signature, we have already done that with
 ;;;; Article citing.
 
 ;;;###autoload
-(defun cite-cite-region (start end &optional arg prefix)
+(defun cite-cite-region (start end &optional prefix)
   "Prefix the region between START and END with PREFIX.
 
-With optional numeric prefix ARG, insert that many cite marks.
 If PREFIX is nil, `cite-prefix' is used.
 A space character is added if the current line is not already
 cited."
-  (interactive "r\np")
+  (interactive "r")
   (or prefix
       (setq prefix cite-prefix))
   (save-excursion
@@ -593,44 +587,33 @@ cited."
       (narrow-to-region start end)
       (goto-char (point-min))
       (while (not (eobp))
-        (loop repeat (or arg 1) do
-              (cond ((cite-line-really-empty-p)
-                     (when cite-quote-empty-lines
-                       (insert prefix)))
-                    ((looking-at cite-prefix-regexp)
-                     (insert prefix))
-                    (t
-                     (insert prefix " "))))
+        (cond ((cite-line-really-empty-p)
+               (when cite-quote-empty-lines
+                 (insert prefix)))
+              ((looking-at cite-prefix-regexp)
+               (insert prefix))
+              (t
+               (insert prefix " ")))
         (forward-line 1)))))
 
 ;;;###autoload
 (defun cite-quote-region (start end)
   "Prefix the region between START and END with a \"|\"."
   (interactive "r")
-  (cite-cite-region start end nil "|"))
+  (cite-cite-region start end "|"))
 
 ;;;###autoload
-(defun cite-unquote-region (start end)
-  "Remove a quote prefix \"|\" from the region between START and END."
-  (interactive "r")
-  (cite-uncite-region start end nil "|"))
-
-;;;###autoload
-(defun cite-uncite-region (start end &optional arg prefix-regexp)
+(defun cite-uncite-region (start end &optional arg)
   "Remove cites from the region between START and END.
 
-With optional numeric prefix ARG, remove that many cite marks.
-If PREFIX-REGEXP is non-nil, use that to decide what a citation prefix
-is, otherwise use `cite-prefix-regexp'."
+With optional numeric prefix ARG, remove that many cite marks."
   (interactive "r\np")
   (save-excursion
     (save-restriction
       (narrow-to-region start end)
       (goto-char (point-min))
       (let ((arg (or arg 1))
-            (regexp (concat "[ \t]*" (or prefix-regexp
-                                         cite-prefix-regexp)
-                            "[ \t]?")))
+            (regexp (concat "[ \t]*" cite-prefix-regexp "[ \t]?")))
         (while (not (eobp))
           (let ((arg arg))
             (while (> (setq arg (1- arg)) -1)
