@@ -8,15 +8,23 @@
 (require 'uniquify)
 (require 'whitespace)
 
-(defun sanjoy-kill-buffers-by-directory (dir-name)
-  (interactive "DDirectory: ")
-  (setq dir-name (expand-file-name dir-name))
+(defun sanjoy-kill-buffers-with-prefix (prefix match-what kill-modified)
   (mapc (lambda (this-buffer)
-          (when (and dir-name (buffer-file-name this-buffer))
-            (when (string-prefix-p dir-name (buffer-file-name this-buffer))
-              (unless (buffer-modified-p this-buffer)
+          (when (funcall match-what this-buffer)
+            (when (string-prefix-p prefix (funcall match-what this-buffer))
+              (unless (and (not kill-modified) (buffer-modified-p this-buffer))
                 (kill-buffer this-buffer)))))
         (buffer-list)))
+
+(defun sanjoy-kill-buffers-by-directory (dir-name)
+  (interactive "DDirectory: ")
+  (sanjoy-kill-buffers-with-prefix (expand-file-name dir-name)
+                                   'buffer-file-name
+                                   nil))
+
+(defun sanjoy-kill-magit-grep-buffers ()
+  (interactive)
+  (sanjoy-kill-buffers-with-prefix "*Magit Grep*" 'buffer-name t))
 
 (defun sanjoy-get-selected-thing-or-region ()
   (if (use-region-p)
