@@ -39,18 +39,19 @@
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil))
 
-(defun sanjoy-initialize-fonts ()
-  (let ((default-font-name 
-          (concat "-bitstream-"
-                  "Bitstream Vera Sans Mono"
+(defun sanjoy-set-default-font ()
+  (let ((default-font-name
+          (concat "-bitstream-Bitstream Vera Sans Mono"
                   "-normal-normal-normal-*-12-*-*-*-m-0-"
                   "iso10646-1")))
-    (set-default-font default-font-name)
-    (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (interactive)
-                (select-frame frame)
-                (set-default-font default-font-name)))))
+    (set-default-font default-font-name)))
+
+(defun sanjoy-initialize-fonts ()
+  (sanjoy-set-default-font)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (select-frame frame)
+              (sanjoy-set-default-font))))
 
 (defun sanjoy-initialize-package ()
   (require 'package)
