@@ -1,0 +1,35 @@
+[include]
+	path = ~/.gitconfig-private
+
+[alias]
+	co = checkout
+	s = status
+	l = log
+	d = diff
+	ca = commit --amend
+	ri = rebase --interactive
+	rim = rebase --interactive master
+	rc = rebase --continue
+	ra = rebase --abort
+
+[user]
+	name = Sanjoy Das
+	email = sanjoy@playingwithpointers.com
+
+[core]
+	autocrlf = input
+
+[sendemail]
+        from = Sanjoy Das <sanjoy@playingwithpointers.com>
+        smtpserver = smtp.gmail.com
+        smtpuser = sanjoy@playingwithpointers.com
+        smtpencryption = tls
+        chainreplyto = false
+        smtpserverport = 587
+	confirm = auto
+
+[url "git@github.com:sanjoy/"]
+	insteadOf = gh:sanjoy/
+
+[url "git://github.com/"]
+	insteadOf = gh:
