@@ -17,8 +17,11 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.TwoPane
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
+import XMonad.Layout.Combo
 import XMonad.Layout.ComboP
 import XMonad.Layout.WindowNavigation
+
+import XMonad.Layout.LayoutCombinators hiding ( (|||) )
 
 import XMonad.Util.Run(spawnPipe)
 
@@ -27,7 +30,7 @@ myBrowser = "conkeror"
 myFocusFollowsMouse = True
 myBorderWidth = 1
 myModifier = mod4Mask
-myWorkspaces = ["1:dev","2:web"] ++ map show [3..9]
+myWorkspaces = ["1:dev","2:web","3:skype"] ++ map show [3..9]
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#ff0000"
 
@@ -81,13 +84,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) =
                             >> windows W.shiftMaster)
   ]
 
-myLayout = windowNavigation . smartBorders . avoidStruts $
-           (combineTwoP (TwoPane delta ratio) simpleTabbed simpleTabbed (ClassName "Emacs") |||
-            simpleTabbed)
-  where
-     ratio   = 1/2 -- default fraction of screen occupied by master pane
-     delta   = 3/100 -- percentage of screen to increment by when resizing panes
-
 myManageHook =
   composeAll
   [ className =? "vlc"  --> doFloat
@@ -105,6 +101,14 @@ myLogHook xmproc = do
     , ppOrder = \(ws:_:t:_) -> [ws,t]
     }
 
+myHook = windowNavigation . smartBorders . avoidStruts $ 
+       (twoPanes ||| simpleTabbed ||| Mirror twoPanes)
+  where
+     ratio   = 1/2 -- default fraction of screen occupied by master pane
+     delta   = 3/100 -- percentage of screen to increment by when resizing panes
+     twoPanes = combineTwo (TwoPane delta ratio) simpleTabbed simpleTabbed
+
+
 myDefaults spawnproc = defaultConfig {
   terminal             = myTerminal
   , focusFollowsMouse  = myFocusFollowsMouse
@@ -115,7 +119,7 @@ myDefaults spawnproc = defaultConfig {
   , focusedBorderColor = myFocusedBorderColor
   , keys               = myKeys
   , mouseBindings      = myMouseBindings
-  , layoutHook         = myLayout
+  , layoutHook         = myHook
   , manageHook         = myManageHook
   , handleEventHook    = myEventHook
   , startupHook        = myStartupHook
