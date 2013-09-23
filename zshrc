@@ -2,8 +2,17 @@
 # Author Sanjoy Das <sanjoy@playingwithpointers.com>
 
 # Set the terminal prompts to something a little less obstrusive
-PS1="$(print '%{\e[1;32m%} %B%~ $ %b%{\e[0m%}')"
-PS2="$(print '%{\e[0;32m%} ... %{\e[0m%}')"
+function prompt_command {
+  PS1="$(print -n "\n{ %{\e[35m%}%m \e[0m| %{\e[33m%}$P4CLIENT \e[0m}"; print '%{\e[1;30m%} %B%~ \n %C $ %b%{\e[0m%}')"
+}
+
+typeset -a precmd_functions
+precmd_functions+=prompt_command
+
+PS2="$(print '%{\e[0;30m%} ... %{\e[0m%}')"
+
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
+[[ $TERM == "dumb" ]] && unsetopt zle && PS2='> '
 
 export EDITOR="emacsclient"
 
@@ -159,22 +168,13 @@ function calc () {
 
 export mysql='mysql --sigint-ignore'
 
-# Proxychains wrappers on common commands
-# This sets up the completion properly
-
-compdef xgit=git
-compdef xsvn=svn
-compdef xssh=ssh
-compdef xcvs=cvs
-compdef fast-apt-get=apt-get
-
 # Pretty directory listing
 alias ls='ls --color=auto'
 
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="/home/sanjoy/prefix/bin:$PATH:/home/sanjoy/.cabal/bin"
+export PATH="/home/sanjoy/prefix/bin:$PATH"
 
 bindkey '^H' backward-delete-word
 bindkey '^S' push-line
@@ -209,3 +209,21 @@ function build-etags-list {
           -name '*.c' -or -name '*.cc' -or -name '*.cpp' -type f \
    | xargs etags -f TAGS
 }
+
+function ack-c {
+    ack --color --type=cc "$@" | less -FRXS
+}
+
+function ack-h {
+    ack --color --type=hh "$@" | less -FRXS
+}
+
+function ack-cc {
+    ack --color --type=cpp "$@" | less -FRXS
+}
+
+AZUL_CONFIG=/home/sanjoy/azul-zshrc
+
+if [[ -f $AZUL_CONFIG ]]; then
+   . $AZUL_CONFIG
+fi
