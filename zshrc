@@ -169,7 +169,7 @@ function calc () {
 export mysql='mysql --sigint-ignore'
 
 # Pretty directory listing
-alias ls='ls --color=auto'
+alias ls='ls -G'
 
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
