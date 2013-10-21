@@ -3,7 +3,7 @@
 
 # Set the terminal prompts to something a little less obstrusive
 function prompt_command {
-  PS1="$(print -n "\n{ %{\e[35m%}%m \e[0m| %{\e[33m%}$P4CLIENT \e[0m}"; print '%{\e[1;30m%} %B%~ \n %C $ %b%{\e[0m%}')"
+  PS1="$(print -n "\n{ %{\e[35m%}%m \e[0m}"; print '%{\e[1;30m%} %B%~ \n %C $ %b%{\e[0m%}')"
 }
 
 typeset -a precmd_functions
