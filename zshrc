@@ -184,7 +184,6 @@ setopt share_history
 setopt APPEND_HISTORY
 
 export CVS_RSH=ssh
-eval `cat ~/.ssh_agent` > /dev/null
 
 # I like that this treats each component of a path as a word.
 export WORDCHARS=''
