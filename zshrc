@@ -226,3 +226,6 @@ AZUL_CONFIG=/home/sanjoy/azul-zshrc
 if [[ -f $AZUL_CONFIG ]]; then
    . $AZUL_CONFIG
 fi
+
+# Brew needs this
+PATH="/usr/local/bin:$PATH"
