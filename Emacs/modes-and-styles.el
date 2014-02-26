@@ -79,7 +79,6 @@
    c-offsets-alist '((innamespace . 0)))
   (c-toggle-auto-newline -1)
   (c-set-offset 'inextern-lang 0)
-  (column-marker-1 80)
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
   (setq c-backslash-max-column 79)
