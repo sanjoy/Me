@@ -43,7 +43,7 @@
 (defun sanjoy-set-default-font ()
   (let ((default-font-name
           (concat "-bitstream-Bitstream Vera Sans Mono"
-                  "-normal-normal-normal-*-12-*-*-*-m-0-"
+                  "-normal-normal-normal-*-10-*-*-*-m-0-"
                   "iso10646-1")))
     (set-default-font default-font-name)))
 
