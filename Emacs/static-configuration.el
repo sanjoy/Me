@@ -34,7 +34,7 @@
 
 (defun sanjoy-set-special-directories ()
   (setq-default sanjoy-source-directory "~/src/"
-                sanjoy-thoughts-directory "~/rest/writeups/"))
+                sanjoy-thoughts-directory "~/Documents/Thoughts/"))
 
 (defun sanjoy-unprotect-commands ()
   (put 'downcase-region 'disabled nil)
