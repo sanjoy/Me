@@ -29,7 +29,8 @@
                 max-lisp-eval-depth 12000
                 uniquify-buffer-name-style 'reverse
                 vc-follow-symlinks t
-                x-select-enable-clipboard t))
+                x-select-enable-clipboard t
+                ispell-program-name "/usr/local/bin/ispell"))
 
 (defun sanjoy-set-special-directories ()
   (setq-default sanjoy-source-directory "~/src/"
