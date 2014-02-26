@@ -142,3 +142,25 @@
 
 (defun sanjoy-initialize-magit-mode ()
   (add-hook 'magit-log-edit-mode-hook 'flyspell-mode))
+
+(defun sanjoy-run-cmd-on-file (prefix suffix)
+  (let ((whole-file-name (buffer-file-name)))
+    (if (not (null whole-file-name))
+        (progn
+          (shell-command
+           (concat prefix " " (file-name-nondirectory whole-file-name) " " suffix))
+          t)
+      (message "could not %s %s fiie" prefix suffix))))
+
+(defun sanjoy-p4-edit ()
+  (interactive)
+  (if (sanjoy-run-cmd-on-file "p4 edit" "")
+      (setq buffer-read-only nil)))
+
+(defun sanjoy-p4-revert ()
+  (interactive)
+  (sanjoy-run-cmd-on-file "p4 revert" ""))
+
+(defun sanjoy-initialize-p4-mode ()
+  (global-set-key (kbd "C-c C-g C-e") 'sanjoy-p4-edit)
+  (global-set-key (kbd "C-c C-g C-r") 'sanjoy-p4-revert))

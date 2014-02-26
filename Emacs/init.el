@@ -24,6 +24,7 @@
 (sanjoy-initialize-haskell-mode)
 (sanjoy-initialize-tex-mode)
 (sanjoy-initialize-magit-mode)
+(sanjoy-initialize-p4-mode)
 
 (load "utilities.el")
 (sanjoy-initialize-utilities)
