@@ -138,9 +138,7 @@
         make-backup-files nil)
   (ido-mode t))
 
-(defun sanjoy-initialize-agda-mode ()
-  (custom-set-variables '(agda2-highlight-face-groups 'conor))
-  (custom-set-variables '(agda2-include-dirs '("." "/usr/share/agda-stdlib"))))
+(defun sanjoy-initialize-agda-mode ())
 
 (defun sanjoy-initialize-magit-mode ()
   (add-hook 'magit-log-edit-mode-hook 'flyspell-mode))
