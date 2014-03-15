@@ -229,3 +229,27 @@ fi
 
 # Brew needs this
 PATH="/usr/local/bin:$PATH"
+
+alias gg='git grep'
+
+function pg {
+  p4 grep -e "$1" "`p4 dirs .`/..." | less -FRXS
+}
+
+function ack {
+  git rev-parse --git-dir &> /dev/null
+  if [[ $? == "0" ]]; then
+    # git repo
+    gg $1
+    return
+  fi
+
+  p4 where &> /dev/null
+  if [[ $? == "0" ]]; then
+    # p4 repo
+    pg $1
+    return
+  fi
+
+  ~sanjoy/prefix/bin/ack-grep $1
+}
