@@ -138,7 +138,13 @@
         make-backup-files nil)
   (ido-mode t))
 
-(defun sanjoy-initialize-agda-mode ())
+(defun sanjoy-initialize-agda-mode ()
+  (load-file (let ((coding-system-for-read 'utf-8))
+               (shell-command-to-string "~/Library/Haskell/bin/agda-mode locate")))
+
+  (custom-set-variables
+   '(agda2-include-dirs (quote ("/Users/sanjoy/Code/agda-stdlib/src" ".")))
+   '(agda2-program-name "/Users/sanjoy/Library/Haskell/bin//agda")))
 
 (defun sanjoy-initialize-magit-mode ()
   (add-hook 'magit-log-edit-mode-hook 'flyspell-mode))
