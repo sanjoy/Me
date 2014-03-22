@@ -82,24 +82,6 @@ SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
-# Sticky-change directory
-function cdm () {
-    local tmp
-    if [[ -z "${TMUX}" ]]; then
-        echo 'fatal: Not inside tmux.'
-        return 1
-    fi
-    if [[ -n "$1" ]]; then
-       tmp="$1"
-    else
-        tmp="${HOME}"
-    fi
-    cd "${tmp}"
-    tmp="${PWD}"
-    tmux "set-option" "default-path" "${tmp}"
-    return 0
-}
-
 function calc () {
 	x="print str($@);"
 	python -c $x
