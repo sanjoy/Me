@@ -7,3 +7,6 @@
 [submodule "Emacs/third-party/zenburn-emacs"]
 	path = Emacs/third-party/zenburn-emacs
 	url = https://github.com/bbatsov/zenburn-emacs.git
+[submodule "Emacs/third-party/slime"]
+	path = Emacs/third-party/slime
+	url = https://github.com/slime/slime.git
