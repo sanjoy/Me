@@ -179,3 +179,9 @@
 (defun sanjoy-initialize-p4-mode ()
   (global-set-key (kbd "C-c C-g C-e") 'sanjoy-p4-edit)
   (global-set-key (kbd "C-c C-g C-r") 'sanjoy-p4-revert))
+
+(defun sanjoy-initialize-slime ()
+  (add-to-list 'load-path "~/.emacs.d/third-party/slime")
+  (require 'slime-autoloads)
+  (setq inferior-lisp-program "/usr/local/bin/sbcl")
+  (setq slime-contribs '(slime-fancy)))
