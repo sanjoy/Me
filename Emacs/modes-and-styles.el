@@ -144,7 +144,16 @@
 
   (custom-set-variables
    '(agda2-include-dirs (quote ("/Users/sanjoy/Code/agda-stdlib/src" ".")))
-   '(agda2-program-name "/Users/sanjoy/Library/Haskell/bin//agda")))
+   '(agda2-program-name "/Users/sanjoy/Library/Haskell/bin/agda"))
+
+  (custom-set-faces
+   '(agda2-highlight-datatype-face ((t (:foreground "light blue"))))
+   '(agda2-highlight-function-face ((t (:foreground "light blue"))))
+   '(agda2-highlight-module-face ((t (:foreground "light green"))))
+   '(agda2-highlight-number-face ((t (:foreground "light green"))))
+   '(agda2-highlight-primitive-type-face ((t (:foreground "light blue"))))
+   '(agda2-highlight-record-face ((t (:foreground "light blue"))))
+   '(agda2-highlight-symbol-face ((t (:foreground "DarkOrange3"))))))
 
 (defun sanjoy-initialize-magit-mode ()
   (add-hook 'magit-log-edit-mode-hook 'flyspell-mode))
