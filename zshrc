@@ -174,7 +174,7 @@ alias ls='ls -G'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="/home/sanjoy/prefix/bin:$PATH"
+export PATH="/home/sanjoy/prefix/bin:/Users/sanjoy/Library/Haskell/bin/:$PATH"
 
 bindkey '^H' backward-delete-word
 bindkey '^S' push-line
