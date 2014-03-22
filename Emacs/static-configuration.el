@@ -41,10 +41,7 @@
   (put 'upcase-region 'disabled nil))
 
 (defun sanjoy-set-default-font ()
-  (let ((default-font-name
-          (concat "-bitstream-Bitstream Vera Sans Mono"
-                  "-normal-normal-normal-*-10-*-*-*-m-0-"
-                  "iso10646-1")))
+  (let ((default-font-name "-*-monaco-medium-r-*--9-*-*-*-*-*-*-*"))
     (set-default-font default-font-name)))
 
 (defun sanjoy-initialize-fonts ()
