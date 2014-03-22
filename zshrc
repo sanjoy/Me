@@ -44,18 +44,6 @@ function find-file {
   fi
 }
 
-MEDIA_PLAYER='/usr/bin/vlc'
-
-# Picks up a random video from the current directory tree and plays it using mplayer
-function entertain {
-	file="`find . -name '*avi' -or -name '*mp4' -or -name '*mpg' \
-	-or -name '*mpeg' -or -name '*mkv' -or -name '*flv' -or -name \
-	'*divx' -or -name '*m2v' -name '*3gp' -or -name '*wmv' | shuf -n1`"
-	echo "Playing $file."
-	"$MEDIA_PLAYER" "$file"
-# Add more -or and -name s to add more extensions later. This should do for now.
-}
-
 function screen-create () {
 	name=$1
 	screen -list | grep "$name"
