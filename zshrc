@@ -36,49 +36,12 @@ alias df='df -kTh'
 # Special alias to show all files
 alias la='ls -a'
 
-# Something I use a lot for exploring large codebases
-function g-find-symbol {
-	if [ -n "$1" -a -n "$2" ]; then
-          git grep "$2" -- "*.$1"
-	else
-		echo "Usage: gfind-symbol [ file-extension ] [ symbol ]"
-	fi
-}
-
-# Something I use a lot for exploring large codebases
-function x-find-symbol {
-	if [ -n "$1" -a -n "$2" ]; then
-		find . -name "*.$1" | xargs grep -n --mmap -- "$2" | less -FRSX
-	else
-		echo "Usage: find-symbol [ file-extension ] [ symbol ]"
-	fi
-}
-
-function find-symbol {
-    git status > /dev/null 2> /dev/null
-    if [[ "$?" -eq "0" ]]; then
-       g-find-symbol $@
-    else
-        x-find-symbol $@
-    fi
-}
-
-# Find files which match the provided regular expression
-function x-find-file {
-	if [ -n "$@" ]; then
-		find . -iregex "$@" | less -FRSX
-	else
-		echo "Usage: find-file-full [ regex ]"
-	fi
-}
-
-# I use this one most of the time
 function find-file {
-	if [ -n "$@" ]; then
-		x-find-file ".*$@.*" | less -FRSX
-	else
-		echo "Usage: find-file-full [ regex ]"
-	fi
+  if [[ "$#" == "1" ]]; then
+    find . -name "$1" | less -FRSX
+  else
+    echo "usage: find-file [ pattern ]"
+  fi
 }
 
 MEDIA_PLAYER='/usr/bin/vlc'
