@@ -9,6 +9,7 @@
 (sanjoy-miscellaneous-settings)
 (sanjoy-set-special-directories)
 (sanjoy-unprotect-commands)
+(sanjoy-initialize-global-hooks)
 
 (load "colors.el")
 (sanjoy-install-color-theme)

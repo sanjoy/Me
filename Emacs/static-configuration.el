@@ -57,3 +57,6 @@
                            ("marmalade" . "http://marmalade-repo.org/packages/")
                            ("melpa" . "http://melpa.milkbox.net/packages/")))
   (package-initialize))
+
+(defun sanjoy-initialize-global-hooks ()
+  (setq confirm-kill-emacs 'yes-or-no-p))
