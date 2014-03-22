@@ -44,18 +44,6 @@ function find-file {
   fi
 }
 
-function screen-create () {
-	name=$1
-	screen -list | grep "$name"
-	if [ "$?" -ne "0" ]; then # Background session not yet started
-		screen -S "$name"
-	else
-		screen -r "$name"
-	fi
-}
-
-alias scr-b='screen-create Background'
-
 # configure zsh's autocompletion system; man zshcompsys
 
 zstyle ':completion:*' use-cache on
