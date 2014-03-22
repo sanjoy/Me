@@ -82,11 +82,6 @@ SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
-function calc () {
-	x="print str($@);"
-	python -c $x
-}
-
 export mysql='mysql --sigint-ignore'
 
 # Pretty directory listing
