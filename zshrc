@@ -82,8 +82,6 @@ SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
-export mysql='mysql --sigint-ignore'
-
 # Pretty directory listing
 alias ls='ls -G'
 
