@@ -41,7 +41,7 @@
   (put 'upcase-region 'disabled nil))
 
 (defun sanjoy-set-default-font ()
-  (let ((default-font-name "-*-monaco-medium-r-*--9-*-*-*-*-*-*-*"))
+  (let ((default-font-name "-*-monaco-medium-r-*--11-*-*-*-*-*-*-*"))
     (set-default-font default-font-name)))
 
 (defun sanjoy-initialize-fonts ()
