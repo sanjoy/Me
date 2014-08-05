@@ -26,6 +26,10 @@
   (interactive)
   (sanjoy-kill-buffers-with-prefix "*Magit Grep*" 'buffer-name t))
 
+(defun sanjoy-kill-tramp-buffers ()
+  (interactive)
+  (sanjoy-kill-buffers-with-prefix "*tramp/" 'buffer-name t))
+
 (defun sanjoy-get-selected-thing-or-region ()
   (if (use-region-p)
       (buffer-substring (region-beginning) (region-end))
