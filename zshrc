@@ -167,3 +167,6 @@ function ack {
 
   ~sanjoy/prefix/bin/ack-grep $1
 }
+
+DIRSTACKSIZE=100
+setopt autopushd
