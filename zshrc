@@ -14,13 +14,13 @@ PS2="$(print '%{\e[0;30m%} ... %{\e[0m%}')"
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
 [[ $TERM == "dumb" ]] && unsetopt zle && PS2='> '
 
-export EDITOR="emacsclient"
+export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 
 # Make grep always show the line numbers
 alias grep='grep -n --color'
 
 # Open emacsclient with tt
-alias tt='emacsclient -n'
+alias tt='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
 
 # patchd for trying patches
 alias patchd='patch --dry-run'
