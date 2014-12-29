@@ -101,12 +101,12 @@ export ACK_PAGER='less -FRXS'
 
 alias less='less -FRXS'
 
-WORK_CONFIG=/home/sanjoy/work-zshrc
+WORK_CONFIG=~sanjoy/.work-zshrc
 
 if [[ -f $WORK_CONFIG ]]; then
    . $WORK_CONFIG
 else
-    export PATH="/Users/sanjoy/Library/Haskell/bin:$PATH"
+    export PATH="~sanjoy/Library/Haskell/bin:$PATH"
     # Brew needs this
     PATH="/usr/local/bin:$PATH"
 fi
