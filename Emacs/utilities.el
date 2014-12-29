@@ -17,16 +17,26 @@
         (buffer-list)))
 
 (defun sanjoy-kill-buffers-by-directory (dir-name)
-  (interactive "DDirectory: ")
+  (interactive "Gprefix: ")
   (sanjoy-kill-buffers-with-prefix (expand-file-name dir-name)
                                    'buffer-file-name
                                    nil))
+
+(defun sanjoy-kill-buffers-by-directory-unsafe (dir-name)
+  (interactive "Gprefix: ")
+  (sanjoy-kill-buffers-with-prefix dir-name
+                                   'buffer-file-name
+                                   t))
 
 (defun sanjoy-kill-magit-grep-buffers ()
   (interactive)
   (sanjoy-kill-buffers-with-prefix "*Magit Grep*" 'buffer-name t))
 
 (defun sanjoy-kill-tramp-buffers ()
+  (interactive)
+  (sanjoy-kill-buffers-with-prefix "*tramp/" 'buffer-name t))
+
+(defun ktb ()
   (interactive)
   (sanjoy-kill-buffers-with-prefix "*tramp/" 'buffer-name t))
 

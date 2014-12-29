@@ -16,9 +16,6 @@ PS2="$(print '%{\e[0;30m%} ... %{\e[0m%}')"
 
 export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 
-# Make grep always show the line numbers
-alias grep='grep -n --color'
-
 # Open emacsclient with tt
 alias tt='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
 
@@ -77,8 +74,8 @@ compinit
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
@@ -88,13 +85,12 @@ alias ls='ls -G'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="/home/sanjoy/prefix/bin:/Users/sanjoy/Library/Haskell/bin:$PATH"
+export PATH="/home/sanjoy/prefix/bin:/Users/sanjoy/Library/Haskell/bin:/Users/sanjoy/prefix/bin:$PATH"
 
 bindkey '^H' backward-delete-word
 bindkey '^S' push-line
 alias play="$MEDIA_PLAYER"
 
-setopt share_history
 setopt APPEND_HISTORY
 
 export CVS_RSH=ssh
@@ -170,3 +166,9 @@ function ack {
 
 DIRSTACKSIZE=100
 setopt autopushd
+
+function tad {
+  tmux a -d
+}
+
+setopt histignorespace

@@ -20,6 +20,7 @@
   (add-to-list 'auto-coding-alist         '("." . utf-8)))
 
 (defun sanjoy-miscellaneous-settings ()
+  (setq exec-path (append exec-path '("/usr/local/bin")))
   (setq-default blink-matching-delay .25
                 browse-url-browser-function 'browse-url-generic
                 browse-url-generic-program "google-chrome"

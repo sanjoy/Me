@@ -11,7 +11,6 @@
   (require 'haskell-mode)
   (require 'llvm-mode)
   (require 'magit)
-  (require 'moinmoin-mode)
   (require 'paredit)
   (require 'rebase-mode)
   (require 'tablegen-mode))
@@ -78,6 +77,7 @@
    c-macro-prompt-flag t
    c-offsets-alist '((innamespace . 0)))
   (c-toggle-auto-newline -1)
+  (show-paren-mode)
   (c-set-offset 'inextern-lang 0)
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
@@ -91,6 +91,17 @@
 
 (defun sanjoy-initialize-c-mode ()
   (add-hook 'c-mode-common-hook 'sanjoy-c-mode-common-hook))
+
+(defun sanjoy-rust-mode-hook ()
+  (show-paren-mode)
+  (define-key rust-mode-map (kbd "RET") 'newline-and-indent)
+  (setq c-backslash-max-column 79)
+  (setq show-trailing-whitespace t)
+  (subword-mode 1)
+  (font-lock-mode t))
+
+(defun sanjoy-initialize-rust-mode ()
+  (add-hook 'rust-mode-hook 'sanjoy-rust-mode-hook))
 
 (defun sanjoy-tag-word-or-region (tag)
   (interactive)
