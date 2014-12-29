@@ -85,66 +85,37 @@ alias ls='ls -G'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="/home/sanjoy/prefix/bin:/Users/sanjoy/Library/Haskell/bin:/Users/sanjoy/prefix/bin:$PATH"
+export PATH="~sanjoy/prefix/bin:$PATH"
 
 bindkey '^H' backward-delete-word
 bindkey '^S' push-line
-alias play="$MEDIA_PLAYER"
 
 setopt APPEND_HISTORY
 
 export CVS_RSH=ssh
 
-# I like that this treats each component of a path as a word.
+# this treats each component of a path as a word
 export WORDCHARS=''
 
-# Automatically append a / after ..
-rationalise-dot() {
-  if [[ $LBUFFER = *.. ]]; then
-    LBUFFER+=/..
-  else
-    LBUFFER+=.
-  fi
-}
-
-zle -N rationalise-dot
-bindkey . rationalise-dot
 export ACK_PAGER='less -FRXS'
 
 alias less='less -FRXS'
 
-function build-etags-list {
-   find . -name '*.h' -or -name '*.hh' -or -name '*.hpp' -or     \
-          -name '*.c' -or -name '*.cc' -or -name '*.cpp' -type f \
-   | xargs etags -f TAGS
-}
+WORK_CONFIG=/home/sanjoy/work-zshrc
 
-function ack-c {
-    ack --color --type=cc "$@" | less -FRXS
-}
-
-function ack-h {
-    ack --color --type=hh "$@" | less -FRXS
-}
-
-function ack-cc {
-    ack --color --type=cpp "$@" | less -FRXS
-}
-
-AZUL_CONFIG=/home/sanjoy/azul-zshrc
-
-if [[ -f $AZUL_CONFIG ]]; then
-   . $AZUL_CONFIG
+if [[ -f $WORK_CONFIG ]]; then
+   . $WORK_CONFIG
+else
+    export PATH="/Users/sanjoy/Library/Haskell/bin:$PATH"
+    # Brew needs this
+    PATH="/usr/local/bin:$PATH"
 fi
 
-# Brew needs this
-PATH="/usr/local/bin:$PATH"
-
-alias gg='git grep'
 
 function pg {
   p4 grep -s -e "$1" "`p4 dirs .`/..." | less -FRXS
 }
+
 
 function pg-full {
   find . -maxdepth 3 -type d  | while read d; do
@@ -153,27 +124,23 @@ function pg-full {
       less -FRXS
 }
 
-function pg-old {
-  p4 grep -s -e "$1" "`p4 dirs .`/..." | less -FRXS
-}
 
 function ack {
   git rev-parse --git-dir &> /dev/null
   if [[ $? == "0" ]]; then
-    # git repo
-    gg $1
-    return
+      git grep $@
+      return
   fi
 
   p4 where &> /dev/null
   if [[ $? == "0" ]]; then
-    # p4 repo
-    pg $1
-    return
+      pg $@
+      return
   fi
 
   ~sanjoy/prefix/bin/ack-grep $1
 }
+
 
 DIRSTACKSIZE=100
 setopt autopushd
