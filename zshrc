@@ -143,7 +143,18 @@ PATH="/usr/local/bin:$PATH"
 alias gg='git grep'
 
 function pg {
-  p4 grep -e "$1" "`p4 dirs .`/..." | less -FRXS
+  p4 grep -s -e "$1" "`p4 dirs .`/..." | less -FRXS
+}
+
+function pg-full {
+  find . -maxdepth 3 -type d  | while read d; do
+    p4 grep -s -e "$1" "`p4 dirs $d`/..."
+  done 2>&1 | grep -v "no file(s) of type text" | \
+      less -FRXS
+}
+
+function pg-old {
+  p4 grep -s -e "$1" "`p4 dirs .`/..." | less -FRXS
 }
 
 function ack {
@@ -172,3 +183,6 @@ function tad {
 }
 
 setopt histignorespace
+
+DIRSTACKSIZE=1000
+setopt autopushd
