@@ -33,14 +33,6 @@ alias df='df -kTh'
 # Special alias to show all files
 alias la='ls -a'
 
-function find-file {
-  if [[ "$#" == "1" ]]; then
-    find . -name "$1" | less -FRSX
-  else
-    echo "usage: find-file [ pattern ]"
-  fi
-}
-
 # configure zsh's autocompletion system; man zshcompsys
 
 zstyle ':completion:*' use-cache on
@@ -85,7 +77,7 @@ alias ls='ls -G'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="~sanjoy/prefix/bin:$PATH"
+export PATH="/Users/sanjoy/prefix/clang/bin:/Users/sanjoy/prefix/bin:/Users/sanjoy/prefix/arcanist/arcanist/bin:${PATH}"
 
 bindkey '^H' backward-delete-word
 bindkey '^S' push-line
