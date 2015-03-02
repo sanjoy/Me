@@ -3,7 +3,7 @@
 (add-to-list 'load-path "~/.emacs.d/third-party/git-modes/")
 (add-to-list 'load-path "~/.emacs.d/third-party/magit/")
 
-(defun sanjoy-initialize-modes ()
+(defun das-initialize-modes ()
   (require 'cc-mode)
   (require 'git-commit-mode)
   (require 'gitconfig-mode)
@@ -15,7 +15,7 @@
   (require 'rebase-mode)
   (require 'tablegen-mode))
 
-(defun sanjoy-initialize-styles ()
+(defun das-initialize-styles ()
   (require 'google-c-style)
   (c-add-style "llvm.org"
                '((fill-column . 80)
@@ -24,18 +24,18 @@
                  (indent-tabs-mode . nil)
                  (c-offsets-alist . ((innamespace 0))))))
 
-(defun sanjoy-lisp-hook (interactive-p)
+(defun das-lisp-hook (interactive-p)
   (if (not interactive-p)
       (define-key lisp-mode-map (kbd "RET") 'newline-and-indent))
   (paredit-mode +1)
   (setq indent-tabs-mode nil))
 
-(defun sanjoy-initialize-lisp-mode ()
-  (add-hook 'lisp-mode-hook (lambda () (sanjoy-lisp-hook nil)))
-  (add-hook 'emacs-lisp-mode-hook (lambda () (sanjoy-lisp-hook nil)))
-  (add-hook 'lisp-interaction-mode-hook (lambda () (sanjoy-lisp-hook t))))
+(defun das-initialize-lisp-mode ()
+  (add-hook 'lisp-mode-hook (lambda () (das-lisp-hook nil)))
+  (add-hook 'emacs-lisp-mode-hook (lambda () (das-lisp-hook nil)))
+  (add-hook 'lisp-interaction-mode-hook (lambda () (das-lisp-hook t))))
 
-(defun sanjoy-initialize-haskell-mode ()
+(defun das-initialize-haskell-mode ()
   (add-hook 'after-init-hook
             (lambda ()
               (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
@@ -49,9 +49,9 @@
                           (column-marker-1 80))))))
 
 
-(setq +sanjoy-c-project-directories+
+(setq +das-c-project-directories+
       (mapcar (lambda (x)
-                (cons (concat sanjoy-source-directory (car x) "/") (cdr x)))
+                (cons (concat das-source-directory (car x) "/") (cdr x)))
               '(("v8" . (lambda ()
                           (c-set-style "Google")))
                 ("llvm" . (lambda ()
@@ -68,15 +68,15 @@
                 ("gcc" . (lambda ()
                            (c-set-style "gnu"))))))
 
-(defun sanjoy-get-project-style (file-name)
-  (assoc-default file-name +sanjoy-c-project-directories+ 'string-prefix-p))
+(defun das-get-project-style (file-name)
+  (assoc-default file-name +das-c-project-directories+ 'string-prefix-p))
 
-(defun sanjoy-c-style ()
+(defun das-c-style ()
   (if buffer-file-name
-      (let ((style (sanjoy-get-project-style (buffer-file-name))))
+      (let ((style (das-get-project-style (buffer-file-name))))
         (if style (funcall style)))))
 
-(defun sanjoy-c-mode-common-hook ()
+(defun das-c-mode-common-hook ()
   (setq-default
    c-basic-offset 5
    c-macro-prompt-flag t
@@ -91,15 +91,15 @@
   (setq c-backslash-max-column 79)
   (setq show-trailing-whitespace t)
   (c-set-style "Google")
-  (sanjoy-c-style)
+  (das-c-style)
   (setq c-progress-interval 1)
   (subword-mode 1)
   (font-lock-mode t))
 
-(defun sanjoy-initialize-c-mode ()
-  (add-hook 'c-mode-common-hook 'sanjoy-c-mode-common-hook))
+(defun das-initialize-c-mode ()
+  (add-hook 'c-mode-common-hook 'das-c-mode-common-hook))
 
-(defun sanjoy-rust-mode-hook ()
+(defun das-rust-mode-hook ()
   (show-paren-mode)
   (define-key rust-mode-map (kbd "RET") 'newline-and-indent)
   (setq c-backslash-max-column 79)
@@ -107,10 +107,10 @@
   (subword-mode 1)
   (font-lock-mode t))
 
-(defun sanjoy-initialize-rust-mode ()
-  (add-hook 'rust-mode-hook 'sanjoy-rust-mode-hook))
+(defun das-initialize-rust-mode ()
+  (add-hook 'rust-mode-hook 'das-rust-mode-hook))
 
-(defun sanjoy-initialize-ido-mode ()
+(defun das-initialize-ido-mode ()
   (setq ido-use-filename-at-point nil
         ido-use-url-at-point nil
         ido-enable-flex-matching t
@@ -121,7 +121,7 @@
         make-backup-files nil)
   (ido-mode t))
 
-(defun sanjoy-initialize-agda-mode ()
+(defun das-initialize-agda-mode ()
   (load-file (let ((coding-system-for-read 'utf-8))
                (shell-command-to-string "~/Library/Haskell/bin/agda-mode locate")))
 
@@ -138,10 +138,10 @@
    '(agda2-highlight-record-face ((t (:foreground "light blue"))))
    '(agda2-highlight-symbol-face ((t (:foreground "DarkOrange3"))))))
 
-(defun sanjoy-initialize-magit-mode ()
+(defun das-initialize-magit-mode ()
   (add-hook 'magit-log-edit-mode-hook 'flyspell-mode))
 
-(defun sanjoy-run-cmd-on-file (prefix suffix)
+(defun das-run-cmd-on-file (prefix suffix)
   (let ((whole-file-name (buffer-file-name)))
     (if (not (null whole-file-name))
         (progn
@@ -150,20 +150,20 @@
           t)
       (message "could not %s %s fiie" prefix suffix))))
 
-(defun sanjoy-p4-edit ()
+(defun das-p4-edit ()
   (interactive)
-  (if (sanjoy-run-cmd-on-file "p4 edit" "")
+  (if (das-run-cmd-on-file "p4 edit" "")
       (setq buffer-read-only nil)))
 
-(defun sanjoy-p4-revert ()
+(defun das-p4-revert ()
   (interactive)
-  (sanjoy-run-cmd-on-file "p4 revert" ""))
+  (das-run-cmd-on-file "p4 revert" ""))
 
-(defun sanjoy-initialize-p4-mode ()
-  (global-set-key (kbd "C-c C-g C-e") 'sanjoy-p4-edit)
-  (global-set-key (kbd "C-c C-g C-r") 'sanjoy-p4-revert))
+(defun das-initialize-p4-mode ()
+  (global-set-key (kbd "C-c C-g C-e") 'das-p4-edit)
+  (global-set-key (kbd "C-c C-g C-r") 'das-p4-revert))
 
-(defun sanjoy-initialize-slime ()
+(defun das-initialize-slime ()
   (add-to-list 'load-path "~/.emacs.d/third-party/slime")
   (require 'slime-autoloads)
   (setq inferior-lisp-program "/usr/local/bin/sbcl")

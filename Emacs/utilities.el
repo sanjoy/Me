@@ -8,7 +8,7 @@
 (require 'uniquify)
 (require 'whitespace)
 
-(defun sanjoy-kill-buffers-with-prefix (prefix match-what kill-modified)
+(defun das-kill-buffers-with-prefix (prefix match-what kill-modified)
   (mapc (lambda (this-buffer)
           (when (funcall match-what this-buffer)
             (when (string-prefix-p prefix (funcall match-what this-buffer))
@@ -16,36 +16,36 @@
                 (kill-buffer this-buffer)))))
         (buffer-list)))
 
-(defun sanjoy-kill-buffers-by-directory (dir-name)
+(defun das-kill-buffers-by-directory (dir-name)
   (interactive "Gprefix: ")
-  (sanjoy-kill-buffers-with-prefix (expand-file-name dir-name)
+  (das-kill-buffers-with-prefix (expand-file-name dir-name)
                                    'buffer-file-name
                                    nil))
 
-(defun sanjoy-kill-buffers-by-directory-unsafe (dir-name)
+(defun das-kill-buffers-by-directory-unsafe (dir-name)
   (interactive "Gprefix: ")
-  (sanjoy-kill-buffers-with-prefix dir-name
+  (das-kill-buffers-with-prefix dir-name
                                    'buffer-file-name
                                    t))
 
-(defun sanjoy-kill-magit-grep-buffers ()
+(defun das-kill-magit-grep-buffers ()
   (interactive)
-  (sanjoy-kill-buffers-with-prefix "*Magit Grep*" 'buffer-name t))
+  (das-kill-buffers-with-prefix "*Magit Grep*" 'buffer-name t))
 
-(defun sanjoy-kill-tramp-buffers ()
+(defun das-kill-tramp-buffers ()
   (interactive)
-  (sanjoy-kill-buffers-with-prefix "*tramp/" 'buffer-name t))
+  (das-kill-buffers-with-prefix "*tramp/" 'buffer-name t))
 
 (defun ktb ()
   (interactive)
-  (sanjoy-kill-buffers-with-prefix "*tramp/" 'buffer-name t))
+  (das-kill-buffers-with-prefix "*tramp/" 'buffer-name t))
 
-(defun sanjoy-get-selected-thing-or-region ()
+(defun das-get-selected-thing-or-region ()
   (if (use-region-p)
       (buffer-substring (region-beginning) (region-end))
     (thing-at-point 'symbol)))
 
-(defun sanjoy-tmux-switch-to-directory ()
+(defun das-tmux-switch-to-directory ()
   "Open the current directory in the current tmux window."
   (interactive)
   (let ((dir default-directory))
@@ -53,12 +53,12 @@
 
 (defvar *default-tt-frame* nil)
 
-(defun sanjoy-set-default-frame ()
+(defun das-set-default-frame ()
   "Set the current frame as the 'default' frame for emacsclient open operations"
   (interactive)
   (setq *default-tt-frame* (selected-frame)))
 
-(defun sanjoy-server-switch-hook ()
+(defun das-server-switch-hook ()
   (interactive)
   (let ((target-window (frame-selected-window *default-tt-frame*))
         (target-buffer (current-buffer)))
@@ -67,16 +67,16 @@
                (set-window-buffer target-window target-buffer)
                (select-frame-set-input-focus *default-tt-frame*)))))
 
-(defun sanjoy-edit-text (title)
+(defun das-edit-text (title)
   (interactive "sTitle: ")
-  (let ((file-name (concat sanjoy-thoughts-directory title "."
+  (let ((file-name (concat das-thoughts-directory title "."
                            (format-time-string "%d-%m-%Y-%H-%M")
                            ".rst")))
     (find-file file-name)
     (visual-line-mode)
     (flyspell-mode)))
 
-(defun sanjoy-eval-and-replace ()
+(defun das-eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
   (backward-kill-sexp)
@@ -88,13 +88,13 @@
 
 (require 'cite)
 
-(defun sanjoy-quote-block ()
+(defun das-quote-block ()
   (interactive)
   (cite-cite))
 
-(defun sanjoy-initialize-utilities ()
+(defun das-initialize-utilities ()
   (windmove-default-keybindings)
   (setq framemove-hook-into-windmove t)
-  (add-hook 'server-switch-hook 'sanjoy-server-switch-hook)
-  (sanjoy-set-default-frame)
+  (add-hook 'server-switch-hook 'das-server-switch-hook)
+  (das-set-default-frame)
   (server-start))
