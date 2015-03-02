@@ -24,17 +24,14 @@
   (setq-default blink-matching-delay .25
                 browse-url-browser-function 'browse-url-generic
                 browse-url-generic-program "google-chrome"
-                column-number-mode t
-                compilation-scroll-output t
-                inhibit-startup-message t
-                max-lisp-eval-depth 12000
-                uniquify-buffer-name-style 'reverse
-                vc-follow-symlinks t
-                x-select-enable-clipboard t
+                column-number-mode t compilation-scroll-output t
+                inhibit-startup-message t max-lisp-eval-depth
+                12000 uniquify-buffer-name-style 'reverse
+                vc-follow-symlinks t x-select-enable-clipboard t
                 ispell-program-name "/usr/local/bin/ispell"))
 
 (defun sanjoy-set-special-directories ()
-  (setq-default sanjoy-source-directory "~/src/"
+  (setq-default sanjoy-source-directory "/Users/sanjoy/Code/"
                 sanjoy-thoughts-directory "~/Documents/Thoughts/"))
 
 (defun sanjoy-unprotect-commands ()

@@ -55,13 +55,18 @@
               '(("v8" . (lambda ()
                           (c-set-style "Google")))
                 ("llvm" . (lambda ()
+                            (column-marker-1 80)
                             (c-set-style "llvm.org")))
+                ("llvm.git" . (lambda ()
+                                (column-marker-1 80)
+                                (c-set-style "llvm.org")))
+                ("llvm.svn" . (lambda ()
+                                (column-marker-1 80)
+                                (c-set-style "llvm.org")))
                 ("gdb" . (lambda ()
                            (c-set-style "gnu")))
                 ("gcc" . (lambda ()
-                           (c-set-style "gnu")))
-                ("phoenixfs" . (lambda ()
-                                 (c-set-style "linux"))))))
+                           (c-set-style "gnu"))))))
 
 (defun sanjoy-get-project-style (file-name)
   (assoc-default file-name +sanjoy-c-project-directories+ 'string-prefix-p))
@@ -81,6 +86,8 @@
   (c-set-offset 'inextern-lang 0)
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
+  (define-key c-mode-map (kbd "TAB") 'indent-for-tab-command)
+  (define-key c++-mode-map (kbd "TAB") 'indent-for-tab-command)
   (setq c-backslash-max-column 79)
   (setq show-trailing-whitespace t)
   (c-set-style "Google")
@@ -102,41 +109,6 @@
 
 (defun sanjoy-initialize-rust-mode ()
   (add-hook 'rust-mode-hook 'sanjoy-rust-mode-hook))
-
-(defun sanjoy-tag-word-or-region (tag)
-  (interactive)
-  (let (pos1 pos2 bds)
-    (if (and transient-mark-mode mark-active)
-        (progn
-          (goto-char (region-end))
-          (insert "}")
-          (goto-char (region-beginning))
-          (insert (concat "\\" tag "{")))
-      (progn
-        (setq bds (bounds-of-thing-at-point 'symbol))
-        (if (null bds)
-            (progn
-              (insert (concat "\\" tag "{}"))
-              (backward-char))
-          (progn
-            (goto-char (cdr bds))
-            (insert "}")
-            (goto-char (car bds))
-            (insert (concat "\\" tag "{"))))))))
-
-(defun tex-mode-hook ()
-  (interactive)
-  (local-set-key (kbd "C-c C-l C-i")
-                 (lambda ()
-                   (interactive)
-                   (sanjoy-tag-word-or-region "textit")))
-  (local-set-key (kbd "C-c C-l C-c")
-                 (lambda ()
-                   (interactive)
-                   (sanjoy-tag-word-or-region "texttt"))))
-
-(defun sanjoy-initialize-tex-mode ()
-  (add-hook 'TeX-mode-hook 'tex-mode-hook))
 
 (defun sanjoy-initialize-ido-mode ()
   (setq ido-use-filename-at-point nil
