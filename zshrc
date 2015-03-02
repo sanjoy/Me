@@ -33,6 +33,14 @@ alias df='df -kTh'
 # Special alias to show all files
 alias la='ls -a'
 
+function find-file {
+  if [[ "$#" == "1" ]]; then
+    find . -name "$1" | less -FRSX
+  else
+    echo "usage: find-file [ pattern ]"
+  fi
+}
+
 # configure zsh's autocompletion system; man zshcompsys
 
 zstyle ':completion:*' use-cache on
