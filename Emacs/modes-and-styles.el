@@ -76,6 +76,9 @@
       (let ((style (das-get-project-style (buffer-file-name))))
         (if style (funcall style)))))
 
+(defun das-initialize-tramp-mode ()
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 (defun das-c-mode-common-hook ()
   (setq-default
    c-basic-offset 5
@@ -83,6 +86,7 @@
    c-offsets-alist '((innamespace . 0)))
   (c-toggle-auto-newline -1)
   (show-paren-mode)
+  (ggtags-mode)
   (c-set-offset 'inextern-lang 0)
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)

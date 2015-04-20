@@ -27,6 +27,7 @@
 (das-initialize-magit-mode)
 (das-initialize-p4-mode)
 (das-initialize-slime)
+(das-initialize-tramp-mode)
 
 (load "utilities.el")
 (das-initialize-utilities)
