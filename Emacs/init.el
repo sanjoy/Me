@@ -42,13 +42,18 @@
  ;; If there is more than one, they won't work right.
  '(agda2-include-dirs (quote ("/Users/sanjoy/Code/agda-stdlib/src" ".")))
  '(agda2-program-name "/Users/sanjoy/Library/Haskell/bin/agda")
- '(haskell-mode-hook (quote ((lambda ()
-                               (setq show-trailing-whitespace t)
-                               (local-set-key (kbd "C-c C-c") (quote comment-region))
-                               (local-set-key (kbd "C-c C-u") (quote uncomment-region))
-                               (column-marker-1 80))
-                             turn-on-haskell-indentation turn-on-haskell-doc-mode
-                             interactive-haskell-mode)))
+ '(ggtags-enable-navigation-keys nil)
+
+ '(haskell-mode-hook
+   (quote ((lambda nil
+           (setq show-trailing-whitespace t) 
+             (local-set-key (kbd "C-c C-c")  (quote comment-region)) 
+             (local-set-key (kbd "C-c C-u") (quote uncomment-region)) 
+             (column-marker-1 80)) 
+           turn-on-haskell-indentation 
+           turn-on-haskell-doc-mode 
+           interactive-haskell-mode)))
+
  '(w3-default-homepage "http://google.com"))
 
 (custom-set-faces
