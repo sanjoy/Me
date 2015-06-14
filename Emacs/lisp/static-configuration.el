@@ -3,7 +3,8 @@
 (defun das-clear-up-ui ()
   (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
   (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1)))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+  (setq ring-bell-function #'ignore))
 
 (defun das-everything-in-utf8 ()
   (prefer-coding-system                   'utf-8)

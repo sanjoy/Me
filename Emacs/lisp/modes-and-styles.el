@@ -1,8 +1,5 @@
 ;;; modes-and-styles.el
 
-(add-to-list 'load-path "~/.emacs.d/third-party/git-modes/")
-(add-to-list 'load-path "~/.emacs.d/third-party/magit/")
-
 (defun das-initialize-modes ()
   (require 'cc-mode)
   (require 'git-commit-mode)
@@ -10,9 +7,10 @@
   (require 'gitignore-mode)
   (require 'haskell-mode)
   (require 'llvm-mode)
+  (setq magit-last-seen-setup-instructions "1.4.0")
   (require 'magit)
   (require 'paredit)
-  (require 'rebase-mode)
+  (require 'git-rebase-mode)
   (require 'tablegen-mode))
 
 (defun das-initialize-styles ()

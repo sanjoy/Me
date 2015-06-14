@@ -1,5 +1,5 @@
-(add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/third-party")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/third-party"))
 
 (load "static-configuration.el")
 (das-clear-up-ui)
@@ -18,7 +18,7 @@
 (das-initialize-modes)  
 (das-initialize-styles)
 
-(das-initialize-agda-mode)
+; (das-initialize-agda-mode)
 (das-initialize-c-mode)
 (das-initialize-ido-mode)
 (das-initialize-lisp-mode)
@@ -26,7 +26,7 @@
 (das-initialize-rust-mode)
 (das-initialize-magit-mode)
 (das-initialize-p4-mode)
-(das-initialize-slime)
+;(das-initialize-slime)
 (das-initialize-tramp-mode)
 
 (load "utilities.el")
