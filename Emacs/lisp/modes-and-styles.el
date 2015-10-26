@@ -34,8 +34,9 @@
 (defun das-initialize-haskell-mode ()
   (add-hook 'after-init-hook
             (lambda ()
-              (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-              (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+              (add-hook 'haskell-mode-hook 'haskell-doc-mode)
+              (add-hook 'haskell-mode-hook 'haskell-indent-mode)
+              (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
               (add-hook 'haskell-mode-hook
                         (lambda ()
                           (interactive)
