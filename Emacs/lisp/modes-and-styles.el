@@ -65,9 +65,6 @@
                 ("gcc" . (lambda ()
                            (c-set-style "gnu"))))))
 
-(global-set-key (kbd "M-<") (lambda () (interactive) (goto-char (point-min))))
-(global-set-key (kbd "M->") (lambda () (interactive) (goto-char (point-max))))
-
 (defun das-get-project-style (file-name)
   (assoc-default file-name +das-c-project-directories+ 'string-prefix-p))
 
@@ -87,8 +84,6 @@
   (c-toggle-auto-newline -1)
   (show-paren-mode)
   (ggtags-mode)
-  (global-set-key (kbd "M-<") (lambda () (interactive) (goto-char (point-min))))
-  (global-set-key (kbd "M->") (lambda () (interactive) (goto-char (point-max))))
   (c-set-offset 'inextern-lang 0)
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)
@@ -107,7 +102,6 @@
 
 (defun das-rust-mode-hook ()
   (show-paren-mode)
-  (define-key rust-mode-map (kbd "RET") 'newline-and-indent)
   (setq c-backslash-max-column 79)
   (setq show-trailing-whitespace t)
   (subword-mode 1)
