@@ -10,6 +10,7 @@
 (das-set-special-directories)
 (das-unprotect-commands)
 (das-initialize-global-hooks)
+(das-import-path)
 
 (load "colors.el")
 (das-install-color-theme)

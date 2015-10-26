@@ -57,5 +57,8 @@
                            ("melpa" . "http://melpa.milkbox.net/packages/")))
   (package-initialize))
 
+(defun das-import-path ()
+  (exec-path-from-shell-initialize))
+
 (defun das-initialize-global-hooks ()
   (setq confirm-kill-emacs 'yes-or-no-p))
