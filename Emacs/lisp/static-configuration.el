@@ -22,6 +22,7 @@
 
 (defun das-miscellaneous-settings ()
   (setq exec-path (append exec-path '("/usr/local/bin")))
+  (setq magit-last-seen-setup-instructions "1.4.0")
   (setq-default blink-matching-delay .25
                 browse-url-browser-function 'browse-url-generic
                 browse-url-generic-program "google-chrome"
