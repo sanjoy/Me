@@ -74,7 +74,8 @@
         (if style (funcall style)))))
 
 (defun das-initialize-tramp-mode ()
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  (add-to-list 'tramp-remote-path "/home/sanjoy/prefix/bin/"))
 
 (defun das-c-mode-common-hook ()
   (setq-default
