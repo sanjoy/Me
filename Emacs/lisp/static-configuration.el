@@ -40,7 +40,7 @@
   (put 'upcase-region 'disabled nil))
 
 (defun das-set-default-font ()
-  (let ((default-font-name "-*-monaco-medium-r-*--11-*-*-*-*-*-*-*"))
+  (let ((default-font-name "-*-monaco-medium-r-*--10-*-*-*-*-*-*-*"))
     (set-default-font default-font-name)))
 
 (defun das-initialize-fonts ()
