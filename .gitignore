@@ -1,3 +1,9 @@
-Emacs/elpa/
-Emacs/auto-save-list/
+/Emacs/elpa
+/Emacs/auto-save-list
+/Emacs/.mc-lists.el
+/Emacs/abbrev_defs
+/Emacs/bookmarks
+/Emacs/eshell
+/Emacs/url
+/Emacs/tramp
 *.elc
