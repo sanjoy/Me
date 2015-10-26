@@ -85,8 +85,6 @@ alias ls='ls -G'
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
-export PATH="/Users/sanjoy/prefix/clang/bin:/Users/sanjoy/prefix/bin:/Users/sanjoy/prefix/arcanist/arcanist/bin:${PATH}"
-
 bindkey '^H' backward-delete-word
 bindkey '^S' push-line
 
@@ -106,9 +104,8 @@ WORK_CONFIG=~sanjoy/.work-zshrc
 if [[ -f $WORK_CONFIG ]]; then
    . $WORK_CONFIG
 else
-    export PATH="~sanjoy/Library/Haskell/bin:$PATH"
     # Brew needs this
-    PATH="/usr/local/bin:$PATH"
+    export PATH="/Users/sanjoy/Library/Haskell/bin:/Users/sanjoy/prefix/clang/bin:/Users/sanjoy/prefix/bin:/Users/sanjoy/prefix/arcanist/arcanist/bin:/usr/local/bin:${PATH}"
 fi
 
 
