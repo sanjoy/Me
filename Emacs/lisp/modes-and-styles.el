@@ -2,7 +2,6 @@
 
 (defun das-initialize-modes ()
   (require 'cc-mode)
-  (require 'git-commit-mode)
   (require 'gitconfig-mode)
   (require 'gitignore-mode)
   (require 'haskell-mode)
@@ -10,7 +9,6 @@
   (setq magit-last-seen-setup-instructions "1.4.0")
   (require 'magit)
   (require 'paredit)
-  (require 'git-rebase-mode)
   (require 'tablegen-mode))
 
 (defun das-initialize-styles ()
