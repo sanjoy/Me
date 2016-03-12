@@ -13,6 +13,7 @@
   (setq file-name-coding-system           'utf-8)
   (setq default-buffer-file-coding-system 'utf-8)
   (setq coding-system-for-write           'utf-8)
+  (setq agda2-program-name "/Users/sanjoy/.cabal/bin/agda")
   (set-keyboard-coding-system             'utf-8)
   (set-terminal-coding-system             'utf-8)
   (set-clipboard-coding-system            'utf-8)
@@ -25,11 +26,14 @@
   (setq magit-last-seen-setup-instructions "1.4.0")
   (setq-default blink-matching-delay .25
                 browse-url-browser-function 'browse-url-generic
-                browse-url-generic-program "google-chrome"
-                column-number-mode t compilation-scroll-output t
-                inhibit-startup-message t max-lisp-eval-depth
-                12000 uniquify-buffer-name-style 'reverse
-                vc-follow-symlinks t x-select-enable-clipboard t
+                browse-url-generic-program "open"
+                column-number-mode t
+                compilation-scroll-output t
+                inhibit-startup-message t
+                max-lisp-eval-depth 12000
+                uniquify-buffer-name-style 'reverse
+                vc-follow-symlinks t
+                x-select-enable-clipboard t
                 ispell-program-name "/usr/local/bin/ispell"))
 
 (defun das-set-special-directories ()
@@ -41,7 +45,7 @@
   (put 'upcase-region 'disabled nil))
 
 (defun das-set-default-font ()
-  (let ((default-font-name "-*-monaco-medium-r-*--10-*-*-*-*-*-*-*"))
+  (let ((default-font-name "-*-monaco-medium-r-*--9-*-*-*-*-*-*-*"))
     (set-default-font default-font-name)))
 
 (defun das-initialize-fonts ()
@@ -63,3 +67,6 @@
 
 (defun das-initialize-global-hooks ()
   (setq confirm-kill-emacs 'yes-or-no-p))
+
+(defun das-initialize-env-variables ()
+  (exec-path-from-shell-initialize))

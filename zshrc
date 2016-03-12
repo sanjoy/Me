@@ -108,7 +108,6 @@ else
     export PATH="/Users/sanjoy/Library/Haskell/bin:/Users/sanjoy/prefix/clang/bin:/Users/sanjoy/prefix/bin:/Users/sanjoy/prefix/arcanist/arcanist/bin:/usr/local/bin:${PATH}"
 fi
 
-
 function pg {
   p4 grep -s -e "$1" "`p4 dirs .`/..." | less -FRXS
 }
@@ -135,7 +134,7 @@ function ack {
       return
   fi
 
-  ~sanjoy/prefix/bin/ack-grep $1
+  /usr/local/bin/ack $1
 }
 
 
@@ -150,3 +149,8 @@ setopt histignorespace
 
 DIRSTACKSIZE=1000
 setopt autopushd
+
+. ~/.github-token
+
+# OPAM configuration
+. /Users/sanjoy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
