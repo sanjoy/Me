@@ -33,14 +33,6 @@ alias df='df -kTh'
 # Special alias to show all files
 alias la='ls -a'
 
-function find-file {
-  if [[ "$#" == "1" ]]; then
-    find . -name "$1" | less -FRSX
-  else
-    echo "usage: find-file [ pattern ]"
-  fi
-}
-
 # configure zsh's autocompletion system; man zshcompsys
 
 zstyle ':completion:*' use-cache on
@@ -108,35 +100,43 @@ else
     export PATH="/Users/sanjoy/Library/Haskell/bin:/Users/sanjoy/prefix/clang/bin:/Users/sanjoy/prefix/bin:/Users/sanjoy/prefix/arcanist/arcanist/bin:/usr/local/bin:${PATH}"
 fi
 
-function pg {
-  p4 grep -s -e "$1" "`p4 dirs .`/..." | less -FRXS
-}
+if [[ `hostname` == "bolt" ]]; then
+    function ack {
+	git rev-parse --git-dir &> /dev/null
+	if [[ $? == "0" ]]; then
+	    git grep $@
+	    return
+	fi
+	/usr/local/bin/ack $1
+    }
+else
+    function pg {
+	p4 grep -s -e "$1" "`p4 dirs .`/..." | less -FRXS
+    }
+    function pg-full {
+	find . -maxdepth 3 -type d  | while read d; do
+	    p4 grep -s -e "$1" "`p4 dirs $d`/..."
+	done 2>&1 | grep -v "no file(s) of type text" | \
+	    less -FRXS
+    }
 
 
-function pg-full {
-  find . -maxdepth 3 -type d  | while read d; do
-    p4 grep -s -e "$1" "`p4 dirs $d`/..."
-  done 2>&1 | grep -v "no file(s) of type text" | \
-      less -FRXS
-}
+    function ack {
+	git rev-parse --git-dir &> /dev/null
+	if [[ $? == "0" ]]; then
+	    git grep $@
+	    return
+	fi
 
+	p4 where &> /dev/null
+	if [[ $? == "0" ]]; then
+	    pg $@
+	    return
+	fi
 
-function ack {
-  git rev-parse --git-dir &> /dev/null
-  if [[ $? == "0" ]]; then
-      git grep $@
-      return
-  fi
-
-  p4 where &> /dev/null
-  if [[ $? == "0" ]]; then
-      pg $@
-      return
-  fi
-
-  /usr/local/bin/ack $1
-}
-
+	/usr/local/bin/ack $1
+    }
+fi
 
 DIRSTACKSIZE=100
 setopt autopushd
