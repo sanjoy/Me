@@ -45,7 +45,7 @@
   (put 'upcase-region 'disabled nil))
 
 (defun das-set-default-font ()
-  (let ((default-font-name "-*-monaco-medium-r-*--9-*-*-*-*-*-*-*"))
+  (let ((default-font-name "-*-monaco-medium-r-*--10-*-*-*-*-*-*-*"))
     (set-default-font default-font-name)))
 
 (defun das-initialize-fonts ()
@@ -70,3 +70,7 @@
 
 (defun das-initialize-env-variables ()
   (exec-path-from-shell-initialize))
+
+(defun fm ()
+  (interactive)
+  (flyspell-mode))

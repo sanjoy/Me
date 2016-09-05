@@ -6,6 +6,7 @@
   (require 'gitignore-mode)
   (require 'haskell-mode)
   (require 'llvm-mode)
+  (require 'rtags)
   (setq magit-last-seen-setup-instructions "1.4.0")
   (require 'magit)
   (require 'paredit)
@@ -87,6 +88,7 @@
    c-basic-offset 5
    c-macro-prompt-flag t
    c-offsets-alist '((innamespace . 0)))
+  (rtags-enable-standard-keybindings)
   (c-toggle-auto-newline -1)
   (show-paren-mode)
   (ggtags-mode)
