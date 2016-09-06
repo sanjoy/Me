@@ -150,7 +150,9 @@ setopt histignorespace
 DIRSTACKSIZE=1000
 setopt autopushd
 
-. ~/.github-token
+if [[ -f ~/.github-token ]]; then
+    . ~/.github-token
+fi
 
 # OPAM configuration
 . /Users/sanjoy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
