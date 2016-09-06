@@ -157,3 +157,5 @@ setopt autopushd
 
 export LSCOLORS=$(echo "gx Gx cx dx Bx eg ed aH ag ac ad" | tr -d ' ')
 #                       01 02 03 04 05 06 07 08 09 10 11
+
+export P4CONFIG='.p4config'
