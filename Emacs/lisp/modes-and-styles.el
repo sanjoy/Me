@@ -7,6 +7,7 @@
   (require 'haskell-mode)
   (require 'llvm-mode)
   (require 'rtags)
+  (load "/usr/local/Cellar/proof-general/4.4/share/emacs/site-lisp/proof-general/generic/proof-site.el")
   (setq magit-last-seen-setup-instructions "1.4.0")
   (require 'magit)
   (require 'paredit)

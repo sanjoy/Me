@@ -6,4 +6,6 @@
 /Emacs/eshell
 /Emacs/url
 /Emacs/tramp
+/Emacs/ido.last
+/Emacs/network-security.data
 *.elc
