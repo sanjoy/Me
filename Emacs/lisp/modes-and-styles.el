@@ -167,7 +167,7 @@
       (let ((begin (region-beginning))
             (end (region-end)))
         (progn
-          (replace-regexp "^> " "" nil begin (+ 3 end))
+          (replace-regexp "^> " "" nil begin end)
           (goto-char begin) (insert "\n")
           (fill-region begin (- end 2))
           (replace-regexp "^" "> " nil begin (- end 2))))
