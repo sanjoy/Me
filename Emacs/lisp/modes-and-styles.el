@@ -160,3 +160,17 @@
 
 (defun das-initialize-rcirc-mode ()
   (setq rcirc-default-nick "sanjoyd-rcirc"))
+
+(defun das-format-reply-block ()
+  (interactive)
+  (if (use-region-p)
+      (let ((begin (region-beginning))
+            (end (region-end)))
+        (progn
+          (replace-regexp "^> " "" nil begin (+ 3 end))
+          (goto-char begin) (insert "\n")
+          (fill-region begin (- end 2))
+          (replace-regexp "^" "> " nil begin (- end 2))))
+    (error "Please select a region!")))
+
+(global-set-key (kbd "C-c C-g C-i") 'das-format-reply-block)
