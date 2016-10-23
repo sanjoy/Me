@@ -170,7 +170,7 @@
           (replace-regexp "^> " "" nil begin end)
           (goto-char begin) (insert "\n")
           (fill-region begin (- end 2))
-          (replace-regexp "^" "> " nil begin (- end 2))))
+          (replace-regexp "^" "> " nil (+ begin 1) (- end 2))))
     (error "Please select a region!")))
 
 (global-set-key (kbd "C-c C-g C-i") 'das-format-reply-block)
