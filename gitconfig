@@ -1,32 +1,27 @@
-[include]
-	path = ~/.gitconfig-private
-
-[alias]
-	co = checkout
-	s = status
-	l = log
-	d = diff
-	ca = commit --amend
-	ri = rebase --interactive
-	rim = rebase --interactive master
-	rc = rebase --continue
-	ra = rebase --abort
-
 [user]
 	name = Sanjoy Das
 	email = sanjoy@playingwithpointers.com
 
-[core]
-	autocrlf = input
+[alias]
+	s = status
+	co = checkout
+	ca = commit --amend
+	can = commit --amend --no-edit
+	mff = merge --ff-only
+	ri = rebase --interactive
+	rc = rebase --continue
+	dc = diff --cached
 
-[sendemail]
-        from = Sanjoy Das <sanjoy@playingwithpointers.com>
-        smtpserver = smtp.gmail.com
-        smtpuser = sanjoy@playingwithpointers.com
-        smtpencryption = tls
-        chainreplyto = false
-        smtpserverport = 587
-	confirm = auto
+[merge]
+	conflictstyle = diff3
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[core]
+	excludesfile = /Users/sanjoy/.gitignore
 
 [url "git@github.com:sanjoy/"]
 	insteadOf = gh:sanjoy/
