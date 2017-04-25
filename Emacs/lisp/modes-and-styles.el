@@ -30,6 +30,13 @@
   (paredit-mode +1)
   (setq indent-tabs-mode nil))
 
+(defun das-text-mode-hook ()
+  (setq fill-column 9999999)
+  (flyspell-mode))
+
+(defun das-initialize-text-mode ()
+  (add-hook 'text-mode-hook (lambda () (das-text-mode-hook))))
+
 (defun das-initialize-lisp-mode ()
   (add-hook 'lisp-mode-hook (lambda () (das-lisp-hook nil)))
   (add-hook 'emacs-lisp-mode-hook (lambda () (das-lisp-hook nil)))
@@ -92,7 +99,6 @@
   (rtags-enable-standard-keybindings)
   (c-toggle-auto-newline -1)
   (show-paren-mode)
-  (ggtags-mode)
   (c-set-offset 'inextern-lang 0)
   (define-key c-mode-map (kbd "RET") 'newline-and-indent)
   (define-key c++-mode-map (kbd "RET") 'newline-and-indent)

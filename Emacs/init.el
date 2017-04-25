@@ -23,6 +23,7 @@
 (das-initialize-c-mode)
 (das-initialize-ido-mode)
 (das-initialize-lisp-mode)
+(das-initialize-text-mode)
 (das-initialize-haskell-mode)
 (das-initialize-rust-mode)
 (das-initialize-magit-mode)

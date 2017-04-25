@@ -24,6 +24,8 @@
 (defun das-miscellaneous-settings ()
   (setq exec-path (append exec-path '("/usr/local/bin")))
   (setq magit-last-seen-setup-instructions "1.4.0")
+  (setq inferior-lisp-program "/usr/local/bin/sbcl")
+  (setq slime-contribs '(slime-fancy))
   (setq-default blink-matching-delay .25
                 browse-url-browser-function 'browse-url-generic
                 browse-url-generic-program "open"
