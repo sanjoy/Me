@@ -7,10 +7,11 @@
   (require 'haskell-mode)
   (require 'llvm-mode)
   (require 'rtags)
-  (load "/usr/local/Cellar/proof-general/4.4/share/emacs/site-lisp/proof-general/generic/proof-site.el")
+  ;(load "/usr/local/Cellar/proof-general/4.4/share/emacs/site-lisp/proof-general/generic/proof-site.el")
   (setq magit-last-seen-setup-instructions "1.4.0")
   (require 'magit)
   (require 'paredit)
+  (require 'rcirc)
   (require 'tablegen-mode))
 
 (defun das-initialize-styles ()
@@ -164,8 +165,37 @@
   ;;              (shell-command-to-string "agda-mode locate")))
   )
 
+(defun das-get-string-from-file (file-path)
+  "Return file-path's file content."
+  (with-temp-buffer
+    (insert-file-contents file-path)
+    (buffer-string)))
+
+(defun rcirc-detach-buffer ()
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (when (and (rcirc-buffer-process)
+           (eq (process-status (rcirc-buffer-process)) 'open))
+      (with-rcirc-server-buffer
+    (setq rcirc-buffer-alist
+          (rassq-delete-all buffer rcirc-buffer-alist)))
+      (rcirc-update-short-buffer-names)
+      (if (rcirc-channel-p rcirc-target)
+      (rcirc-send-string (rcirc-buffer-process)
+                 (concat "DETACH " rcirc-target))))
+    (setq rcirc-target nil)
+    (kill-buffer buffer)))
+
 (defun das-initialize-rcirc-mode ()
-  (setq rcirc-default-nick "sanjoyd-rcirc"))
+  (let ((rcirc-pwd (das-get-string-from-file "~/.rcirc-authinfo"))
+        (rcirc-url (das-get-string-from-file "~/.rcirc-url")))
+    (setq rcirc-server-alist `((,(concat "alpha." rcirc-url) :password ,(concat "sanjoy/oftc:" rcirc-pwd) :port 6697 :encryption tls
+                                           :channels ("#llvm" "#llvm-build"))
+                               (,(concat "bravo." rcirc-url) :password ,(concat "sanjoy/freenode:" rcirc-pwd) :port 6697 :encryption tls
+                                           :channels ("#fuchsia"))
+                               (,(concat "charlie." rcirc-url) :password ,(concat "sanjoy/klug:" rcirc-pwd) :port 6697 :encryption tls
+                                           :channels ("#general" "#random"))))
+      (define-key rcirc-mode-map [(control c) (control d)] 'rcirc-detach-buffer)))
 
 (defun das-format-reply-block ()
   (interactive)

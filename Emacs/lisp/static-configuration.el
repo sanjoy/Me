@@ -76,3 +76,4 @@
 (defun fm ()
   (interactive)
   (flyspell-mode))
+

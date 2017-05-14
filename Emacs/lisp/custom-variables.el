@@ -7,7 +7,7 @@
  '(git-commit-finish-query-functions nil)
  '(package-selected-packages
    (quote
-    (slime ctags-update ctags zenburn-theme zenburn string-inflection seq scala-mode sass-mode rtags php-mode paredit magit llvm-mode levenshtein haskell-mode google-this google-c-style gitignore-mode gitconfig-mode framemove exec-path-from-shell column-marker color-theme)))
+    (writegood-mode slime ctags-update ctags zenburn-theme zenburn string-inflection seq scala-mode sass-mode rtags php-mode paredit magit llvm-mode levenshtein haskell-mode google-this google-c-style gitignore-mode gitconfig-mode framemove exec-path-from-shell column-marker color-theme)))
  '(safe-local-variable-values
    (quote
     ((coq-prog-args "-emacs-U")
@@ -65,7 +65,8 @@
                     "cmem"))))))))
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "smtp.gmail.com")
- '(smtpmail-smtp-service 587))
+ '(smtpmail-smtp-service 587)
+ '(tramp-inline-compress-start-size 83886080))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
