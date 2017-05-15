@@ -186,16 +186,41 @@
     (setq rcirc-target nil)
     (kill-buffer buffer)))
 
-(defun das-initialize-rcirc-mode ()
+(defun connect-oftc ()
+  (interactive)
   (let ((rcirc-pwd (das-get-string-from-file "~/.rcirc-authinfo"))
         (rcirc-url (das-get-string-from-file "~/.rcirc-url")))
-    (setq rcirc-server-alist `((,(concat "alpha." rcirc-url) :password ,(concat "sanjoy/oftc:" rcirc-pwd) :port 6697 :encryption tls
-                                           :channels ("#llvm" "#llvm-build"))
-                               (,(concat "bravo." rcirc-url) :password ,(concat "sanjoy/freenode:" rcirc-pwd) :port 6697 :encryption tls
-                                           :channels ("#fuchsia"))
-                               (,(concat "charlie." rcirc-url) :password ,(concat "sanjoy/klug:" rcirc-pwd) :port 6697 :encryption tls
-                                           :channels ("#general" "#random"))))
-      (define-key rcirc-mode-map [(control c) (control d)] 'rcirc-detach-buffer)))
+    (rcirc-connect
+     (concat "alpha." rcirc-url) 6697
+     rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
+     '("#llvm" "#llvm-build")
+     (concat "sanjoy/oftc:" rcirc-pwd)
+     'tls)))
+
+(defun connect-freenode ()
+  (interactive)
+  (let ((rcirc-pwd (das-get-string-from-file "~/.rcirc-authinfo"))
+        (rcirc-url (das-get-string-from-file "~/.rcirc-url")))
+    (rcirc-connect
+     (concat "bravo." rcirc-url) 6697
+     rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
+     '("#fuchsia" "#phabricator" "#redprl")
+     (concat "sanjoy/freenode:" rcirc-pwd)
+     'tls)))
+
+(defun connect-klug ()
+  (interactive)
+  (let ((rcirc-pwd (das-get-string-from-file "~/.rcirc-authinfo"))
+        (rcirc-url (das-get-string-from-file "~/.rcirc-url")))
+    (rcirc-connect
+     (concat "charlie." rcirc-url) 6697
+     rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
+     '("#general" "#random")
+     (concat "sanjoy/klug:" rcirc-pwd)
+     'tls)))
+
+(defun das-initialize-rcirc-mode ()
+  (define-key rcirc-mode-map [(control c) (control d)] 'rcirc-detach-buffer))
 
 (defun das-format-reply-block ()
   (interactive)
