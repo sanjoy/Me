@@ -193,7 +193,7 @@
     (rcirc-connect
      (concat "alpha." rcirc-url) 6697
      rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
-     '("#llvm" "#llvm-build")
+     '("#llvm")
      (concat "sanjoy/oftc:" rcirc-pwd)
      'tls)))
 
@@ -223,7 +223,9 @@
   (define-key rcirc-mode-map [(control c) (control d)] 'rcirc-detach-buffer)
   (add-hook 'rcirc-mode-hook
             (lambda ()
-              (rcirc-track-minor-mode 1))))
+              (rcirc-track-minor-mode 1)))
+  (let ((ignore-list (split-string (das-get-string-from-file "~/.rcirc-ignore-list"))))
+    (setq rcirc-ignore-list ignore-list)))
 
 (defun das-format-reply-block ()
   (interactive)
