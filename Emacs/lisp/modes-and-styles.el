@@ -220,7 +220,10 @@
      'tls)))
 
 (defun das-initialize-rcirc-mode ()
-  (define-key rcirc-mode-map [(control c) (control d)] 'rcirc-detach-buffer))
+  (define-key rcirc-mode-map [(control c) (control d)] 'rcirc-detach-buffer)
+  (add-hook 'rcirc-mode-hook
+            (lambda ()
+              (rcirc-track-minor-mode 1))))
 
 (defun das-format-reply-block ()
   (interactive)
