@@ -1,42 +1,203 @@
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/third-party"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/third-party"))
 
-(load "static-configuration.el")
-(das-clear-up-ui)
-(das-everything-in-utf8)
-(das-initialize-fonts)
-(das-initialize-package)
-(das-miscellaneous-settings)
-(das-set-special-directories)
-(das-unprotect-commands)
-(das-initialize-global-hooks)
-(das-import-path)
-(das-initialize-env-variables)
-
-(load "colors.el")
-(das-install-color-theme)
-
-(load "modes-and-styles.el")
-(das-initialize-modes)  
-(das-initialize-styles)
-
-(das-initialize-c-mode)
-(das-initialize-ido-mode)
-(das-initialize-lisp-mode)
-(das-initialize-text-mode)
-(das-initialize-haskell-mode)
-(das-initialize-rust-mode)
-(das-initialize-magit-mode)
-(das-initialize-p4-mode)
-(das-initialize-tramp-mode)
-(das-initialize-agda-mode)
-(das-initialize-rcirc-mode)
-
-(load "utilities.el")
-(das-initialize-utilities)
-
-(load "keybindings.el")
-(das-initialize-keybindings)
-
-(setq custom-file "~/.emacs.d/lisp/custom-variables.el")
+(setq custom-file "~/.emacs.d/custom-file.el")
 (load custom-file)
+
+(defun utils/kill-buffers-with-prefix (prefix match-what kill-modified)
+  (mapc (lambda (this-buffer)
+          (when (funcall match-what this-buffer)
+            (when (string-prefix-p prefix (funcall match-what this-buffer))
+              (unless (and (not kill-modified) (buffer-modified-p this-buffer))
+                (kill-buffer this-buffer)))))
+        (buffer-list)))
+
+(defun setup-packages ()
+  (require 'package)
+
+  (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")))
+  (package-initialize)
+
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (setq use-package-always-ensure t)
+
+  (use-package ace-window
+    :init
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0))))))
+
+  (use-package exec-path-from-shell
+    :if (memq window-system '(mac ns))
+    :config (exec-path-from-shell-initialize))
+
+  (use-package flyspell
+    :config
+    (global-set-key (kbd "C-c C-f") 'flyspell-mode))
+
+  (use-package gitignore-mode)
+  (use-package gitconfig-mode)
+  (use-package haskell-mode)
+
+  (use-package ido
+    :config
+    (setq ido-use-filename-at-point nil
+	  ido-use-url-at-point nil
+	  ido-enable-flex-matching t
+	  ido-max-prospects 6
+	  ido-confirm-unique-completion t
+	  ido-default-file-method 'selected-window
+	  ido-default-buffer-method 'selected-window
+	  make-backup-files nil)
+    (ido-mode t)
+    (global-set-key (kbd "C-x C-b") 'ido-switch-buffer))
+
+  (use-package llvm-mode)
+
+  (use-package magit
+    :config
+    (global-set-key (kbd "C-x C-a C-a") 'magit-status))
+
+  (use-package paredit)
+
+  (use-package rcirc
+    :config
+    (define-key
+      rcirc-mode-map [(control c) (control d)]
+      (lambda ()
+	(interactive)
+        (let ((buffer (current-buffer)))
+          (when (and (rcirc-buffer-process)
+                     (eq (process-status (rcirc-buffer-process)) 'open))
+            (with-rcirc-server-buffer
+              (setq rcirc-buffer-alist
+                    (rassq-delete-all buffer rcirc-buffer-alist)))
+            (rcirc-update-short-buffer-names)
+            (if (rcirc-channel-p rcirc-target)
+                (rcirc-send-string (rcirc-buffer-process)
+                                   (concat "DETACH " rcirc-target))))
+          (setq rcirc-target nil)
+          (kill-buffer buffer))))
+
+    (load "~/.rcirc-private-configuration")
+
+    (defun connect-oftc ()
+      (interactive)
+      (rcirc-connect
+       (concat "alpha." znc-base-url) 6697
+       rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
+       '("#llvm")
+       (concat "sanjoy/oftc:" znc-password)
+       'tls))
+
+    (rcirc-track-minor-mode)
+    (add-hook 'rcirc-mode-hook (lambda ()
+				 (flyspell-mode 1))))
+
+  (use-package revbufs)
+  (use-package tablegen-mode)
+  (use-package try)
+
+  (use-package zenburn-theme
+    :config (load-theme 'zenburn t)))
+
+(setup-packages)
+
+(defun setup-basic-configuration ()
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (global-font-lock-mode t)
+  (setq blink-matching-delay .25
+        browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "/usr/bin/google-chrome"
+        column-number-mode t
+        compilation-scroll-output t
+        confirm-kill-emacs 'yes-or-no-p
+        exec-path (append exec-path '("/usr/local/bin"))
+        inhibit-startup-message t
+        max-lisp-eval-depth 12000
+        recenter-redisplay nil
+        ring-bell-function #'ignore
+        uniquify-buffer-name-style 'reverse
+        vc-follow-symlinks t
+        x-select-enable-clipboard t))
+
+(setup-basic-configuration)
+
+(defun setup-font-configuration ()
+  (set-default-font "Monaco-10")
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (select-frame frame)
+              (das-set-default-font))))
+
+(setup-font-configuration)
+
+(defun setup-mode-hooks ()
+  (add-hook 'text-mode-hook
+            (lambda ()
+              (setq fill-column 9999999)
+              (flyspell-mode)))
+  (add-hook 'lisp-mode-hook (lambda () (paredit-mode +1)))
+  (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1))))
+
+(setup-mode-hooks)
+
+(defun setup-kill-buffers-by-directory ()
+  (defun kill-buffers-by-directory (dir-name)
+    (interactive "Gprefix: ")
+    (utils/kill-buffers-with-prefix (expand-file-name dir-name)
+				    'buffer-file-name
+				    nil))
+
+  (global-set-key (kbd "C-c C-k") 'das-kill-buffers-by-directory))
+
+(setup-kill-buffers-by-directory)
+
+(defun setup-emacsclient ()
+  (defvar *default-emacsclient-frame* nil)
+
+  (defun sdf ()
+    (interactive)
+    (setq *default-emacsclient-frame* (selected-frame)))
+
+  (add-hook 'server-switch-hook
+	    (lambda ()
+	      (let ((target-window (frame-selected-window *default-emacsclient-frame*))
+		    (target-buffer (current-buffer)))
+		(if (not (eql (selected-frame) *default-emacsclient-frame*))
+		    (progn (bury-buffer)
+			   (set-window-buffer target-window target-buffer)
+			   (select-frame-set-input-focus *default-emacsclient-frame*))))))
+
+  (sdf)
+  (server-start))
+
+(setup-emacsclient)
+
+(defun setup-edit-text ()
+  (defun das-edit-text (title)
+    (interactive "sTitle: ")
+    (let ((file-name
+	   (concat "~/Documents/Thoughts/"
+		   (if (string-equal "" title) "noname" title)
+		   (format-time-string ".%d-%m-%Y-%H-%M")
+		   ".rst")))
+      (find-file file-name)
+      (visual-line-mode)
+      (flyspell-mode))
+    (global-set-key (kbd "C-c t") 'das-edit-text)))
+
+(setup-edit-text)
+
+(defun setup-keybindings ()
+  (if (memq window-system '(mac ns))
+      (setq mac-command-modifier 'meta))
+  (global-unset-key (kbd "<insert>"))
+  (global-set-key (kbd "C-c C-b") 'browse-url-at-point))
+
+(setup-keybindings)

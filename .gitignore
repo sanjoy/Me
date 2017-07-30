@@ -8,4 +8,5 @@
 /Emacs/tramp
 /Emacs/ido.last
 /Emacs/network-security.data
+/Emacs/custom-file.el
 *.elc
