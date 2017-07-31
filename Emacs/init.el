@@ -1,5 +1,3 @@
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/third-party"))
-
 (setq custom-file "~/.emacs.d/custom-file.el")
 (load custom-file)
 
@@ -97,8 +95,12 @@
     (add-hook 'rcirc-mode-hook (lambda ()
 				 (flyspell-mode 1))))
 
-  (use-package revbufs)
-  (use-package tablegen-mode)
+  (use-package revbufs
+    :load-path "third-party/")
+
+  (use-package tablegen-mode
+    :load-path "third-party/")
+
   (use-package try)
 
   (use-package zenburn-theme
