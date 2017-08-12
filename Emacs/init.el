@@ -28,13 +28,20 @@
      '(aw-leading-char-face
        ((t (:inherit ace-jump-face-foreground :height 3.0))))))
 
+  (use-package clang-format
+    :config
+    (global-set-key [C-M-q] 'clang-format-region))
+
   (use-package exec-path-from-shell
     :if (memq window-system '(mac ns))
     :config (exec-path-from-shell-initialize))
 
   (use-package flyspell
     :config
-    (global-set-key (kbd "C-c C-f") 'flyspell-mode))
+    (global-set-key (kbd "C-c C-f") 'flyspell-mode)
+    (defun fm ()
+      (interactive)
+      (flyspell-mode)))
 
   (use-package gitignore-mode)
   (use-package gitconfig-mode)
@@ -131,23 +138,20 @@
 (setup-basic-configuration)
 
 (defun setup-font-configuration ()
-  (set-default-font "Monaco-10")
-  (add-hook 'after-make-frame-functions
-            (lambda (frame)
-              (select-frame frame)
-              (das-set-default-font))))
+  (set-default-font "Monaco-10"))
 
 (setup-font-configuration)
 
-(defun setup-mode-hooks ()
+(defun setup-builtin-mode-hooks ()
   (add-hook 'text-mode-hook
             (lambda ()
               (setq fill-column 9999999)
               (flyspell-mode)))
   (add-hook 'lisp-mode-hook (lambda () (paredit-mode +1)))
-  (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1))))
+  (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode +1)))
+  (add-hook 'c-mode-common-hook (lambda () (subword-mode))))
 
-(setup-mode-hooks)
+(setup-builtin-mode-hooks)
 
 (defun setup-kill-buffers-by-directory ()
   (defun kill-buffers-by-directory (dir-name)
@@ -156,7 +160,7 @@
 				    'buffer-file-name
 				    nil))
 
-  (global-set-key (kbd "C-c C-k") 'das-kill-buffers-by-directory))
+  (global-set-key (kbd "C-c C-k") 'kill-buffers-by-directory))
 
 (setup-kill-buffers-by-directory)
 
@@ -191,8 +195,8 @@
 		   ".rst")))
       (find-file file-name)
       (visual-line-mode)
-      (flyspell-mode))
-    (global-set-key (kbd "C-c t") 'das-edit-text)))
+      (flyspell-mode)))
+  (global-set-key (kbd "C-c t") 'das-edit-text))
 
 (setup-edit-text)
 
