@@ -2,22 +2,24 @@
 # Author Sanjoy Das <sanjoy@playingwithpointers.com>
 
 # Set the terminal prompts to something a little less obstrusive
-function prompt_command {
-  PS1="$(print -n "\n{ %{\e[35m%}%m \e[0m}"; print '%{\e[1;30m%} %B%~ \n %C $ %b%{\e[0m%}')"
-}
+# function prompt_command {
+#   PS1="$(print -n "\n{ %{\e[35m%}%m \e[0m}"; print '%{\e[1;30m%} %B%~ \n %C $ %b%{\e[0m%}')"
+# }
 
-typeset -a precmd_functions
-precmd_functions+=prompt_command
+# typeset -a precmd_functions
+# precmd_functions+=prompt_command
 
-PS2="$(print '%{\e[0;30m%} ... %{\e[0m%}')"
+# PS2="$(print '%{\e[0;30m%} ... %{\e[0m%}')"
 
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
-[[ $TERM == "dumb" ]] && unsetopt zle && PS2='> '
+# [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ '
+# [[ $TERM == "dumb" ]] && unsetopt zle && PS2='> '
 
-export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+PROMPT='%2~ $ '
+
+export EDITOR="~/prefix/bin/tt"
 
 # Open emacsclient with tt
-alias tt='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
+# alias tt='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
 
 # patchd for trying patches
 alias patchd='patch --dry-run'
