@@ -203,3 +203,4 @@
   (global-set-key (kbd "C-c C-b") 'browse-url-at-point))
 
 (setup-keybindings)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
