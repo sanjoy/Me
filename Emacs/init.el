@@ -100,10 +100,16 @@
   (use-package try)
 
   (use-package zenburn-theme
-    :config (load-theme 'zenburn t)))
+    :config (load-theme 'zenburn t))
+
   (use-package google-c-style
     :config (add-hook 'c-mode-common-hook 'google-set-c-style))
 
+  (use-package multiple-cursors
+    :config
+    (require 'multiple-cursors)
+    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+    (global-set-key (kbd "C-\\") 'mc/mark-next-like-this)))
 
 (setup-packages)
 
