@@ -12,7 +12,7 @@
 (defun setup-packages ()
   (require 'package)
 
-  (setq package-archives '(("melpa" . "http://melpa.milkbox.net/packages/")))
+  (setq package-archives '(("melpa" . "http://melpa.org/packages/")))
   (package-initialize)
 
   (unless (package-installed-p 'use-package)
@@ -43,9 +43,7 @@
       (interactive)
       (flyspell-mode)))
 
-  (use-package gitignore-mode)
-  (use-package gitconfig-mode)
-  (use-package haskell-mode)
+  (use-package git-modes)
 
   (use-package ido
     :config
@@ -59,8 +57,6 @@
 	  make-backup-files nil)
     (ido-mode t)
     (global-set-key (kbd "C-x C-b") 'ido-switch-buffer))
-
-  (use-package llvm-mode)
 
   (use-package magit
     :config
