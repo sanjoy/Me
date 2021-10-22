@@ -88,8 +88,7 @@
 
       (rcirc-track-minor-mode)
       (add-hook 'rcirc-mode-hook (lambda ()
-				   (flyspell-mode 1)))
-      ))
+				   (flyspell-mode 1)))))
 
   (use-package revbufs
     :load-path "third-party/")
