@@ -101,6 +101,9 @@
 
   (use-package zenburn-theme
     :config (load-theme 'zenburn t)))
+  (use-package google-c-style
+    :config (add-hook 'c-mode-common-hook 'google-set-c-style))
+
 
 (setup-packages)
 
