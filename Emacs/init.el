@@ -21,13 +21,6 @@
 
   (setq use-package-always-ensure t)
 
-  (use-package ace-window
-    :init
-    (global-set-key [remap other-window] 'ace-window)
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 3.0))))))
-
   (use-package clang-format
     :config
     (global-set-key [C-M-q] 'clang-format-region))
