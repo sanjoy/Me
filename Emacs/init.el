@@ -134,7 +134,7 @@
 (setup-basic-configuration)
 
 (defun setup-font-configuration ()
-  (set-default-font "Monaco-10"))
+  (set-frame-font "Monaco-10"))
 
 (setup-font-configuration)
 
