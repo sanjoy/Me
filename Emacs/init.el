@@ -9,6 +9,12 @@
                 (kill-buffer this-buffer)))))
         (buffer-list)))
 
+(defun utils/read-string-from-file (file-path)
+  "Return FILE-PATH's file content."
+  (with-temp-buffer
+    (insert-file-contents file-path)
+    (buffer-string)))
+
 (defun utils/rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
@@ -151,7 +157,8 @@
 (setup-basic-configuration)
 
 (defun setup-font-configuration ()
-  (set-frame-font "Monaco-10"))
+  (set-frame-font "Monaco-10")
+  (when (load "~/.emacs.d/custom-font-configuration.el" t)))
 
 (setup-font-configuration)
 
