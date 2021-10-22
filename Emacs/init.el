@@ -83,20 +83,20 @@
           (setq rcirc-target nil)
           (kill-buffer buffer))))
 
-    (load "~/.rcirc-private-configuration")
+    (when (load "~/.rcirc-private-configuration" t)
+      (defun connect-oftc ()
+	(interactive)
+	(rcirc-connect
+	 (concat "alpha." znc-base-url) 6697
+	 rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
+	 '("#llvm")
+	 (concat "sanjoy/oftc:" znc-password)
+	 'tls))
 
-    (defun connect-oftc ()
-      (interactive)
-      (rcirc-connect
-       (concat "alpha." znc-base-url) 6697
-       rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
-       '("#llvm")
-       (concat "sanjoy/oftc:" znc-password)
-       'tls))
-
-    (rcirc-track-minor-mode)
-    (add-hook 'rcirc-mode-hook (lambda ()
-				 (flyspell-mode 1))))
+      (rcirc-track-minor-mode)
+      (add-hook 'rcirc-mode-hook (lambda ()
+				   (flyspell-mode 1)))
+      ))
 
   (use-package revbufs
     :load-path "third-party/")
