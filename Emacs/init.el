@@ -230,7 +230,6 @@
 
 (defun set-window-config ()
   (set-window-fringes nil 0 0)
-  (setq ns-auto-hide-menu-bar t)
   (set-frame-position nil 0 -24)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (when (fboundp 'windmove-default-keybindings)
