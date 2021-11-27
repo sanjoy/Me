@@ -52,7 +52,6 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' format '%B%d:%b'
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' file-sort access
-zstyle ':completion:*' list-colors no=00 fi=00 di=01\;34 pi=33 so=01\;35 bd=00\;35 cd=00\;34 or=00\;41 mi=00\;45 ex=01\;32
 zstyle ':completion:*' menu 'select=0'
 zstyle ':completion:*' list-prompt ''
 zstyle ':completion:*' select-prompt ''
