@@ -159,9 +159,10 @@ fi
 # OPAM configuration
 . /Users/sanjoy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-export LSCOLORS=$(echo "gx Gx cx dx Bx eg ed aH ag ac ad" | tr -d ' ')
-#                       01 02 03 04 05 06 07 08 09 10 11
-
 export P4CONFIG='.p4config'
 export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
 source $HOME/.cargo/env
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
