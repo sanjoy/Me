@@ -130,7 +130,8 @@
     :config
     (require 'multiple-cursors)
     (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-    (global-set-key (kbd "C-\\") 'mc/mark-next-like-this)))
+    (global-set-key (kbd "C-\\") 'mc/mark-next-like-this)
+    (setq mc/always-run-for-all t)))
 
 (setup-packages)
 
@@ -236,3 +237,4 @@
     (windmove-default-keybindings)))
 
 (set-window-config)
+(put 'downcase-region 'disabled nil)
