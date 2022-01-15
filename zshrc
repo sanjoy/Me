@@ -72,9 +72,6 @@ SAVEHIST=10000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
-# Pretty directory listing
-alias ls='ls -G'
-
 # So that I always can use `tt'
 export ALTERNATE_EDITOR="nano"
 
@@ -165,3 +162,18 @@ source $HOME/.cargo/env
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/Users/sanjoy/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/Users/sanjoy/miniforge3/etc/profile.d/conda.sh" ]; then
+#         . "/Users/sanjoy/miniforge3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/sanjoy/miniforge3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
