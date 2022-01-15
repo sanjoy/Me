@@ -1,0 +1,3 @@
+#!/bin/bash
+
+tt $(git grep $@ | selecta | awk -F  ":" '{print $1}')
