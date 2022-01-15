@@ -177,3 +177,5 @@ export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 # fi
 # unset __conda_setup
 # <<< conda initialize <<<
+
+export PATH="/Users/sanjoy/Code/Me/scripts:$PATH"
