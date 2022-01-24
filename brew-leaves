@@ -4,8 +4,8 @@ boost
 clang-format
 cmake
 coreutils
-ctags
 git
+global
 gnu-sed
 graphviz
 ispell

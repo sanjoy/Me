@@ -131,7 +131,16 @@
     (require 'multiple-cursors)
     (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
     (global-set-key (kbd "C-\\") 'mc/mark-next-like-this)
-    (setq mc/always-run-for-all t)))
+    (setq mc/always-run-for-all t))
+
+  (use-package
+    ggtags
+    :config
+    (add-hook
+     'c-mode-common-hook
+     (lambda ()
+       (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+         (ggtags-mode 1))))))
 
 (setup-packages)
 
