@@ -105,8 +105,10 @@
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
     (add-hook 'c-mode-hook 'eglot-ensure)
     (add-hook 'c++-mode-hook 'eglot-ensure)
-    (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
-    (global-eldoc-mode -1)))
+    (add-hook 'eglot--managed-mode-hook
+	      (lambda ()
+		(flymake-mode -1)
+		(eldoc-mode -1)))))
 
 (setup-packages)
 
