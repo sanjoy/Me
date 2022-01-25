@@ -79,39 +79,6 @@
 
   (use-package paredit)
 
-  (use-package rcirc
-    :config
-    (define-key
-      rcirc-mode-map [(control c) (control d)]
-      (lambda ()
-	(interactive)
-        (let ((buffer (current-buffer)))
-          (when (and (rcirc-buffer-process)
-                     (eq (process-status (rcirc-buffer-process)) 'open))
-            (with-rcirc-server-buffer
-              (setq rcirc-buffer-alist
-                    (rassq-delete-all buffer rcirc-buffer-alist)))
-            (rcirc-update-short-buffer-names)
-            (if (rcirc-channel-p rcirc-target)
-                (rcirc-send-string (rcirc-buffer-process)
-                                   (concat "DETACH " rcirc-target))))
-          (setq rcirc-target nil)
-          (kill-buffer buffer))))
-
-    (when (load "~/.rcirc-private-configuration" t)
-      (defun connect-oftc ()
-	(interactive)
-	(rcirc-connect
-	 (concat "alpha." znc-base-url) 6697
-	 rcirc-default-nick rcirc-default-user-name "Sanjoy Das"
-	 '("#llvm")
-	 (concat "sanjoy/oftc:" znc-password)
-	 'tls))
-
-      (rcirc-track-minor-mode)
-      (add-hook 'rcirc-mode-hook (lambda ()
-				   (flyspell-mode 1)))))
-
   (use-package revbufs
     :load-path "third-party/")
 
