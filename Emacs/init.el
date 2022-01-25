@@ -104,19 +104,7 @@
     :config
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
     (add-hook 'c-mode-hook 'eglot-ensure)
-    (add-hook 'c++-mode-hook 'eglot-ensure))
-
-  ;; (use-package
-  ;;   ggtags
-  ;;   :config
-  ;;   (add-hook
-  ;;    'c-mode-common-hook
-  ;;    (lambda ()
-  ;;      (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-  ;;        (ggtags-mode 1))))
-  ;;   (define-key ggtags-navigation-map (kbd "M-<") nil))
-
-  )
+    (add-hook 'c++-mode-hook 'eglot-ensure)))
 
 (setup-packages)
 
