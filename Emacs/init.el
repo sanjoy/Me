@@ -108,7 +108,13 @@
     (add-hook 'eglot--managed-mode-hook
 	      (lambda ()
 		(flymake-mode -1)
-		(eldoc-mode -1)))))
+		(eldoc-mode -1))))
+
+  (use-package company
+    :config
+    (add-hook 'eglot--managed-mode-hook
+	      (lambda ()
+		(company-mode)))))
 
 (setup-packages)
 
