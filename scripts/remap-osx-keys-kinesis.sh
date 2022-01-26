@@ -11,4 +11,4 @@ hidutil property --matching "{\"ProductID\":${KINESIS_PRODUCT_ID}}" --set "
    \"HIDKeyboardModifierMappingDst\":${KB_LEFT_GUI}},
   {\"HIDKeyboardModifierMappingSrc\":${KB_LEFT_GUI},
    \"HIDKeyboardModifierMappingDst\":${KB_LEFT_ALT}}
-]}"
+]}" > /tmp/remap-osx-keys-kinesis.log || echo "failed"
