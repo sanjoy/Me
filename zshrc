@@ -5,9 +5,6 @@ PROMPT='%2~ $ '
 
 export EDITOR="tt"
 
-# Open emacsclient with tt
-# alias tt='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
-
 # patchd for trying patches
 alias patchd='patch --dry-run'
 
