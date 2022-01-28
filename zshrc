@@ -95,7 +95,7 @@ if [[ -f $WORK_CONFIG ]]; then
    . $WORK_CONFIG
 else
     # Brew needs this
-    export PATH="/Users/sanjoy/Library/Haskell/bin:/Users/sanjoy/prefix/clang/bin:/Users/sanjoy/prefix/bin:/Users/sanjoy/prefix/arcanist/arcanist/bin:/usr/local/bin:${PATH}"
+    export PATH="${HOME}/Library/Haskell/bin:${HOME}/prefix/clang/bin:${HOME}/prefix/bin:${HOME}/prefix/arcanist/arcanist/bin:/usr/local/bin:${PATH}"
 fi
 
 if [[ `hostname` == "bolt" ]]; then
@@ -153,7 +153,7 @@ if [[ -f ~/.github-token ]]; then
 fi
 
 # OPAM configuration
-. /Users/sanjoy/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+. ${HOME}/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 export P4CONFIG='.p4config'
 export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
@@ -165,17 +165,17 @@ export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/Users/sanjoy/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# __conda_setup="$('${HOME}/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 # if [ $? -eq 0 ]; then
 #     eval "$__conda_setup"
 # else
-#     if [ -f "/Users/sanjoy/miniforge3/etc/profile.d/conda.sh" ]; then
-#         . "/Users/sanjoy/miniforge3/etc/profile.d/conda.sh"
+#     if [ -f "${HOME}/miniforge3/etc/profile.d/conda.sh" ]; then
+#         . "${HOME}/miniforge3/etc/profile.d/conda.sh"
 #     else
-#         export PATH="/Users/sanjoy/miniforge3/bin:$PATH"
+#         export PATH="${HOME}/miniforge3/bin:$PATH"
 #     fi
 # fi
 # unset __conda_setup
 # <<< conda initialize <<<
 
-export PATH="/Users/sanjoy/Code/Me/scripts:$PATH"
+export PATH="${HOME}/Code/Me/scripts:$PATH"
