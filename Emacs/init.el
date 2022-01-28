@@ -233,5 +233,6 @@
 
 (defun setup-vc-grep ()
   (require 'grep)
-  (add-to-list 'grep-files-aliases '("cxx" . "*.cc *.cxx *.cpp *.C *.CC *.c++ *.h *.hpp")))
+  (add-to-list 'grep-files-aliases '("tt" . "*.cc *.cxx *.cpp *.C *.CC *.c++ *.h *.hpp *.td"))
+  (bind-key* (kbd "C-c g") 'vc-git-grep))
 (setup-vc-grep)
