@@ -229,5 +229,6 @@
 (put 'downcase-region 'disabled nil)
 
 (defun setup-vc-grep ()
+  (require 'grep)
   (add-to-list 'grep-files-aliases '("cxx" . "*.cc *.cxx *.cpp *.C *.CC *.c++ *.h *.hpp")))
 (setup-vc-grep)
