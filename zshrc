@@ -95,7 +95,7 @@ if [[ -f $WORK_CONFIG ]]; then
    . $WORK_CONFIG
 else
     # Brew needs this
-    export PATH="${HOME}/Library/Haskell/bin:${HOME}/prefix/clang/bin:${HOME}/prefix/bin:${HOME}/prefix/arcanist/arcanist/bin:/usr/local/bin:${PATH}"
+    export PATH="${HOME}/Library/Haskell/bin:${HOME}/prefix/clang/bin:${HOME}/prefix/bin:${HOME}/Code/arcanist/bin:/usr/local/bin:${PATH}"
 fi
 
 if [[ `hostname` == "bolt" ]]; then
