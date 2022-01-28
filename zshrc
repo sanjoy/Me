@@ -16,7 +16,7 @@
 
 PROMPT='%2~ $ '
 
-export EDITOR="~/prefix/bin/tt"
+export EDITOR="tt"
 
 # Open emacsclient with tt
 # alias tt='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
