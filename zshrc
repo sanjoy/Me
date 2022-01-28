@@ -136,9 +136,6 @@ else
     }
 fi
 
-DIRSTACKSIZE=100
-setopt autopushd
-
 function tad {
   tmux a -d
 }
