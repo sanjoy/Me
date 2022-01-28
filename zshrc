@@ -62,8 +62,6 @@ export ALTERNATE_EDITOR="nano"
 bindkey '^H' backward-delete-word
 bindkey '^S' push-line
 
-setopt APPEND_HISTORY
-
 export CVS_RSH=ssh
 
 # this treats each component of a path as a word
@@ -124,11 +122,6 @@ function tad {
   tmux a -d
 }
 
-setopt histignorespace
-
-DIRSTACKSIZE=1000
-setopt autopushd
-
 if [[ -f ~/.github-token ]]; then
     . ~/.github-token
 fi
@@ -145,4 +138,15 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="${HOME}/Code/Me/scripts:$PATH"
 
+
+
+
+# Shell configuration
+
 unsetopt EXTENDED_GLOB # To allow ^ in git cmd lines
+
+setopt APPEND_HISTORY # Concurrent ZSH sessions append to history file
+setopt HIST_IGNORE_SPACE  # Commands with leading space are not remembered
+
+DIRSTACKSIZE=1000
+setopt AUTO_PUSHD # Always allow popd
