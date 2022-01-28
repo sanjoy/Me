@@ -163,3 +163,5 @@ source $HOME/.cargo/env
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="${HOME}/Code/Me/scripts:$PATH"
+
+unsetopt EXTENDED_GLOB # To allow ^ in git cmd lines
