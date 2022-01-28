@@ -1,3 +1,3 @@
 #!/bin/bash
 
-tt $(git grep $@ | selecta | awk -F  ":" '{print $1}')
+tt $(git grep $@ -- '*.cpp' '*.h' '*.cc' | selecta --height full | awk -F  ":" '{print $1}')
