@@ -43,9 +43,11 @@
   (require 'use-package-ensure)
   (setq use-package-always-ensure t)
 
+  (use-package bind-key)
+
   (use-package clang-format
     :config
-    (global-set-key [C-M-q] 'clang-format-region))
+    (bind-key* [C-M-q] 'clang-format-region))
 
   (use-package exec-path-from-shell
     :if (memq window-system '(mac ns))
@@ -53,7 +55,7 @@
 
   (use-package flyspell
     :config
-    (global-set-key (kbd "C-c C-f") 'flyspell-mode)
+    (bind-key* (kbd "C-c C-f") 'flyspell-mode)
     (defun fm ()
       (interactive)
       (flyspell-mode)))
@@ -71,11 +73,11 @@
 	  ido-default-buffer-method 'selected-window
 	  make-backup-files nil)
     (ido-mode t)
-    (global-set-key (kbd "C-x C-b") 'ido-switch-buffer))
+    (bind-key* (kbd "C-x C-b") 'ido-switch-buffer))
 
   (use-package magit
     :config
-    (global-set-key (kbd "C-x C-a C-a") 'magit-status))
+    (bind-key* (kbd "C-x C-a C-a") 'magit-status))
 
   (use-package paredit)
 
@@ -96,8 +98,8 @@
   (use-package multiple-cursors
     :config
     (require 'multiple-cursors)
-    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-    (global-set-key (kbd "C-\\") 'mc/mark-next-like-this)
+    (bind-key* (kbd "C-S-c C-S-c") 'mc/edit-lines)
+    (bind-key* (kbd "C-\\") 'mc/mark-next-like-this)
     (setq mc/always-run-for-all t))
 
   (use-package eglot
@@ -114,7 +116,11 @@
     :config
     (add-hook 'eglot--managed-mode-hook
 	      (lambda ()
-		(company-mode)))))
+		(company-mode))))
+
+  (use-package git-link
+    :config
+    (setq git-link-use-commit t)))
 
 (setup-packages)
 
@@ -164,7 +170,7 @@
 				    'buffer-file-name
 				    nil))
 
-  (global-set-key (kbd "C-c C-k") 'kill-buffers-by-directory))
+  (bind-key* (kbd "C-c C-k") 'kill-buffers-by-directory))
 
 (setup-kill-buffers-by-directory)
 
@@ -200,7 +206,7 @@
       (find-file file-name)
       (visual-line-mode)
       (flyspell-mode)))
-  (global-set-key (kbd "C-c t") 'das-edit-text))
+  (bind-key* (kbd "C-c t") 'das-edit-text))
 
 (setup-edit-text)
 
@@ -208,7 +214,7 @@
   (if (memq window-system '(mac ns))
       (setq mac-command-modifier 'meta))
   (global-unset-key (kbd "<insert>"))
-  (global-set-key (kbd "C-c C-b") 'browse-url-at-point))
+  (bind-key* (kbd "C-c C-b") 'browse-url-at-point))
 
 (setup-keybindings)
 
