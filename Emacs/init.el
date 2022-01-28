@@ -226,7 +226,10 @@
     (windmove-default-keybindings)))
 
 (set-window-config)
-(put 'downcase-region 'disabled nil)
+
+(defun enable-risky-cmds ()
+  (put 'downcase-region 'disabled nil))
+(enable-risky-cmds)
 
 (defun setup-vc-grep ()
   (require 'grep)
