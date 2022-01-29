@@ -114,7 +114,7 @@ else
 	    return
 	fi
 
-	/usr/local/bin/ack $1
+	grep -r $1 .
     }
 fi
 
