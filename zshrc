@@ -3,7 +3,7 @@
 
 PROMPT='%2~ $ '
 
-export EDITOR="tt"
+export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 
 # patchd for trying patches
 alias patchd='patch --dry-run'
